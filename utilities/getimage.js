@@ -1,6 +1,6 @@
 function GetImage(interaction, args) {
     const fileTypes = ['png', 'jpeg', 'tiff', 'jpg', 'webp'];
-    const regex = new RegExp("^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$")
+    const regex = new RegExp("^(ht|f)tp(s?)://[0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*(:(0-9)*)*(/?)([a-zA-Z0-9-.?,'/\\+&amp;%$#_]*)?$")
     // Get user
     const user = (interaction.mentions.users.first()) ? interaction.mentions.users.first() : interaction.member.user;
     // get image if there is one

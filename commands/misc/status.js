@@ -1,29 +1,29 @@
 const { MessageEmbed, version } = require("discord.js");
 const moment = require("moment");
 require("moment-duration-format");
-const os = require('os')
-const si = require('systeminformation');
+const os = require("os");
+const si = require("systeminformation");
 
 module.exports = {
-    name: "status",
-    category: "misc",
-    description: "Show bots status",
-    args: false,
-    usage: "",
-    permission: [],
-    owner: false,
-    async execute(client, interaction, args) {
-       const duration1 = moment.duration(interaction.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
-        const cpu = await si.cpu();
-        const about = interaction.client.emoji.about;
-        let ccount = client.channels.cache.size;
-        let scount = client.guilds.cache.size;
-        let mcount = 0; 
-client.guilds.cache.forEach((guild) => {
-    mcount += guild.memberCount 
+	name: "status",
+	category: "misc",
+	description: "Show bots status",
+	args: false,
+	usage: "",
+	permission: [],
+	owner: false,
+	async execute(client, interaction, args) {
+		const duration1 = moment.duration(interaction.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
+		const cpu = await si.cpu();
+		const about = interaction.client.emoji.about;
+		let ccount = client.channels.cache.size;
+		let scount = client.guilds.cache.size;
+		let mcount = 0; 
+		client.guilds.cache.forEach(guild => {
+			mcount += guild.memberCount; 
 
-})
-        const embed = new MessageEmbed()
+		});
+		const embed = new MessageEmbed()
             .setColor(interaction.client.embedColor)
             .setThumbnail(interaction.client.user.displayAvatarURL())
             .setDescription(`${about} **Status**
@@ -46,6 +46,6 @@ client.guilds.cache.forEach((guild) => {
 > **• Heap Total** : ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} Mbps
 > **• Heap Usage** : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Mbps
 `);
-interaction.reply({embeds: [embed]});
-    }
-}
+		interaction.reply({embeds: [embed]});
+	}
+};
