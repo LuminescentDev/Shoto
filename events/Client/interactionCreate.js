@@ -78,7 +78,7 @@ module.exports = async (client, interaction) => {
 		    command.execute(client, interaction, args);
 	    } catch (error) {
 		    console.error(error);
-		    interaction.reply(`There was an error executing that command\nError:${error} Please contact Oliii#3182 if this error continues`);
+		    interaction.reply(`There was an error executing that command\nError:${error} Please contact ${client.users.cache.get(client.config.ownerID[0]).tag} if this error continues`);
 		    supportGuild.channels.cache.get("844390085448564746").send(`${error} \n Command executed: ${command.name}`);
 	    }
 	}
