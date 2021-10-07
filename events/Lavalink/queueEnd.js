@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const ms = require('ms');
+const ms = require("ms");
 
 module.exports = async (client, player) => {
 
@@ -10,4 +10,4 @@ module.exports = async (client, player) => {
 		.setDescription(`${emojiwarn} **Music queue ended**`)
 		.setFooter(client.user.username, client.user.displayAvatarURL());
 	channel.send({embeds: [embed]});
-}
+};

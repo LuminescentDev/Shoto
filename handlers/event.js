@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require("fs");
 const { readdirSync } = require("fs");
 
 module.exports = client => {
@@ -22,4 +22,4 @@ module.exports = client => {
 		client.logger.info(`Loading Events Lavalink ${eventName}`);
 		client.manager.on(eventName, event.bind(null, client));
 	});
-}
+};

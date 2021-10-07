@@ -1,6 +1,6 @@
 module.exports = {
-	name: 'ping',
+	name: "ping",
 	execute(client, interaction) {
-        interaction.update("Pong", { components: [] })
+		interaction.update("Pong", { components: [] });
 	},
 };

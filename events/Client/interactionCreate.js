@@ -1,21 +1,21 @@
-const Discord = require("discord.js")
-const { MessageEmbed } = require("discord.js")
-const errors = require("../../utilities/errors.json")
+const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
+const errors = require("../../utilities/errors.json");
 const cooldowns = new Discord.Collection();
 
 module.exports = async (client, interaction) => {
 
-	const supportGuild = client.guilds.cache.get('740705740221841450')
-	const member = supportGuild.members.cache.get(interaction.user.id)
-	const isDonator = member ? member.roles.cache.some(role => role.id === '773021050438287390') : false
+	const supportGuild = client.guilds.cache.get("740705740221841450");
+	const member = supportGuild.members.cache.get(interaction.user.id);
+	const isDonator = member ? member.roles.cache.some(role => role.id === "773021050438287390") : false;
 
 	if (interaction.isCommand()){
 
 		const embed = new MessageEmbed()
         .setColor("RED");
 
-        const command = client.commands.get(interaction.commandName.toLowerCase());
-        const args = interaction.options;
+		const command = client.commands.get(interaction.commandName.toLowerCase());
+		const args = interaction.options;
 		if (command.permission && !interaction.member.permissions.has(command.permission)) {
 			embed.setDescription(`You do not have sufficient use this command. \n **REQUIRED PERMISSIONS:** ${command.permissions.join(" ")}`);
 			return interaction.reply({embeds: [embed]});
@@ -38,20 +38,20 @@ module.exports = async (client, interaction) => {
 			return interaction.reply({embeds: [embed]});
 		}
 
-		if (command.nsfw == true && !interaction.channel.nsfw){
+		if (command.nsfw && !interaction.channel.nsfw){
 			interaction.reply({content: errors[(Math.floor(Math.random() * Math.floor(errors.length)))]});
 		}
 
-		if (command.guildOnly && interaction.channel.type !== 'GUILD_TEXT') {
-			return interaction.reply({content: 'I can\'t execute that command inside DMs!'});
+		if (command.guildOnly && interaction.channel.type !== "GUILD_TEXT") {
+			return interaction.reply({content: "I can't execute that command inside DMs!"});
 		}
 		
 		if(command.Donor && !isDonator){
-			return interaction.reply({content: 'You must donate to use that command'})
+			return interaction.reply({content: "You must donate to use that command"});
 		}
 	
 		if(command.owner && !client.config.ownerID.includes(interaction.user.id)){
-			return interaction.reply({content: 'You must own the bot use that command'})
+			return interaction.reply({content: "You must own the bot use that command"});
 		}
 
 		if (!cooldowns.has(command.name)) {
@@ -59,31 +59,31 @@ module.exports = async (client, interaction) => {
 		}
 
 		const now = Date.now();
-	const timestamps = cooldowns.get(command.name);
-	const cooldownAmount = (command.cooldown || 3) * 1000;
+		const timestamps = cooldowns.get(command.name);
+		const cooldownAmount = (command.cooldown || 3) * 1000;
 
-	if (timestamps.has(interaction.user.id)) {
-		const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
+		if (timestamps.has(interaction.user.id)) {
+			const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
 
-		if (now < expirationTime) {
-			const timeLeft = (expirationTime - now) / 1000;
-			return interaction.reply({content: `please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, ephemeral: true});
+			if (now < expirationTime) {
+				const timeLeft = (expirationTime - now) / 1000;
+				return interaction.reply({content: `please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, ephemeral: true});
+			}
 		}
-	}
 
-	timestamps.set(interaction.user.id, now);
-	setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+		timestamps.set(interaction.user.id, now);
+		setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
 
 	    try {
 		    command.execute(client, interaction, args);
 	    } catch (error) {
 		    console.error(error);
 		    interaction.reply(`There was an error executing that command\nError:${error} Please contact Oliii#3182 if this error continues`);
-		    supportGuild.channels.cache.get("844390085448564746").send(`${error} \n Command executed: ${command.name}`)
+		    supportGuild.channels.cache.get("844390085448564746").send(`${error} \n Command executed: ${command.name}`);
 	    }
-    }
-    if(interaction.isMessageComponent() && interaction.componentType == 'BUTTON'){
-        const button = client.buttons.get(interaction.customId);
+	}
+	if(interaction.isMessageComponent() && interaction.componentType === "BUTTON"){
+		const button = client.buttons.get(interaction.customId);
 	    try {
 		    button.execute(client, interaction);
 	    } catch (error) {
@@ -91,5 +91,5 @@ module.exports = async (client, interaction) => {
 		    // interaction.reply(`There was an error executing that command\nError:${error} Please contact Oliii#3182 if this error continues`);
 		    // supportGuild.channels.cache.get("844390085448564746").send(`${error} \n Command executed: ${command.name}`)
 	    }
-    }
-}
+	}
+};

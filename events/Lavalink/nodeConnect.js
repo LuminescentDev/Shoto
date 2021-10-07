@@ -1,5 +1,5 @@
-  module.exports = async (client, node) => {
+module.exports = async (client, node) => {
 
 	client.logger.info(`Node "${node.options.identifier}" connected.`);
 
-}
+};

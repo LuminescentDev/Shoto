@@ -70,5 +70,5 @@
 		"unicorn/prevent-abbreviations": "off",
 		"unicorn/no-static-only-class": "off"
 	},
-	"ignorePatterns": ["!.*", "!node_modules/*"]
+	"ignorePatterns": ["!.*", "node_modules/*"]
 }

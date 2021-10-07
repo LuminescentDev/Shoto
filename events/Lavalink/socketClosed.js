@@ -1,9 +1,9 @@
 module.exports = async (client, player, payload) => {
 
-	if (payload.byRemote == true) {
-        player.destroy();
-    }
+	if (payload.byRemote) {
+		player.destroy();
+	}
 
-    client.logger.error(`Socket has been closed because ${payload.reason} in [${player.guild}]`);
+	client.logger.error(`Socket has been closed because ${payload.reason} in [${player.guild}]`);
 
-}
+};
