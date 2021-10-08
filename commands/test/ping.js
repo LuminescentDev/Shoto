@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
 	name: "ping",
 	cooldown: 5,
-	category: "testing",
+	category: "test",
 	description: "Ping!",
 	async execute(client, interaction, args) {
 		await interaction.reply({ content: "Pinging..." }).then(async () => {

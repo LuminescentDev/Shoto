@@ -29,9 +29,5 @@ module.exports = async (client, guild) => {
 		.then(() => client.user.setActivity(`Over ${client.guilds.cache.size} servers!`, { type: "WATCHING" }))
 		.catch(err => client.users.cache.get(client.config.ownerID[0]).send(`${err}`));
 
-	try {
-		client.con.query(`DELETE FROM Settings WHERE guildID = ${guild.id}`);
-	} catch (error) {
-		client.users.cache.get(client.config.ownerID[0]).send(`${error}`);
-	}
+	require("../../database/models/GuildDelete")(client, guild);
 };

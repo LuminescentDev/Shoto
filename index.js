@@ -6,6 +6,7 @@ const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"]
 client.config = require("./config/config.json");
 const fs = require("fs");
 client.commands = new Discord.Collection();
+client.settings = new Discord.Collection();
 client.buttons = new Discord.Collection();
 client.snipes = new Discord.Collection();	
 client.editSnipes = new Discord.Collection();	

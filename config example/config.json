@@ -4,7 +4,7 @@
 	"token": "Token for your bot https://discord.com/developers/applications",
 	"ownerID": ["ownerid1", "ownerid2 if needed"],
 	"dmchannelID": "channel all dms to the bot will be sent to",
-	"dmattachmentID": "channel all pictures from dms will go to",
+	"errorChannelID": "channel errors in commands will be sent to",
 	"AddRemoveLogs": "channel that will log when the bot is added / removed from a guild",
 	"mysqlhost": "mysql database ip",
 	"mysqluser": "mysql database username",
