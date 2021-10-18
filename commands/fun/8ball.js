@@ -13,48 +13,23 @@ module.exports = {
 	async execute(client, interaction, args) {
 		args = args._hoistedOptions;
 		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
-		if (!args[0]) {
-			interaction.reply("Please ask me a question.");
-		}
-		else {
-			let eightball = [
-				"It is certain.",
-				"It is decidedly so.",
-				"Without a doubt.",
-				"Yes definitely.",
-				"You may rely on it.",
-				"As I see it, yes.",
-				"Most likely.",
-				"Outlook good.",
-				"Yes.",
-				"Signs point to yes.",
-				"Reply hazy try again.",
-				"Ask again later.",
-				"Better not tell you now.",
-				"Cannot predict now.",
-				"Concentrate and ask again.",
-				"Don't count on it.",
-				"My reply is no.",
-				"My sources say no.",
-				"Outlook not so good.",
-				"Very doubtful.",
-				"No way.",
-				"Maybe",
-				"The answer is hiding inside you",
-				"No.",
-				"Depends on the mood of the CS god",
-				"Hang on",
-				"It's over",
-				"It's just the beginning",
-				"Good Luck",
-			];
+
+		client.con.query(`SELECT language FROM Settings WHERE guildID = ${interaction.guild.id}`, async (err, rows) => {
+			if (err) client.logger.error(err);
+			if(!rows[0]){
+				interaction.reply({content: client.lang("missing-config", "en"), ephemeral: true});
+				return require("../../database/models/SettingsCreate")(client, interaction.guild.id);
+			} 
+
+			let language = rows[0].language; 
+			let eightball = client.lang("8ball-responses", language);
 			let index = (Math.floor(Math.random() * Math.floor(eightball.length)));
 			const embed = new Discord.MessageEmbed()
         .setColor("#0099ff")
         .setTitle("THE MAGIC 8BALL")
-        .setDescription(`${interaction.user.username} asks ${args[0]}\nI say: ${eightball[index]}`);
+        .setDescription(client.lang("8ball-message", language).replace("{USERNAME}", interaction.user.username).replace("{QUESTION}", args[0]).replace("{RESPONSE}", eightball[index]));
 			interaction.reply({ embeds: [embed]});
-		}
+		});
 	},
 };
   

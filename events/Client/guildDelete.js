@@ -1,6 +1,5 @@
 const fetch = require("node-fetch");
 const Discord = require("discord.js");
-const moment = require("moment");
 module.exports = async (client, guild) => {
 	var servercount = {
 		server_count: client.guilds.cache.size
@@ -16,18 +15,19 @@ module.exports = async (client, guild) => {
 		body: JSON.stringify(servercount)
 	});
 
+	const timestamp = Math.round(guild.createdTimestamp / 1000);
 	const owner = await guild.fetchOwner();
 	const Embed = new Discord.MessageEmbed()
 				.setColor(Math.floor(Math.random() * 16777215))
 				.setTitle(`${client.user.username} has been removed from ${guild.name}`)
 				.setThumbnail(guild.iconURL())
 				.setFooter(`Owner: ${owner.user.username}`, owner.user.avatarURL())
-				.addField("Creation Date", `${moment(guild.createdAt)}`)
+				.addField("Creation Date", `<t:${timestamp}>\n<t:${timestamp}:R>`)
 				.addField("Server Count", `${client.guilds.cache.size}`);
 
 	client.channels.cache.get(client.config.AddRemoveLogs).send({embeds: [Embed]})
 		.then(() => client.user.setActivity(`Over ${client.guilds.cache.size} servers!`, { type: "WATCHING" }))
 		.catch(err => client.users.cache.get(client.config.ownerID[0]).send(`${err}`));
 
-	require("../../database/models/GuildDelete")(client, guild);
+	require("../../database/models/SettingsDelete")(client, guild.id);
 };

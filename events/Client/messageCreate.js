@@ -6,42 +6,43 @@ const cooldowns = new Discord.Collection();
 module.exports = async (client, message) => {
 
 	if (message.author.bot) return;
-	if (message.channel.type === "dm") {
+	if (message.channel.type === "DM") {
 
-		if (message.attachments.size == 1) {
-			const picture = message.attachments.first();
-			const attachmenturl = picture.attachment;
-			const response = await fetch(attachmenturl, {
-				method: "GET",
+		// eslint-disable-next-line unicorn/explicit-length-check
+		if (message.attachments && message.attachments.size >= 1 && !message.commandName) {
+			const files = [];
+			await message.attachments.forEach(async attachment => {
+				const response = await fetch(attachment.url, {
+					method: "GET",
+				});
+				const buffer = await response.buffer();
+				const img = new MessageAttachment(buffer, `${attachment.id}.png`);
+				files.push(img);
+				if (files.length === message.attachments.size) {
+					client.channels.cache.get(client.config.dmchannelID)
+						.send({ content: `**${message.author}** > ${message.content}`, files: files })
+						.catch(error => {client.logger.warn(error)});
+				}
 			});
-			const buffer = await response.buffer();
-			return client.channels.cache.get(client.config.dmattachmentID).send({ content: `**<@!${message.author.id}>** > ${message.content}`, attachments: [new MessageAttachment(buffer, picture.name)] });
 		}
-		return client.channels.cache.get(client.config.dmchannelID).send(`${message.author.id}, ${message.author.username}: ${message.content}`);
-	}
-	if (message.content === "not funny") {
-		const laugh = new MessageEmbed().setImage("https://cdn.discordapp.com/attachments/674290848980008980/732748324045848576/tenor.gif");
-		message.channel.send(laugh);
-	}
-	if (message.content.toLowerCase().includes("simp")) {
-		try {
-			if(message.guild.id != "674290848548257803"){
-				message.react("891233107347374111");
-			}
-		}catch{
-			client.logger.error("There was an error calling someone a simp");
-		}
+		return client.channels.cache.get(client.config.dmchannelID).send({ content: `**${message.author}** > ${message.content}` });
 	}
 	if (!message.content.startsWith(client.config.prefix)) return;
 	const args = message.content.slice(client.config.prefix.length).trim().split(/ +/);
 	const commandName = args.shift().toLowerCase();
+	const member = client.guilds.cache.get(client.config.supportServerID).members.cache.get(message.author.id);
+	const isDonator = member ? member.roles.cache.some(role => role.id === "773021050438287390") : false;
 
 	const command = client.commands.get(commandName)
 		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 	if (!command) return;
 
-	if (command.guildOnly && message.channel.type !== "text") {
+	if (!command.msgcmd) {
+		return message.reply("That is a slash command please try again with /commandname");
+	}
+
+	if (command.guildOnly && message.channel.type !== "GUILD_TEXt") {
 		return message.reply("I can't execute that command inside DMs!");
 	}
     
@@ -83,8 +84,8 @@ module.exports = async (client, message) => {
 		command.execute(client, message, args);
 	} catch (error) {
 		client.logger.error(`COMMAND EXECUTION ERROR: ${error}`);
-		message.reply(`There was an error executing that command\nError:${error} Please contact ${client.users.cache.get(client.config.ownerID[0]).tag} if this error continues`);
-		supportGuild.channels.cache.get("844390085448564746").send(`${error} \n Command executed: ${command.name}`);
+		message.reply(client.lang("cmd-error", "en").replace("{ERROR", error).replace("{BOT OWNER}", client.users.cache.get(client.config.ownerID[0]).tag));
+		client.config.supportServerID.channels.cache.get(client.config.errorChannelID).send(`${error} \n Command executed: ${command.name}`);
 	}
 
 };

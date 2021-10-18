@@ -14,6 +14,44 @@ module.exports = {
 		},
 		{
 			type: "SUB_COMMAND",
+			name: "clear",
+			description: "clear a setting",
+			options: [
+				{
+					type: "STRING",
+					name: "setting",
+					description: "The setting to clear",
+					choices: [{
+						name: "joinchannel",
+						value: "joinChannelID",
+					},
+					{
+						name: "joinmessage",
+						value: "leaveMessage",
+					},
+					{
+						name: "leavemessage",
+						value: "leavemessage",
+					},
+					{
+						name: "reviverole",
+						value: "ReviveRoleID",
+					},
+					{
+						name: "staffrole",
+						value: "StaffRoleID",
+					},
+					{
+						name: "ventchannel",
+						value: "ventChannelID",
+					}
+					],
+					required: true,
+				},
+			],
+		},
+		{
+			type: "SUB_COMMAND",
 			name: "prefix",
 			description: "The bot's prefix",
 			options: [
@@ -129,6 +167,24 @@ module.exports = {
 				},
 			],
 		},
+		{
+			type: "SUB_COMMAND",
+			name: "language",
+			description: "language most bots messages are in",
+			options: [
+				{
+					type: "STRING",
+					name: "language",
+					description: "language for bots messages",
+					choices: [{
+						name: "english",
+						value: "en",
+					}
+					],
+					required: true,
+				},
+			],
+		},
 	],
 	async execute(client, interaction, args) {
 		const subCommand = args._subcommand;
@@ -138,24 +194,23 @@ module.exports = {
 	
 			const settingEmbed = new Discord.MessageEmbed()
 			.setTitle("Settings");
-			// console.log(client.settings);
-
-			await client.settings.forEach(async setting => {
-				let value = null;
-				client.con.query(`SELECT ${setting.sqlvalue} FROM Settings WHERE guildID = ${interaction.guild.id}`, async (err, rows) => {
-					if (err) client.logger.error(err);
-					//console.log(rows);
-					if(rows[0][setting.sqlvalue] === null) value = "UNSET";
-					value = rows[0][setting.sqlvalue];
-					console.log(value);
+			client.con.query(`SELECT * FROM Settings WHERE guildID = ${interaction.guild.id}`, async (err, rows) => {
+				if (err) client.logger.error(err);
+				const value = rows[0];
+				if(!value){
+					interaction.reply({content: client.lang("missing-config", "en"), ephemeral: true});
+					return require("../../database/models/SettingsCreate")(client, interaction.guild.id);
+				} 
+				client.settings.forEach(async setting => {
+					settingEmbed.addField(setting.name, `${setting.description} \nValue: ${value[setting.sqlvalue]}`);
 				});
-				settingEmbed.addField(setting.name, `${setting.description} \nValue: ${value}`);
+				return interaction.reply({embeds: [settingEmbed]});
 			});
-
-			interaction.reply({embeds: [settingEmbed]});
+		}else if(subCommand === "clear"){
+			client.con.query(`UPDATE Settings SET ${args[0]} = NULL WHERE guildID = ${interaction.guild.id}`);
+			interaction.reply({ content: `Setting ${args[0]} cleared` });
 		}else{
 			const setting = client.settings.get(subCommand);
-			console.log(setting);
 			try {
 				setting.execute(client, interaction, args);
 				interaction.reply(`Setting: ${setting.name} Updated to ${args[0]}`);

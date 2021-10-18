@@ -1,8 +1,8 @@
-
 {
 	"prefix": "Your Prefix Here",
 	"token": "Token for your bot https://discord.com/developers/applications",
 	"ownerID": ["ownerid1", "ownerid2 if needed"],
+	"supportServerID": "740705740221841450",
 	"dmchannelID": "channel all dms to the bot will be sent to",
 	"errorChannelID": "channel errors in commands will be sent to",
 	"AddRemoveLogs": "channel that will log when the bot is added / removed from a guild",

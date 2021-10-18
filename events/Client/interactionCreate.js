@@ -88,7 +88,7 @@ module.exports = async (client, interaction) => {
 		    button.execute(client, interaction);
 	    } catch (error) {
 		    console.error(error);
-		    // interaction.reply(`There was an error executing that command\nError:${error} Please contact Oliii#3182 if this error continues`);
+		    interaction.reply(client.lang("cmd-error", "en").replace("{ERROR", error).replace("{BOT OWNER}", client.users.cache.get(client.config.ownerID[0]).tag));
 		    // supportGuild.channels.cache.get("844390085448564746").send(`${error} \n Command executed: ${command.name}`)
 	    }
 	}

@@ -7,25 +7,18 @@ module.exports = {
 	category: "misc",
 	description: "test command",
 	owner: true,
-	options: [{
-		name: "code",
-		type: "STRING",
-		description: "Code to eval",
-		required: true,
-	}],
-	async execute(client, interaction, args) {
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
+	msgcmd: true,
+	async execute(client, message, args) {
 		try {
-			const code = args[0];
+			const code = args.join(" ");
 			let evaled = eval(code);
 
 			if (typeof evaled !== "string")
 				evaled = require("util").inspect(evaled);
 
-			interaction.reply({content: `\`\`\`${clean(evaled)}\`\`\``});
+			message.reply({content: `\`\`\`${clean(evaled)}\`\`\``});
 		} catch (err) {
-			interaction.reply({content: `\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``});
+			message.reply({content: `\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``});
 		}
 	},
 };

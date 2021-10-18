@@ -4,7 +4,7 @@ module.exports = {
 	category: "utility",
 	description: "sends emote as link/file!",
 	options: [{
-		type: 3,
+		type: "STRING",
 		name: "type",
 		description: "the emote type",
 		required: true,

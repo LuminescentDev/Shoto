@@ -23,7 +23,6 @@ module.exports = {
 	async execute(client, interaction, args) {
 		args = args._hoistedOptions;
 		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
-		console.log(interaction);
 
 		const person = args[1] ? interaction.guild.members.cache.get(args[1]) : interaction;
 		let text = args[0];

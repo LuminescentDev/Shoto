@@ -36,5 +36,5 @@ client.manager = new Manager({
 
 client.on("raw", d => client.manager.updateVoiceState(d));
 for (const handler of fs.readdirSync("./handlers").filter(file => file.endsWith(".js"))) require(`./handlers/${handler}`)(client);
-
+require("./utilities/lang")(client);
 client.login(client.config.token);

@@ -37,21 +37,38 @@ module.exports = async client => {
 	client.logger.info(`Registered ${client.buttons.size} buttons!`);
 	if (!client.application?.owner) await client.application?.fetch();
 	const commands = await client.application?.commands.fetch();
-	client.commands.forEach(async command => {
-		await client.guilds.cache.get("740705740221841450").commands.create({
+	
+	await client.commands.forEach(async command => {
+		if(!command.msgcmd)
+		{await client.guilds.cache.get("740705740221841450").commands.create({
 			name: command.name,
+			type: command.type ? command.type : "CHAT_INPUT",
 			description: command.description,
 			options: command.options,
 		});
-		if (commands.find(c => c.name === command.name) && commands.find(c => c.description === command.description)) return;
-		client.logger.info(`Detected ${command.name} has some changes! Updating command...`);
-		await client.application?.commands.create({
+		const sourcecmd = commands.find(c => c.name === command.name);
+		const opt = sourcecmd && command.options && `${JSON.stringify(sourcecmd.options)}` === `${JSON.stringify(command.options)}`;
+		if ((opt || opt === undefined) && sourcecmd && command.description && sourcecmd.description === command.description) return;
+		if (sourcecmd && command.type) return;
+		client.logger.info(`Detected /${command.name} has some changes! Overwriting command...`);
+		await client.application.commands.create({
 			name: command.name,
+			type: command.type ? command.type : "CHAT_INPUT",
 			description: command.description,
 			options: command.options,
-		});
-		await sleep(2000);
+		});}
 	});
+
+	// client.commands.forEach(async command => {
+	// 	if (commands.find(c => c.name === command.name) && commands.find(c => c.description === command.description)) return;
+	// 	client.logger.info(`Detected ${command.name} has some changes! Updating command...`);
+	// 	await client.application?.commands.create({
+	// 		name: command.name,
+	// 		description: command.description,
+	// 		options: command.options,
+	// 	});
+	// 	await sleep(2000);
+	// });
 	client.logger.info(`Registered ${commands.size} commands!`);
 	client.manager.init(client.user.id);
 	await sleep(2000);
