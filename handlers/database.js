@@ -1,5 +1,7 @@
 const mysql = require("mysql");
 module.exports = client => {
+
+	//create a connection to the database
 	client.con = mysql.createConnection({
 		host: client.config.mysqlhost,
 		user: client.config.mysqluser,

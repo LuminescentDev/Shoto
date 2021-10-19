@@ -15,8 +15,7 @@ module.exports = {
 		required: true,
 	}],
 	execute(client, interaction, args) {
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
+
 		const category = args[0].toLowerCase();
 		const commandName = args[1].toLowerCase();
 		const command = interaction.client.commands.get(commandName)

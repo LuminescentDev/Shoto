@@ -34,8 +34,7 @@ module.exports = {
 	}],
 	execute(client, message, args) {
 
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
+
 
 		const condition = args[0];
 		if (condition === "server") {

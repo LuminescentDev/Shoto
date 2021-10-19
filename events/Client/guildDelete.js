@@ -5,6 +5,7 @@ module.exports = async (client, guild) => {
 		server_count: client.guilds.cache.size
 	};
 	
+	//Send a post request to the top.gg api top update stats
 	fetch(`https://top.gg/api/bots/${client.user.id}/stats`, {
 		method: "POST",
 		headers: {
@@ -15,6 +16,7 @@ module.exports = async (client, guild) => {
 		body: JSON.stringify(servercount)
 	});
 
+	//Generate the embed sent to the guild add/remove log channel
 	const timestamp = Math.round(guild.createdTimestamp / 1000);
 	const owner = await guild.fetchOwner();
 	const Embed = new Discord.MessageEmbed()
@@ -29,5 +31,6 @@ module.exports = async (client, guild) => {
 		.then(() => client.user.setActivity(`Over ${client.guilds.cache.size} servers!`, { type: "WATCHING" }))
 		.catch(err => client.users.cache.get(client.config.ownerID[0]).send(`${err}`));
 
+	//Remove the guild from the database
 	require("../../database/models/SettingsDelete")(client, guild.id);
 };

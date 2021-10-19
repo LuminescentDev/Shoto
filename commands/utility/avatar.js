@@ -28,16 +28,17 @@ module.exports = {
 	],
 	execute(client, interaction, args) {
 		
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
 
-		const user = args[1] ? interaction.guild.members.cache.get(args[1]) : interaction.member; //get the user if one is supplied if not use command executor
+		//get the user if one is supplied if not use command executor
+		const user = args[1] ? interaction.guild.members.cache.get(args[1]) : interaction.member; 
 
+		 //create embed
 		const emb = new Discord.MessageEmbed()
-            .setTitle(user.displayName); //create embed
+            .setTitle(user.displayName);
 
+		//if user is chosen as the avatar type get users avatar if not get users guild specific avatar probs an easier way but idc
 		if (args[0] === "user") emb.setImage(user.user.displayAvatarURL({ dynamic: true, size: 2048}));
-		else emb.setImage(user.displayAvatarURL({ dynamic: true, size: 2048 })); //if user is chosen as the avatar type get users avatar if not get users guild specific avatar probs an easier way but idc
+		else emb.setImage(user.displayAvatarURL({ dynamic: true, size: 2048 }));
 
         
 		interaction.reply({embeds: [emb]});

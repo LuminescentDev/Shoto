@@ -25,10 +25,9 @@ module.exports = {
 	}],
 	execute(client, interaction, args) {
 
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
 
 		try {
+			//check if string is actually a valid emote
 			const first = args[1].match(/<?(a)?:?(\w{2,32}):(\d{17,19})>?/);
 			if (args[0] === "static") {
 				interaction.reply(`https://cdn.discordapp.com/emojis/${first[3] ? first[3] : first[0]}.png`);

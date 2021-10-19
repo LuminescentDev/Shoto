@@ -13,6 +13,7 @@ module.exports = async client => {
 	// 	client.logger.error(`CAPESERVER ERROR: ${err}`)
 	// }
 
+	//randomly select an activity every 5000ms
 	setInterval(async () => {
 		const activities = [
 			["PLAYING", "{UPTIME}"],
@@ -29,15 +30,18 @@ module.exports = async client => {
 		client.user.setPresence({ activities: [{ name: activity[1], type: activity[0] }] });
 	}, 5000);
 
-	client.guilds.cache.get("740705740221841450").members.fetch();
+	//fetch all members from support server
+	client.guilds.cache.get(client.config.supportServerID).members.fetch();
 	client.logger.info(`I am running`);
 	client.logger.info(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers`);
 	client.logger.info(`Registered ${client.commands.size} regular commands!`);
-
 	client.logger.info(`Registered ${client.buttons.size} buttons!`);
+
+	//fetch application and commands
 	if (!client.application?.owner) await client.application?.fetch();
 	const commands = await client.application?.commands.fetch();
 	
+	//push slash commands to discord
 	await client.commands.forEach(async command => {
 		if(!command.msgcmd)
 		{await client.guilds.cache.get("740705740221841450").commands.create({

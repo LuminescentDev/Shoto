@@ -17,8 +17,7 @@ module.exports = {
 	}],
 	async execute(client, interaction, args) {
 		let iconpng;
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
+
 		await interaction.deferReply({
 			ephemeral: false
 		});

@@ -6,6 +6,8 @@ module.exports = {
 	category: "fun",
 	description: "sends elite haxor message",
 	async execute(client, interaction, args) {
+
+		//Fucking hack someone
 		interaction.reply("Hack initiated");
 		const prompt = await interaction.channel.send("Initiating Hack [----------] 0% Complete");
 		await sleep(1000);

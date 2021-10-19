@@ -23,6 +23,21 @@ module.exports = {
 			mcount += guild.memberCount; 
 
 		});
+		let nodes = client.manager.nodes.map(node => 
+			`**• Node** : ${(node.options.identifier)} Connected` +
+            `\n> **• Player** : ${node.stats.players}` +
+            `\n> **• Playing Players** : ${node.stats.playingPlayers}` +
+            `\n> **•Uptime: ${new Date(node.stats.uptime).toISOString().slice(11, 19)}**` +
+            "\n**• MEMORY** :" +
+            `\n> **• Reservable Memory** : ${Math.round(node.stats.memory.reservable / 1024 / 1024)}mb` +
+            `\n> **• Used Memory** : ${Math.round(node.stats.memory.used / 1024 / 1024)}mb` +
+            `\n> **• Free Memory** : ${Math.round(node.stats.memory.free / 1024 / 1024)}mb` +
+            `\n> **• Allocated Memory** : ${Math.round(node.stats.memory.allocated / 1024 / 1024)}mb` +
+            "\n**• CPU** :" +
+            `\n> **• Cores** :  ${node.stats.cpu.cores}` +
+            `\n> **• System Load** : ${(Math.round(node.stats.cpu.systemLoad * 100) / 100).toFixed(2)}%` +
+            `\n> **• Lavalink Load** : ${(Math.round(node.stats.cpu.lavalinkLoad * 100) / 100).toFixed(2)}%`
+		).join("\n\n----------------------------\n");
 		const embed = new MessageEmbed()
             .setColor(interaction.client.embedColor)
             .setThumbnail(interaction.client.user.displayAvatarURL())
@@ -45,6 +60,8 @@ module.exports = {
 > **• Free Memory** : ${(os.freemem() / 1024 / 1024).toFixed(2)} Mbps
 > **• Heap Total** : ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} Mbps
 > **• Heap Usage** : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Mbps
+**= SYSTEM =** :
+${nodes}
 `);
 		interaction.reply({embeds: [embed]});
 	}

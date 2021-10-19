@@ -1,4 +1,5 @@
 module.exports = (client, guildid) => {
+	//insert the guild into the settings table in the database
 	try {
 		client.con.query("INSERT INTO Settings (guildID) VALUES (?)", [guildid]);
 	} catch (error) {

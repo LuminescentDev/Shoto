@@ -21,19 +21,33 @@ module.exports = {
 	},
 	],
 	async execute(client, interaction, args) {
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
 
+		//Get user and text
 		const person = args[1] ? interaction.guild.members.cache.get(args[1]) : interaction;
 		let text = args[0];
 		text = text.replace(/<@.?\d*?>/g, "");
 
-		// make sure the text isn't longer than 70 characters
-		if (text.length >= 71) return interaction.reply({content: "IMAGE/TEXT_OVERLOAD"}).then(m => m.delete({ timeout: 5000 }));
+		//Select language setting
+		client.con.query(`SELECT language FROM Settings WHERE guildID = ${interaction.guild.id}`, async (err, rows) => {
+			if (err) client.logger.error(err);
+
+			//If settings dont exist create them
+			if(!rows[0]){
+				interaction.reply({content: client.lang("missing-config", "en"), ephemeral: true});
+				return require("../../database/models/SettingsCreate")(client, interaction.guild.id);
+			} 
+
+			//Get value of language settings and select corresponding responses
+			let language = rows[0].language; 
+
+			// make sure the text isn't longer than 70 characters
+			if (text.length >= 71) return interaction.reply({content: client.lang("TEXT_OVERLOAD", language).replace("{LENGTH}, 71")}).then(m => m.delete({ timeout: 5000 }));
         
-		const mgk = await interaction.reply("Generating PH Comment...");
-		const res = await olisfetch(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${person.user.displayAvatarURL({ format: "png", size: 512 })}&text=${text}&username=${person.user.username}`);
-		const phcomment = new Discord.MessageAttachment(res.message, "fakeph.png");
-		interaction.editReply({content: null, files: [phcomment]});
+			await interaction.reply("Generating PH Comment...");
+			const res = await olisfetch(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${person.user.displayAvatarURL({ format: "png", size: 512 })}&text=${text}&username=${person.user.username}`);
+			const phcomment = new Discord.MessageAttachment(res.message, "fakeph.png");
+			interaction.editReply({content: null, files: [phcomment]});
+		});
+
 	},
 };  

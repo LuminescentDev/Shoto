@@ -11,11 +11,12 @@ module.exports = {
 		required: false,
 	}],
 	async execute(client, interaction, args) {
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
+
+		//Get snipes from channel if argument specified use number if not default to most recent
 		const snipes = client.snipes.get(interaction.channel.id) || [];
 		const msg = snipes[args[0] ? args[0]-1 : 0];
 		if(!msg) return interaction.reply("That is not a valid snipe...");
+		
 		const Embed = new Discord.MessageEmbed()
     .setAuthor(msg.author.tag)
     .setDescription(msg.content.replace(/\n/g, " "))

@@ -20,8 +20,8 @@ module.exports = {
 	},
 	],
 	async execute(client, interaction, args) {
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
+
+		//Get command executors profile picture if user is not specified, query api and respond with result
 		const file = args[1] ? interaction.guild.members.cache.get(args[1]).user.displayAvatarURL({ format: "png", size: 2048 }) : interaction.user.displayAvatarURL({ format: "png", size: 2048 });
 		const mgk = await interaction.reply("Generating Magik...");
 		const res = await olisfetch(`https://nekobot.xyz/api/imagegen?type=magik&image=${file}&intensity=${args[0]}`);

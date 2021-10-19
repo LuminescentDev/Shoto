@@ -187,29 +187,45 @@ module.exports = {
 		},
 	],
 	async execute(client, interaction, args) {
+
+		//Get subcommands
 		const subCommand = args._subcommand;
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
+
+		//Check if subcommand is get
 		if(subCommand === "get"){
 	
+			//Initiate embed
 			const settingEmbed = new Discord.MessageEmbed()
 			.setTitle("Settings");
+
+			//Select all settings for the guild
 			client.con.query(`SELECT * FROM Settings WHERE guildID = ${interaction.guild.id}`, async (err, rows) => {
 				if (err) client.logger.error(err);
+
 				const value = rows[0];
+
+				//If settings dont exist generate them
 				if(!value){
 					interaction.reply({content: client.lang("missing-config", "en"), ephemeral: true});
 					return require("../../database/models/SettingsCreate")(client, interaction.guild.id);
 				} 
+
+				//If settings exist iterate through them all and add to our embed
 				client.settings.forEach(async setting => {
 					settingEmbed.addField(setting.name, `${setting.description} \nValue: ${value[setting.sqlvalue]}`);
 				});
+
+				//reply with finished embed
 				return interaction.reply({embeds: [settingEmbed]});
 			});
+			//If subcommand is clear
 		}else if(subCommand === "clear"){
+			//Clear specified setting and reply to message
 			client.con.query(`UPDATE Settings SET ${args[0]} = NULL WHERE guildID = ${interaction.guild.id}`);
 			interaction.reply({ content: `Setting ${args[0]} cleared` });
 		}else{
+
+			//Get setting file and execute the code inside
 			const setting = client.settings.get(subCommand);
 			try {
 				setting.execute(client, interaction, args);

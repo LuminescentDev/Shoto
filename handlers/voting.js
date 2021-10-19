@@ -6,6 +6,7 @@ module.exports = client => {
 
 	app.use(bodyParser.json());
 
+	//on post to server check if authorization matches
 	app.post("/", function (req, res) {
 		let body = req.body;
 		let headers = req.headers;

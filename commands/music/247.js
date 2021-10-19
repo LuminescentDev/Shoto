@@ -13,22 +13,18 @@ module.exports = {
 	sameVoiceChannel: true,
 	async execute(client, interaction, args) {
 
+		const embed = new MessageEmbed()
+		.setColor(client.embedColor);
 
 		const player = interaction.client.manager.players.get(interaction.guild.id);
 		if (player.twentyFourSeven) {
 			player.twentyFourSeven = false;
-			const embed = new MessageEmbed()
-       .setColor(client.embedColor)
-       .setDescription(`24/7 mode is now off.`);
-			return interaction.reply({embeds: [embed]});
+			embed.setDescription(`24/7 mode is now off.`);
 		}
 		else {
 			player.twentyFourSeven = true;
-			const embed = new MessageEmbed()
-       .setColor(client.embedColor)
-       .setDescription(`24/7 mode is now on.`);
-      
-			return interaction.reply({embeds: [embed]});
+			embed.setDescription(`24/7 mode is now on.`);
 		}
+		return interaction.reply({embeds: [embed]});
 	}
 };

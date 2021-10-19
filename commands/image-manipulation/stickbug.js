@@ -14,9 +14,8 @@ module.exports = {
 		required: false,
 	}],
 	async execute(client, interaction, args) {
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
 
+		//Get executors avatar if user is not specified and query api
 		const file = args[0] ? interaction.guild.members.cache.get(args[0]).user.displayAvatarURL({ format: "png", size: 2048 }) : interaction.user.displayAvatarURL({ format: "png", size: 2048 });
 		await interaction.reply("Generating Stickbug...");
 		const res = await olisfetch(`https://nekobot.xyz/api/imagegen?type=stickbug&url=${file}`);

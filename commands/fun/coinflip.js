@@ -3,7 +3,9 @@ module.exports = {
 	category: "fun",
 	description: "flips a coin",
 	execute(client, interaction, args) {
-		let random = (Math.floor(Math.random() * Math.floor(2)));
+
+		//Select number between 0 and 1
+		let random = (Math.floor(Math.random() * 2));
   
 		if (random === 0) {
 			interaction.reply({content: "I flipped heads!"});

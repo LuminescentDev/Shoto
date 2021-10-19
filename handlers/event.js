@@ -14,7 +14,7 @@ module.exports = client => {
 	});
 
 	/**
-	 * Erela Manager Events
+	 * Lavalink Events
 	 */
 	readdirSync("./events/Lavalink/").forEach(file => {
 		const event = require(`../events/Lavalink/${file}`);

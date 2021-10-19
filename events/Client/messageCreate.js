@@ -5,87 +5,211 @@ const cooldowns = new Discord.Collection();
 
 module.exports = async (client, message) => {
 
+	//check if author of message is bot
 	if (message.author.bot) return;
+
+	let prefix;
+	let language;
+
+	//check if channel type is direct messages
 	if (message.channel.type === "DM") {
 
+		prefix = client.config.prefix;
+		language = "en";
+
+		//check if message starts with prefix
+		if (!message.content.startsWith(prefix)) return;
+
+		//get arguments and check if first argument set command name to first argument
+		const args = message.content.slice(prefix.length).trim().split(/ +/);
+		const commandName = args.shift().toLowerCase();
+
+		//get support server and check if member is donator there;
+		const supportGuild = client.guilds.cache.get(client.config.supportServerID);
+		const member = supportGuild.members.cache.get(message.author.id);
+		const isDonator = member ? member.roles.cache.some(role => role.id === "773021050438287390") : false;
+
+		//get code corresponding to command or its alias
+		const command = client.commands.get(commandName)
+		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+
+		//check if command exists
+		if (!command) return;
+
+		//check if command is a message or slash command
+		if (!command.msgcmd) {
+			return message.reply("That is a slash command please try again with /commandname");
+		}
+
+		//check if command can only be executed in a guild
+		if (command.guildOnly && message.channel.type !== "GUILD_TEXT") {
+			return message.reply("I can't execute that command inside DMs!");
+		}
+    
+		//check if command is donor only
+		if(command.Donor && !isDonator){
+			return message.reply("You must donate to use that command");
+		}
+
+		//check if command requires arguments
+		if (command.args && args.length === 0) {
+			let reply = `You didn't provide any arguments, ${message.author}!`;
+
+			if (command.usage) {
+				reply += `\nThe proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``;
+			}
+
+			return message.channel.send(reply);
+		}
+
+		//check if cooldowns contains the command if not add it to cooldowns
+		if (!cooldowns.has(command.name)) {
+			cooldowns.set(command.name, new Discord.Collection());
+		}
+
+		//get the current time and get the commands cooldowns
+		const now = Date.now();
+		const timestamps = cooldowns.get(command.name);
+		const cooldownAmount = (command.cooldown || 3) * 1000;
+
+		//check if author is on cooldown
+		if (timestamps.has(message.author.id)) {
+			const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+			if (now < expirationTime) {
+				const timeLeft = (expirationTime - now) / 1000;
+				return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+			}
+		}
+
+		//attempt to execute command
+		try {
+			command.execute(client, message, args);
+		} catch (error) {
+			client.logger.error(`COMMAND EXECUTION ERROR: ${error}`);
+			message.reply(client.lang("cmd-error", language).replace("{ERROR", error).replace("{BOT OWNER}", client.users.cache.get(client.config.ownerID[0]).tag));
+			supportGuild.channels.cache.get(client.config.errorChannelID).send(`${error} \n Command executed: ${command.name}`);
+		}
+
+		timestamps.set(message.author.id, now);
+		setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
+		//check if message contains any attachments
 		// eslint-disable-next-line unicorn/explicit-length-check
 		if (message.attachments && message.attachments.size >= 1 && !message.commandName) {
 			const files = [];
+
+			//loop through attachments
 			await message.attachments.forEach(async attachment => {
+				//fetch file and push it to a buffer (i dont really know how this works tbh)
 				const response = await fetch(attachment.url, {
 					method: "GET",
 				});
 				const buffer = await response.buffer();
-				const img = new MessageAttachment(buffer, `${attachment.id}.png`);
+
+				//turn that buffer into an attachment with the file type taken from the attachments content type
+				const img = new MessageAttachment(buffer, `${attachment.id}.${attachment.contentType.split("/")[1]}`);
 				files.push(img);
+
+				//send the actual files to the dm channel
 				if (files.length === message.attachments.size) {
 					client.channels.cache.get(client.config.dmchannelID)
 						.send({ content: `**${message.author}** > ${message.content}`, files: files })
 						.catch(error => {client.logger.warn(error)});
 				}
+
 			});
 		}
 		return client.channels.cache.get(client.config.dmchannelID).send({ content: `**${message.author}** > ${message.content}` });
 	}
-	if (!message.content.startsWith(client.config.prefix)) return;
-	const args = message.content.slice(client.config.prefix.length).trim().split(/ +/);
-	const commandName = args.shift().toLowerCase();
-	const member = client.guilds.cache.get(client.config.supportServerID).members.cache.get(message.author.id);
-	const isDonator = member ? member.roles.cache.some(role => role.id === "773021050438287390") : false;
+	//get all settings from database
+	client.con.query(`SELECT * FROM Settings WHERE guildID = ${message.guild.id}`, async (err, rows) => {
+		if (err) client.logger.error(err);
+		const value = rows[0];
 
-	const command = client.commands.get(commandName)
+		prefix = value.prefix;
+		language = value.language;
+
+		//if settings dont exist generate them
+		if(!value) return require("../../database/models/SettingsCreate")(client, message.guild.id);
+
+		//check if message starts with prefix
+		if (!message.content.startsWith(prefix)) return;
+
+		//get arguments and check if first argument set command name to first argument
+		const args = message.content.slice(prefix.length).trim().split(/ +/);
+		const commandName = args.shift().toLowerCase();
+		
+		//get support server and check if member is donator there;
+		const supportGuild = client.guilds.cache.get(client.config.supportServerID);
+		const member = supportGuild.members.cache.get(message.author.id);
+		const isDonator = member ? member.roles.cache.some(role => role.id === "773021050438287390") : false;
+
+		//get code corresponding to command or its alias
+		const command = client.commands.get(commandName)
 		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-	if (!command) return;
 
-	if (!command.msgcmd) {
-		return message.reply("That is a slash command please try again with /commandname");
-	}
+		//check if command exists
+		if (!command) return;
 
-	if (command.guildOnly && message.channel.type !== "GUILD_TEXt") {
-		return message.reply("I can't execute that command inside DMs!");
-	}
+		//check if command is a message or slash command
+		if (!command.msgcmd) {
+			return message.reply("That is a slash command please try again with /commandname");
+		}
+
+		//check if command can only be executed in a guild
+		if (command.guildOnly && message.channel.type !== "GUILD_TEXT") {
+			return message.reply("I can't execute that command inside DMs!");
+		}
     
-	if(command.Donor && !isDonator){
-		return message.reply("You must donate to use that command");
-	}
-
-	if (command.args && args.length === 0) {
-		let reply = `You didn't provide any arguments, ${message.author}!`;
-
-		if (command.usage) {
-			reply += `\nThe proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``;
+		//check if command is donor only
+		if(command.Donor && !isDonator){
+			return message.reply("You must donate to use that command");
 		}
 
-		return message.channel.send(reply);
-	}
+		//check if command requires arguments
+		if (command.args && args.length === 0) {
+			let reply = `You didn't provide any arguments, ${message.author}!`;
 
-	if (!cooldowns.has(command.name)) {
-		cooldowns.set(command.name, new Discord.Collection());
-	}
+			if (command.usage) {
+				reply += `\nThe proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``;
+			}
 
-	const now = Date.now();
-	const timestamps = cooldowns.get(command.name);
-	const cooldownAmount = (command.cooldown || 3) * 1000;
-
-	if (timestamps.has(message.author.id)) {
-		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-		if (now < expirationTime) {
-			const timeLeft = (expirationTime - now) / 1000;
-			return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+			return message.channel.send(reply);
 		}
-	}
 
-	timestamps.set(message.author.id, now);
-	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+		//check if cooldowns contains the command if not add it to cooldowns
+		if (!cooldowns.has(command.name)) {
+			cooldowns.set(command.name, new Discord.Collection());
+		}
 
-	try {
-		command.execute(client, message, args);
-	} catch (error) {
-		client.logger.error(`COMMAND EXECUTION ERROR: ${error}`);
-		message.reply(client.lang("cmd-error", "en").replace("{ERROR", error).replace("{BOT OWNER}", client.users.cache.get(client.config.ownerID[0]).tag));
-		client.config.supportServerID.channels.cache.get(client.config.errorChannelID).send(`${error} \n Command executed: ${command.name}`);
-	}
+		//get the current time and get the commands cooldowns
+		const now = Date.now();
+		const timestamps = cooldowns.get(command.name);
+		const cooldownAmount = (command.cooldown || 3) * 1000;
 
+		//check if author is on cooldown
+		if (timestamps.has(message.author.id)) {
+			const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+			if (now < expirationTime) {
+				const timeLeft = (expirationTime - now) / 1000;
+				return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+			}
+		}
+
+		timestamps.set(message.author.id, now);
+		setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
+		//attempt to execute command
+		try {
+			command.execute(client, message, args);
+		} catch (error) {
+			client.logger.error(`COMMAND EXECUTION ERROR: ${error}`);
+			message.reply(client.lang("cmd-error", language).replace("{ERROR", error).replace("{BOT OWNER}", client.users.cache.get(client.config.ownerID[0]).tag));
+			supportGuild.channels.cache.get(client.config.errorChannelID).send(`${error} \n Command executed: ${command.name}`);
+		}
+	});
 };

@@ -12,11 +12,10 @@ module.exports = {
 	}],
 	async execute(client, interaction, args) {
 
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
-
+		//Turn arguments into url usable value
 		const msg = args.join("+");
 
+		//Query api and respond with result
 		const owomsg = await olisfetch(`https://nekos.life/api/v2/owoify?text=${msg}`);
 		
 		interaction.reply({content: owomsg.owo, allowedMentions: { parse: [] } });

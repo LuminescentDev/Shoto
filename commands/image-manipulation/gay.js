@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 const Discord = require("discord.js");
 module.exports = {
 	name: "gay",
@@ -5,6 +6,7 @@ module.exports = {
 	category: "Image",
 	description: "Add a pride flag over your avatar!",
 	execute(client, interaction, args) {
+		//Send button
 		const row = new Discord.MessageActionRow()
         .addComponents(
         	new Discord.MessageButton()

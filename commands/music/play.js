@@ -19,8 +19,7 @@ module.exports = {
 	}],
 	async execute(client, interaction, args) {
   
-		args = args._hoistedOptions;
-		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
+
 
 		const { channel } = interaction.member.voice;
 		var player = interaction.client.manager.get(interaction.guild.id);

@@ -1,6 +1,6 @@
 module.exports = (client, args) => {
-	client.query = function query(args) {
-		client.con.query(args, (err, rows) =>{
+	client.query = async function query(args) {
+		await client.con.query(args, (err, rows) =>{
 			if(err) return err;
 			return rows;
 		});
