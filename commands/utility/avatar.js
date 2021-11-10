@@ -43,4 +43,4 @@ module.exports = {
         
 		interaction.reply({embeds: [emb]});
 	},
-};
+}; 

@@ -12,4 +12,4 @@ module.exports = {
 		const whyy = await olisfetch(`https://nekos.life/api/v2/why`);
 		interaction.reply({content: whyy.why, allowedMentions: { parse: [] } });
 	},
-};
+}; 

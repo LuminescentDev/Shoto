@@ -14,6 +14,6 @@ module.exports = {
 			interaction.reply({content: "I flipped tails!"});
 		}
 	},
-};
+}; 
   
   

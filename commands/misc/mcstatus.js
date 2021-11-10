@@ -59,4 +59,4 @@ module.exports = {
 
 		interaction.editReply({embeds: [Embed], files: [iconpng] });
 	},
-};
+}; 

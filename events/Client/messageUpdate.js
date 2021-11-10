@@ -17,4 +17,4 @@ module.exports = (client, oldMsg, newMsg) => {
 	}catch (error) {
 		client.logger.error(`MESSAGE UPDATE ERROR: ${error}`);
 	}
-};
+}; 

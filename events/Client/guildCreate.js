@@ -5,7 +5,7 @@ module.exports = async (client, guild) => {
 
 	var serverCount = {
 		server_count: client.guilds.cache.size
-	};
+	}; 
 	
 	//Send a post request to the top.gg api top update stats
 	fetch(`https://top.gg/api/bots/${client.user.id}/stats`, {
@@ -36,4 +36,4 @@ module.exports = async (client, guild) => {
     
 	//Add the new guild to the database
 	require("../../database/models/SettingsCreate")(client, guild.id);
-};
+}; 

@@ -23,4 +23,4 @@ module.exports = {
 		const stickbugd = new Discord.MessageAttachment(res.message, "STICKBUGGED.mp4");
 		interaction.editReply({files: [stickbugd]});
 	},
-};
+}; 

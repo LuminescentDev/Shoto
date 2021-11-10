@@ -11,4 +11,4 @@ module.exports = {
 		const kitty = await olisfetch(`https://nekos.life/api/v2/cat`);
 		interaction.reply({content: kitty.cat});
 	},
-};
+}; 

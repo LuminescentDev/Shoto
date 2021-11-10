@@ -17,4 +17,4 @@ module.exports = (client, member) => {
         .replace("{MEMBER COUNT}", nth(member.guild.members.cache.size));
 		return member.guild.channels.cache.get(value.joinChannelID).send({content: leaveMessage});
 	});
-};
+}; 

@@ -8,7 +8,7 @@ module.exports = (client, args) => {
 			settings[0] = require("../models/defaultSettings.json");
 		}
 		return settings[0];
-	};
+	}; 
 
 
-};
+}; 

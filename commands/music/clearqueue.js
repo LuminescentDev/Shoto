@@ -32,4 +32,4 @@ module.exports = {
 			.setDescription(`${emojieject} Removed all songs from the queue`);
 			  return interaction.reply({embeds: [thing]});
 	}
-};
+}; 

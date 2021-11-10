@@ -23,4 +23,4 @@ module.exports = client => {
 		],
 	});
 	client.logger.info("Logger started!");
-};
+}; 

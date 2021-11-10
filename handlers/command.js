@@ -22,4 +22,4 @@ module.exports = client => {
 	}
 	//Creates the actual commands and saves them to the client for later use
 	client.logger.info("Commands Loaded");
-};
+}; 

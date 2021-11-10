@@ -10,4 +10,4 @@ module.exports = async (client, player) => {
 		.setDescription(`${emojiwarn} **Music queue ended**`)
 		.setFooter(client.user.username, client.user.displayAvatarURL());
 	channel.send({embeds: [embed]});
-};
+}; 

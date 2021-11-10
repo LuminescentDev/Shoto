@@ -12,4 +12,4 @@ module.exports = {
 		const facts = await olisfetch(`https://nekos.life/api/v2/fact`);
 		interaction.reply({content: facts.fact, allowedMentions: { parse: [] } });
 	},
-};
+}; 

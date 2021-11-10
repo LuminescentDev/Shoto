@@ -118,4 +118,4 @@ module.exports = async (client, interaction) => {
 		    // supportGuild.channels.cache.get("844390085448564746").send(`${error} \n Command executed: ${command.name}`)
 	    }
 	}
-};
+}; 

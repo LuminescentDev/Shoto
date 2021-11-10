@@ -11,4 +11,4 @@ module.exports = {
 			client.channels.cache.get(client.config.errorChannelID).send(`Error when setting joinMessage: ${error}\n server: ${interaction.guild.id}\n user: ${interaction.member.user.id} ${interaction.member.user.tag}`);
 		}
 	}
-};
+}; 

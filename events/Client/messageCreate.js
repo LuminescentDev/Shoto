@@ -121,4 +121,4 @@ module.exports = async (client, message) => {
 		message.reply(client.lang("cmd-error", language).replace("{ERROR", error).replace("{BOT OWNER}", client.users.cache.get(client.config.ownerID[0]).tag));
 		supportGuild.channels.cache.get(client.config.errorChannelID).send(`${error} \n Command executed: ${command.name}`);
 	}
-};
+}; 

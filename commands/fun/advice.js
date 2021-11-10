@@ -10,4 +10,4 @@ module.exports = {
 		const advice = await olisfetch("https://api.adviceslip.com/advice");
 		interaction.reply({content: advice.slip.advice});
 	},
-};
+}; 

@@ -21,4 +21,4 @@ module.exports = {
 			message.reply({content: `\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``});
 		}
 	},
-};
+}; 

@@ -8,5 +8,5 @@ module.exports = (client, args) => {
 				  reject(`Error: ${err.message}`);
 			});
 		  });
-	};
-};
+	}; 
+}; 

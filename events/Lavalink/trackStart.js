@@ -20,4 +20,4 @@ module.exports = async (client, player, track, payload) => {
 		msg.delete();
 	});
     
-};
+}; 

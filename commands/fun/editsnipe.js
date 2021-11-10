@@ -29,4 +29,4 @@ module.exports = {
     .setFooter(`Date: ${msg.date} | ${args[0]||1}/${snipes.length}`);
 		interaction.reply({embeds: [Embed]});
 	},
-};
+}; 

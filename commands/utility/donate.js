@@ -11,4 +11,4 @@ module.exports = {
             .setImage(client.user.displayAvatarURL({ dynamic: true, size: 2048 }));
 		interaction.reply({embeds: [donate]});
 	},
-};
+}; 

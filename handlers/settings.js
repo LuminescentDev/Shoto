@@ -9,4 +9,4 @@ module.exports = client => {
 		// With the key as the setting ID and the value as the exported module
 		client.settings.set(setting.id, setting);
 	}
-};
+}; 

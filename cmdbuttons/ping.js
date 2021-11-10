@@ -4,4 +4,4 @@ module.exports = {
 		//pong.
 		interaction.update("Pong", { components: [] });
 	},
-};
+}; 

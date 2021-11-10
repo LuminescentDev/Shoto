@@ -42,4 +42,4 @@ module.exports = {
 			.setDescription(`${emojiloop} Loop track is now **${trackRepeat}**`);
 		    return interaction.reply({embeds: [thing]});
 	}
-};
+}; 
