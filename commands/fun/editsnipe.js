@@ -13,6 +13,10 @@ module.exports = {
 	}],
 	async execute(client, interaction, args) {
 
+		const settings = await client.getSettings(interaction);
+
+		if(settings.snipes === 0) return interaction.reply({content: client.lang("command-disabled", settings.language), ephemeral: true});
+
 		//Get editSnipes from channel if argument specified use number if not default to most recent
 		const snipes = client.editSnipes.get(interaction.channel.id) || [];
 		const msg = snipes[args[0] ? args[0]-1 : 0];

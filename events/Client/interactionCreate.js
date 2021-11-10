@@ -16,13 +16,14 @@ module.exports = async (client, interaction) => {
 		const embed = new MessageEmbed()
         .setColor("RED");
 
-		//get command and arguments and post command
+		//get command and arguments
 		const command = client.commands.get(interaction.commandName.toLowerCase());
-
-		client.stats.postCommand(interaction.commandName.toLowerCase(), interaction.user.id);
-
 		const args = interaction.options._hoistedOptions;
 		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
+		if (interaction.options._subcommand) args.unshift(interaction.options._subcommand);
+
+		//update command stats
+		client.stats.postCommand(interaction.commandName.toLowerCase(), interaction.user.id);
 
 		//check if command requires a certain permission and if user has permission
 		if (command.permission && !interaction.member.permissions.has(command.permission)) {
@@ -99,7 +100,7 @@ module.exports = async (client, interaction) => {
 	    try {
 		    command.execute(client, interaction, args);
 	    } catch (error) {
-		    console.error(error);
+		    client.logger.error(error);
 		    interaction.reply(`There was an error executing that command\nError:${error} Please contact ${client.users.cache.get(client.config.ownerID[0]).tag} if this error continues`);
 		    supportGuild.channels.cache.get("844390085448564746").send(`${error} \n Command executed: ${command.name}`);
 	    }
@@ -112,7 +113,7 @@ module.exports = async (client, interaction) => {
 	    try {
 		    button.execute(client, interaction);
 	    } catch (error) {
-		    console.error(error);
+		    client.logger.error(error);
 		    interaction.reply(client.lang("cmd-error", "en").replace("{ERROR", error).replace("{BOT OWNER}", client.users.cache.get(client.config.ownerID[0]).tag));
 		    // supportGuild.channels.cache.get("844390085448564746").send(`${error} \n Command executed: ${command.name}`)
 	    }

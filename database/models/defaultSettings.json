@@ -1,0 +1,16 @@
+[{
+    "AchannelID": null,
+    "EchannelID": null,
+    "guildID": 0,
+    "joinChannelID": null,
+    "joinMessage":"Welcome {username} to the server!",
+    "language": "en",
+    "leaveMessage": "Sorry to see you go {username}",
+    "nsfw": 0,
+    "prefix": "^",
+    "reviveMessage": "{REVIVE ROLE} AWAKEN CHAT",
+    "ReviveRoleID": null,
+    "snipes": 1,
+    "StaffRoleID": null,
+    "ventChannelID": null
+}]

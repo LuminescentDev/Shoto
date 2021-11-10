@@ -199,16 +199,17 @@ module.exports = {
 			.setTitle("Settings");
 
 			//Select all settings for the guild
-			const settings = await client.getSettings(interaction.guild.id);
+			const settings = await client.getSettings(interaction);
+
+			console.log(settings)
 
 			//If settings dont exist generate them
 			if(!settings){
-				interaction.reply({content: client.lang("missing-config", "en"), ephemeral: true});
-				return require("../../database/models/SettingsCreate")(client, interaction.guild.id);
+				return interaction.reply({content: client.lang("missing-config", "en"), ephemeral: true});
 			} 
 
 			//If settings exist iterate through them all and add to our embed
-			client.guildSettings.forEach(async setting => {
+			client.settings.forEach(async setting => {
 				settingEmbed.addField(setting.name, `${setting.description} \nValue: ${settings[setting.sqlvalue]}`);
 			});
 
@@ -222,7 +223,7 @@ module.exports = {
 		}else{
 
 			//Get setting file and execute the code inside
-			const setting = client.guildSettings.get(subCommand);
+			const setting = client.settings.get(subCommand);
 			try {
 				setting.execute(client, interaction, args);
 				interaction.reply(`Setting: ${setting.name} Updated to ${args[1]}`);
