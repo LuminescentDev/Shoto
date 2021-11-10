@@ -16,8 +16,11 @@ module.exports = async (client, interaction) => {
 		const embed = new MessageEmbed()
         .setColor("RED");
 
-		//get command and arguments
+		//get command and arguments and post command
 		const command = client.commands.get(interaction.commandName.toLowerCase());
+
+		client.stats.postCommand(interaction.commandName.toLowerCase(), interaction.user.id);
+
 		const args = interaction.options._hoistedOptions;
 		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
 

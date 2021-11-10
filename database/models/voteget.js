@@ -34,6 +34,6 @@ module.exports = (client, info) => {
 		});
 	} catch (error) {
 		client.users.cache.get(client.config.ownerID[0]).send(`${error}`);
-		client.channels.cache.get(client.config.errorChannelID).send(`Error deleting guild settings: ${error}`);
+		client.channels.cache.get(client.config.errorChannelID).send(`Error with receiving vote: ${error}`);
 	}
 };

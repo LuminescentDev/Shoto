@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const Statcord = require("statcord.js");
 const { readdirSync } = require("fs");
 const { Manager } = require("erela.js");
 const Spotify = require("erela.js-spotify");
@@ -13,6 +14,13 @@ client.editSnipes = new Discord.Collection();
 client.embedColor = client.config.embedColor;
 client.emoji = require("./utilities/emoji.json");
 client.categories = readdirSync("./commands/");
+client.stats = new Statcord.Client({
+	client,
+    key: client.config.statcord_key,
+    postCpuStatistics: true, 
+    postMemStatistics: true, 
+    postNetworkStatistics: true,
+});
 client.manager = new Manager({
 	nodes: [
 		{
@@ -34,7 +42,11 @@ client.manager = new Manager({
 })
    .on("nodeConnect", node => console.log(`Node ${node.options.identifier} connected`));
 
-client.on("raw", d => client.manager.updateVoiceState(d));
+client.stats.registerCustomFieldHandler(1, async (client) => {
+	const data = client.manager.nodes.map(node => node.stats.players).reduce((a, b) => a + b, 0).toString();
+	return data;
+});
+
 for (const handler of fs.readdirSync("./handlers").filter(file => file.endsWith(".js"))) require(`./handlers/${handler}`)(client);
 require("./utilities/lang")(client);
 client.login(client.config.token);

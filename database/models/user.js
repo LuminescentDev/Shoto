@@ -5,6 +5,6 @@ module.exports = (client, user) => {
 		client.con.query("INSERT INTO Users (userID) VALUES (?)", [user]);
 	} catch (error) {
 		client.users.cache.get(client.config.ownerID[0]).send(`${error}`);
-		client.channels.cache.get(client.config.errorChannelID).send(`Error deleting guild settings: ${error}`);
+		client.channels.cache.get(client.config.errorChannelID).send(`Error creating user settings: ${error}`);
 	}
 };
