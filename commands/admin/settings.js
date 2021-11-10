@@ -201,8 +201,6 @@ module.exports = {
 			//Select all settings for the guild
 			const settings = await client.getSettings(interaction);
 
-			console.log(settings)
-
 			//If settings dont exist generate them
 			if(!settings){
 				return interaction.reply({content: client.lang("missing-config", "en"), ephemeral: true});
