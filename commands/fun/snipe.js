@@ -28,4 +28,4 @@ module.exports = {
 		if(msg.image) Embed.setImage(msg.image);
 		interaction.reply({embeds: [Embed]});
 	},
-};
+}; 

@@ -18,4 +18,4 @@ module.exports = (client, member) => {
         .replace("{MEMBER COUNT}", moment.localeData().ordinal(member.guild.members.cache.size));
 		return member.guild.channels.cache.get(value.joinChannelID).send({content: joinMessage});
 	});
-};
+}; 

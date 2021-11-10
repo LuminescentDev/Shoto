@@ -16,4 +16,4 @@ module.exports = {
             .setStyle("PRIMARY"));
 		interaction.reply({content: "click it for gay", components: [row] });
 	},
-};
+}; 

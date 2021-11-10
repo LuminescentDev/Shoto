@@ -6,4 +6,4 @@ module.exports = async (client, player, payload) => {
 
 	client.logger.error(`Socket has been closed because ${payload.reason} in [${player.guild}]`);
 
-};
+}; 

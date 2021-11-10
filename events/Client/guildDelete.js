@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports = async (client, guild) => {
 	var servercount = {
 		server_count: client.guilds.cache.size
-	};
+	}; 
 	
 	//Send a post request to the top.gg api top update stats
 	fetch(`https://top.gg/api/bots/${client.user.id}/stats`, {
@@ -33,4 +33,4 @@ module.exports = async (client, guild) => {
 
 	//Remove the guild from the database
 	require("../../database/models/SettingsDelete")(client, guild.id);
-};
+}; 

@@ -18,4 +18,4 @@ module.exports = (client, message) => {
 	}catch (error) {
 		client.logger.error(`MESSAGE DELETE ERROR: ${error}`);
 	}
-};
+}; 

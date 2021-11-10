@@ -79,4 +79,4 @@ module.exports = async client => {
 	await sleep(2000);
 	const timer = (Date.now() - start) / 1000;
 	client.logger.info(`Done (${timer}s)! I am running!`);
-};
+}; 

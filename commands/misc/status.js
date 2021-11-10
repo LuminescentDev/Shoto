@@ -65,4 +65,4 @@ ${nodes}
 `);
 		interaction.reply({embeds: [embed]});
 	}
-};
+}; 

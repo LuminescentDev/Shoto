@@ -31,4 +31,4 @@ module.exports = {
 		const attachment = new Discord.MessageAttachment(canvas.toBuffer(), "gay.png");
 		interaction.update({files: [attachment], components: [row]});
 	},
-};
+}; 

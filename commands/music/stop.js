@@ -39,4 +39,4 @@ module.exports = {
 		interaction.reply({embeds: [thing]});
 	
   	}
-};
+}; 

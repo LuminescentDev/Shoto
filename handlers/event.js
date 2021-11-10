@@ -32,4 +32,4 @@ module.exports = client => {
 			client.logger.info(`Loading Events StatCord ${eventName}`);
 			client.stats.on(eventName, event.bind(null, client));
 		});
-};
+}; 

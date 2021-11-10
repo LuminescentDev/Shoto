@@ -50,4 +50,4 @@ module.exports = {
 			message.reply(`Updated Donator goal to ${args[1]}`);
 		}
 	},
-};
+}; 

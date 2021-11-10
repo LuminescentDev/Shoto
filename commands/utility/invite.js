@@ -11,4 +11,4 @@ module.exports = {
         .setThumbnail(client.user.displayAvatarURL);
 		interaction.reply({embeds: [invite]});
 	},
-};
+}; 

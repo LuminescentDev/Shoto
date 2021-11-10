@@ -10,4 +10,4 @@ module.exports = async (client, player, track, payload) => {
 	client.logger.error(`Error when loading song! Track is stuck in [${player.guild}]`);
 	if (!player.voiceChannel) player.destroy();
 
-};
+}; 

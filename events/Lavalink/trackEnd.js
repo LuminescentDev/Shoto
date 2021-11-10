@@ -10,4 +10,4 @@ module.exports = async (client, player, track, playload) => {
 		player.queue.add(res.tracks[2]);
 	}
 	
-};
+}; 

@@ -34,4 +34,4 @@ module.exports = {
 		return interaction.reply({embeds: [thing]}).catch(error => client.logger.error(error));
 	
 	}
-};
+}; 

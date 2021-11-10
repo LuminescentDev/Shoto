@@ -7,4 +7,4 @@ module.exports = (client, user) => {
 		client.users.cache.get(client.config.ownerID[0]).send(`${error}`);
 		client.channels.cache.get(client.config.errorChannelID).send(`Error creating user settings: ${error}`);
 	}
-};
+}; 

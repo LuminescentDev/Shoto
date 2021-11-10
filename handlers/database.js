@@ -23,4 +23,4 @@ module.exports = client => {
 		if (err) throw err;
 		client.logger.info("Connected to databse succesfully");
 	}); 
-};
+}; 

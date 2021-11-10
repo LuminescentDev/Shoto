@@ -21,4 +21,4 @@ module.exports = {
 
 		interaction.reply({content: spoilerReply.owo, allowedMentions: { parse: [] } });
 	},
-};
+}; 

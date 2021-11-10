@@ -38,4 +38,4 @@ module.exports = {
 			interaction.reply(error);
 		}
 	},
-};
+}; 

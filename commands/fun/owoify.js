@@ -20,4 +20,4 @@ module.exports = {
 		
 		interaction.reply({content: owomsg.owo, allowedMentions: { parse: [] } });
 	},
-};
+}; 

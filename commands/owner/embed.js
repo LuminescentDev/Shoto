@@ -28,4 +28,4 @@ module.exports = {
             .setStyle("LINK"));
 		message.channel.send({ embeds: [embed], components: [buttons] });
 	},
-};
+}; 

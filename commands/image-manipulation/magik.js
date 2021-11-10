@@ -28,4 +28,4 @@ module.exports = {
 		const magikd = new Discord.MessageAttachment(res.message, "Magik.png");
 		interaction.editReply({content: null, files: [magikd]});
 	},
-};
+}; 
