@@ -2,11 +2,10 @@ const fetch = require("node-fetch");
 const Discord = require("discord.js");
 module.exports = async (client, guild) => {
 
-
 	var serverCount = {
 		server_count: client.guilds.cache.size
 	}; 
-	
+
 	//Send a post request to the top.gg api top update stats
 	fetch(`https://top.gg/api/bots/${client.user.id}/stats`, {
 		method: "POST",
@@ -35,5 +34,5 @@ module.exports = async (client, guild) => {
 		.catch(err => client.users.cache.get(client.config.ownerID[0]).send(`${err}`));
     
 	//Add the new guild to the database
-	require("../../database/models/SettingsCreate")(client, guild.id);
+	require("../database/models/SettingsCreate")(client, guild.id);
 }; 
