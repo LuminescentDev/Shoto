@@ -1,8 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const port = 40015;
 module.exports = client => {
+
+	const port = client.config.webhook_port;
 
 	app.use(bodyParser.json());
 
@@ -10,14 +11,21 @@ module.exports = client => {
 	app.post("/", function (req, res) {
 		let body = req.body;
 		let headers = req.headers;
-		if(headers.authorization !== client.config.tpogg_webhook_auth){
-			res.statusCode = 401;
-		}else{
+		if(headers.authorization === client.config.topgg_webhook_auth){
 			res.statusCode = 200;
 			res.json({
 				message: "ok got it!"
 			});
 			require("../database/models/voteget")(client,body);
+		}else if(headers.authorization === client.config.donatebot_webhook_auth){
+			console.log(body);
+			res.statusCode = 200;
+			res.json({
+				message: "ok got it!"
+			});
+			require("../database/models/donateGet")(client,body);
+		}else{
+			res.statusCode = 401;
 		}
 
 
@@ -25,8 +33,8 @@ module.exports = client => {
     
 	app.listen(port, () => {
     
-		client.logger.info("Webhook server loaded",);
+		client.logger.info(`Webhook server loaded on port ${port}`);
     
 	});
 
-}; 
+};

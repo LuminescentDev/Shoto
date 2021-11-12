@@ -14,29 +14,22 @@ module.exports = {
 
 
 		//Select language setting
-		client.con.query(`SELECT language FROM Settings WHERE guildID = ${interaction.guild.id}`, async (err, rows) => {
-			if (err) client.logger.error(err);
+		const settings = await client.getSettings(interaction);
 
-			//If settings dont exist create them
-			if(!rows[0]){
-				interaction.reply({content: client.lang("missing-config", "en"), ephemeral: true});
-				return require("../../database/models/SettingsCreate")(client, interaction.guild.id);
-			} 
+		//Get value of language settings and select corresponding responses
+		let language = settings.language; 
+		let eightball = client.lang("8ball-responses", language);
 
-			//Get value of language settings and select corresponding responses
-			let language = rows[0].language; 
-			let eightball = client.lang("8ball-responses", language);
-
-			//Select random response
-			let index = (Math.floor(Math.random() * Math.floor(eightball.length)));
+		//Select random response
+		let index = (Math.floor(Math.random() * Math.floor(eightball.length)));
 			
-			//Create embed and reply
-			const embed = new Discord.MessageEmbed()
+		//Create embed and reply
+		const embed = new Discord.MessageEmbed()
         .setColor("#0099ff")
         .setTitle("THE MAGIC 8BALL")
         .setDescription(client.lang("8ball-message", language).replace("{USERNAME}", interaction.user.username).replace("{QUESTION}", args[0]).replace("{RESPONSE}", eightball[index]));
-			interaction.reply({ embeds: [embed]});
-		});
+		interaction.reply({ embeds: [embed]});
+
 	},
 }; 
   
