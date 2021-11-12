@@ -6,7 +6,7 @@ module.exports = (client, member) => {
 
 
 		//if settings dont exist generate them
-		if(!value) return require("../../database/models/SettingsCreate")(client, member.guild.id);
+		if(!value) return require("../database/models/SettingsCreate")(client, member.guild.id);
 
 		//if join channel isnt defined or if leave message is set to false dont send message
 		if(value.joinChannelID === null || value.leaveMessage.toLowercase() === "false") return;

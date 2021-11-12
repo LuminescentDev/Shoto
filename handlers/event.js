@@ -16,20 +16,20 @@ module.exports = client => {
 	/**
 	 * Lavalink Events
 	 */
-	readdirSync("./events/Lavalink/").forEach(file => {
-		const event = require(`../events/Lavalink/${file}`);
-		let eventName = file.split(".")[0];
-		client.logger.info(`Loading Events Lavalink ${eventName}`);
-		client.manager.on(eventName, event.bind(null, client));
-	});
+	// readdirSync("./events/Lavalink/").forEach(file => {
+	// 	const event = require(`../events/Lavalink/${file}`);
+	// 	let eventName = file.split(".")[0];
+	// 	client.logger.info(`Loading Events Lavalink ${eventName}`);
+	// 	client.manager.on(eventName, event.bind(null, client));
+	// });
 
 	/**
 	 * StatCord Events
 	 */
-		 readdirSync("./events/StatCord/").forEach(file => {
-			const event = require(`../events/StatCord/${file}`);
-			let eventName = file.split(".")[0];
-			client.logger.info(`Loading Events StatCord ${eventName}`);
-			client.stats.on(eventName, event.bind(null, client));
-		});
+	// 	 readdirSync("./events/StatCord/").forEach(file => {
+	// 	const event = require(`../events/StatCord/${file}`);
+	// 	let eventName = file.split(".")[0];
+	// 	client.logger.info(`Loading Events StatCord ${eventName}`);
+	// 	client.stats.on(eventName, event.bind(null, client));
+	// });
 }; 

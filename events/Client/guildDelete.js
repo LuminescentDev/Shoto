@@ -1,6 +1,9 @@
 const fetch = require("node-fetch");
 const Discord = require("discord.js");
 module.exports = async (client, guild) => {
+
+	if(guild.delete || !client.guilds.cache.has(guild.id)) return client.logger.info(`Deleted guild: ${guild.id}`);
+	
 	var servercount = {
 		server_count: client.guilds.cache.size
 	}; 

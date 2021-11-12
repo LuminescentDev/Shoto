@@ -16,10 +16,10 @@ client.emoji = require("./utilities/emoji.json");
 client.categories = readdirSync("./commands/");
 client.stats = new Statcord.Client({
 	client,
-    key: client.config.statcord_key,
-    postCpuStatistics: true, 
-    postMemStatistics: true, 
-    postNetworkStatistics: true,
+	key: client.config.statcord_key,
+	postCpuStatistics: true, 
+	postMemStatistics: true, 
+	postNetworkStatistics: true,
 });
 client.manager = new Manager({
 	nodes: [
@@ -42,11 +42,9 @@ client.manager = new Manager({
 })
    .on("nodeConnect", node => console.log(`Node ${node.options.identifier} connected`));
 
-client.stats.registerCustomFieldHandler(1, async (client) => {
-	const data = client.manager.nodes.map(node => node.stats.players).reduce((a, b) => a + b, 0).toString();
-	return data;
+client.stats.registerCustomFieldHandler(1, async client => {
+	return client.manager.nodes.map(node => node.stats.players).reduce((a, b) => a + b, 0).toString();
 });
 
 for (const handler of fs.readdirSync("./handlers").filter(file => file.endsWith(".js"))) require(`./handlers/${handler}`)(client);
-require("./utilities/lang")(client);
 client.login(client.config.token);
