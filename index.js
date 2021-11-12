@@ -46,6 +46,5 @@ client.manager = new Manager({
 client.stats.registerCustomFieldHandler(1, async client => {
 	return client.manager.nodes.map(node => node.stats.players).reduce((a, b) => a + b, 0).toString();
 });
-
 for (const handler of fs.readdirSync("./handlers").filter(file => file.endsWith(".js"))) require(`./handlers/${handler}`)(client);
 client.login(client.config.token);
