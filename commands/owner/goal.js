@@ -3,9 +3,6 @@ module.exports = {
 	category: "misc",
 	description: "Update website goals",
 	cooldown: 5,
-	guildOnly: false,
-	Donor: false,
-	args: true,
 	owner: true,
 	usage: "<Goal name> <New Number>",
 	options: [{

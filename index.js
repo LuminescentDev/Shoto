@@ -11,6 +11,7 @@ client.settings = new Discord.Collection();
 client.buttons = new Discord.Collection();
 client.snipes = new Discord.Collection();	
 client.editSnipes = new Discord.Collection();	
+client.debug = false;
 client.embedColor = client.config.embedColor;
 client.emoji = require("./utilities/emoji.json");
 client.categories = readdirSync("./commands/");

@@ -5,6 +5,7 @@ module.exports = {
 	category: "oli-only",
 	description: "Ping!",
 	owner: true,
+	msgcmd: true,
 	execute(client, message, args) {
 		const embed = new Discord.MessageEmbed()
         .setColor("#0099ff")
