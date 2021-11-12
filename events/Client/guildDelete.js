@@ -35,5 +35,5 @@ module.exports = async (client, guild) => {
 		.catch(err => client.users.cache.get(client.config.ownerID[0]).send(`${err}`));
 
 	//Remove the guild from the database
-	require("../../database/models/SettingsDelete")(client, guild.id);
+	client.delSettings(client, guild.id);
 }; 

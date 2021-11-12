@@ -7,9 +7,11 @@ module.exports = {
 	usage: "[command name]",
 	cooldown: 5,
 	msgcmd: true,
-	execute(client, message, args) {
+	async execute(client, message, args) {
 		const categories = new Discord.Collection();
 		const commands = client.commands;
+
+		const settings = await client.getSettings(message);
 
 		if (args.length === 0) {
 			commands.forEach(command => {
@@ -27,8 +29,8 @@ module.exports = {
 
 			const cmds = new Discord.MessageEmbed()
 			.setTitle("All of my commands")
-			.setDescription(`**NSFW**\n For a list of my nsfw commands please run ***${client.config.prefix}nsfwcmds***\n${lines.join("\n")}\n**Support**\n[**Click Here To Join The Support Server**](https://discord.com/invite/CNrvu6A)`)
-			.setFooter(`For help with a specific command run ${client.config.prefix}help [command]`);
+			.setDescription(`**NSFW**\n For a list of my nsfw commands please run ***${settings.prefix}nsfwcmds***\n${lines.join("\n")}\n**Support**\n[**Click Here To Join The Support Server**](https://discord.com/invite/CNrvu6A)`)
+			.setFooter(`For help with a specific command run ${settings.prefix}help [command]`);
 
 			return message.reply({embeds: [cmds]});
 		}

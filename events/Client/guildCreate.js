@@ -34,5 +34,5 @@ module.exports = async (client, guild) => {
 		.catch(err => client.users.cache.get(client.config.ownerID[0]).send(`${err}`));
     
 	//Add the new guild to the database
-	require("../database/models/SettingsCreate")(client, guild.id);
+	client.setSettings(client, guild.id);
 }; 
