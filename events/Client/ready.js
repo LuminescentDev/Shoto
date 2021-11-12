@@ -75,7 +75,7 @@ module.exports = async client => {
 	// });
 	client.logger.info(`Registered ${commands.size} commands!`);
 	client.manager.init(client.user.id);
-	client.stats.autopost();
+	//client.stats.autopost();
 	await sleep(2000);
 	const timer = (Date.now() - start) / 1000;
 	client.logger.info(`Done (${timer}s)! I am running!`);
