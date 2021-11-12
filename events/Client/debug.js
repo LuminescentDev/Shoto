@@ -1,3 +1,6 @@
 module.exports = async (client, info) => {
-	console.log(`DEBUG: ${info}`);
+	if(client.debug){
+		console.log(`DEBUG: ${info}`);
+	}
+
 }; 
