@@ -12,7 +12,7 @@ module.exports = async (client, message) => {
 	if (message.channel.type === "DM") {
 		// eslint-disable-next-line unicorn/explicit-length-check
 		//check if message contains any attachments
-		if (message.attachments && message.attachments.size >= 1 && !message.commandName) {
+		if (message.attachments && message.attachments.size > 0 && !message.commandName) {
 			const files = [];
 
 			//loop through attachments
@@ -67,6 +67,10 @@ module.exports = async (client, message) => {
 	//check if command is a message or slash command
 	if (!command.msgcmd) {
 		return message.reply("That is a slash command please try again with /commandname");
+	}
+
+	if (command.owner && !client.config.ownerID.includes(message.author.id)){
+		return message.reply({content: "You must own the bot use that command"});
 	}
 
 	//check if command can only be executed in a guild
