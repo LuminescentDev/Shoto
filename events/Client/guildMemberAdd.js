@@ -3,7 +3,7 @@ module.exports = async (client, member) => {
 	const settings = await client.getSettings(member.guild.id);
 
 	//if join channel isnt defined or if leave message is set to false dont send message
-	if(settings.joinMessage === null || settings.joinMessage.toLowercase() === "false") return;
+	if(settings.joinMessage === null || settings.joinMessage.toLowercase() === "false" || !settings.joinMessage) return;
 	const joinMessage = settings.joinMessage
         .replace("{USER MENTION}", `<@${member.user.id}>`)
         .replace("{USER TAG}", member.user.tag)
