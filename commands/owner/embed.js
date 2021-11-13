@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
 	name: "embed",
 	cooldown: 5,
-	category: "oli-only",
+	category: "owner",
 	description: "Ping!",
 	owner: true,
 	msgcmd: true,

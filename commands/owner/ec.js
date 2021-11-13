@@ -4,7 +4,7 @@ function clean(text) {
 
 module.exports = {
 	name: "ec",
-	category: "misc",
+	category: "owner",
 	description: "test command",
 	owner: true,
 	msgcmd: true,

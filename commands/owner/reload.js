@@ -1,7 +1,8 @@
 module.exports = {
 	name: "reload",
+	category: "owner",
 	description: "Reloads a command",
-	args: true,
+	owner: true,
 	options: [{
 		name: "category",
 		type: "STRING",

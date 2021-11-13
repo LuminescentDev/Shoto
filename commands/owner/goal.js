@@ -1,6 +1,6 @@
 module.exports = {
 	name: "goal",
-	category: "misc",
+	category: "owner",
 	description: "Update website goals",
 	cooldown: 5,
 	owner: true,
