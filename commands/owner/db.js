@@ -1,5 +1,5 @@
 module.exports = {
-	name: "ec",
+	name: "db",
 	category: "owner",
 	description: "test command",
 	owner: true,
