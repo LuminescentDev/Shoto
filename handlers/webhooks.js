@@ -26,6 +26,9 @@ module.exports = client => {
 			require("../database/models/donateGet")(client,body);
 		}else{
 			res.statusCode = 401;
+			res.json({
+				message: "Error unauthorized!"
+			});
 		}
 
 
