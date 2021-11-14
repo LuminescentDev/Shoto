@@ -19,12 +19,9 @@ module.exports = {
 
 
 			results.forEach(e => {
-				let thing = [];
-				rstls = [];
 				for(var key in e){
-					thing.push(key + " - " + e[key]);
+					rstls.push(key + " - " + e[key]);
 				}
-				rstls.push(thing.join(" | "));
 			});
 
 			rstls = rstls.join("\n");
