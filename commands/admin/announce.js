@@ -20,8 +20,8 @@ module.exports = {
 		const settings = await client.getSettings(interaction);
 
 		//if no channel reply with error
-		if (!settings[0].AchannelID) {
-			return interaction.reply({content: client.lang("no-config", settings[0].language), ephemeral: true});
+		if (!settings.AchannelID) {
+			return interaction.reply({content: client.lang("no-config", settings.language), ephemeral: true});
 		}
 
 		//contstruct embed and send the announcement channel

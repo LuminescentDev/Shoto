@@ -130,6 +130,19 @@ module.exports = {
 		},
 		{
 			type: "SUB_COMMAND",
+			name: "announcechannel",
+			description: "The channel where the bot puts /announce commmand messages",
+			options: [
+				{
+					type: "CHANNEL",
+					name: "channel",
+					description: "The channel (Hashtag icon)",
+					required: true,
+				},
+			],
+		},
+		{
+			type: "SUB_COMMAND",
 			name: "ventchannel",
 			description: "The channel where the bot puts vent command messages",
 			options: [
