@@ -31,4 +31,15 @@ module.exports = async client => {
 		// 	client.query("CREATE TABLE Users (userID TEXT, donor TEXT DEFAULT null, voteTotal INT(11) DEFAULT 0, lastVote INT(20) DEFAULT null, balance INT(11) DEFAULT 0)");
 		// }
 	}); 
+
+	client.query = function query(args) {
+		return new Promise((resolve, reject) => {
+			client.con.query(args, (err, rows, fields) =>{
+				if(err) return err;
+				resolve(rows, fields);
+			}).on("error", err => {
+				  reject(`Error: ${err.message}`);
+			});
+		  });
+	}; 
 }; 

@@ -60,7 +60,7 @@ module.exports = {
 > **• Free Memory** : ${(os.freemem() / 1024 / 1024).toFixed(2)} Mbps
 > **• Heap Total** : ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} Mbps
 > **• Heap Usage** : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Mbps
-**= SYSTEM =** :
+**= NODES =** :
 ${nodes}
 `);
 		interaction.reply({embeds: [embed]});
