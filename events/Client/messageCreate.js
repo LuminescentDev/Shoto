@@ -83,7 +83,7 @@ module.exports = async (client, message) => {
 	} 
 
 	if (command.permission && !message.member.permissions.has(command.permission)) {
-		embed.setDescription(`You do not have sufficient permissions to use this command. \n **REQUIRED PERMISSIONS:** ${command.permissions.join(" ")}`);
+		embed.setDescription(`You do not have sufficient permissions to use this command. \n **REQUIRED PERMISSIONS:** ${command.permission.join(" ")}`);
 		return message.reply({embeds: [embed]});
 	}
 

@@ -29,7 +29,7 @@ module.exports = async (client, interaction) => {
 
 		//check if command requires a certain permission and if user has permission
 		if (command.permission && !interaction.member.permissions.has(command.permission)) {
-			embed.setDescription(`You do not have sufficient permissions to use this command. \n **REQUIRED PERMISSIONS:** ${command.permissions.join(" ")}`);
+			embed.setDescription(`You do not have sufficient permissions to use this command. \n **REQUIRED PERMISSIONS:** ${command.permission.join(" ")}`);
 			return interaction.reply({embeds: [embed]});
 		}
 
