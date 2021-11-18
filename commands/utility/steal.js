@@ -3,8 +3,8 @@ module.exports = {
 	cooldown: 5,
 	category: "utility",
 	description: "Steal an emoji!",
-	botPermissions: ["MANAGE_EMOJIS"],
-	permission: ["MANAGE_EMOJIS"],
+	botPermissions: ["MANAGE_EMOJIS_AND_STICKERS"],
+	permission: ["MANAGE_EMOJIS_AND_STICKERS"],
 	options: [{
 		type: "STRING",
 		name: "type",
