@@ -117,7 +117,7 @@ module.exports = async (client, interaction) => {
 	    } catch (error) {
 		    client.logger.error(error);
 		    interaction.reply(client.lang("cmd-error", "en").replace("{ERROR", error).replace("{BOT OWNER}", client.users.cache.get(client.config.ownerID[0]).tag));
-		    // supportGuild.channels.cache.get("844390085448564746").send(`${error} \n Command executed: ${command.name}`)
+		    supportGuild.channels.cache.get("844390085448564746").send(`${error} \n button pressed: ${button.name}`)
 	    }
 	}
 }; 

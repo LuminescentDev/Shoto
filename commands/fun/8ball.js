@@ -13,7 +13,7 @@ module.exports = {
 	async execute(client, interaction, args) {
 
 
-		//Select language setting
+		//Select setting
 		const settings = await client.getSettings(interaction);
 
 		//Get value of language settings and select corresponding responses
@@ -32,4 +32,3 @@ module.exports = {
 
 	},
 }; 
-  
