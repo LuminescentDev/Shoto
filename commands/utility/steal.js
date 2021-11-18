@@ -4,7 +4,7 @@ module.exports = {
 	category: "utility",
 	description: "Steal an emoji!",
 	botPermissions: ["MANAGE_EMOJIS"],
-	permissions: ["MANAGE_EMOJIS"],
+	permission: ["MANAGE_EMOJIS"],
 	options: [{
 		type: "STRING",
 		name: "type",
