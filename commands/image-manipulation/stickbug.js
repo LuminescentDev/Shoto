@@ -2,8 +2,9 @@ const olisfetch = require("../../utilities/fetch");
 const Discord = require("discord.js");
 module.exports = {
 	name: "stickbug",
-	category: "image",
+	category: "image-manipulation",
 	description: "GET STICKBUGGED",
+	botPermissions: ["ATTACH_FILES"],
 	cooldown: 30,
 	guildOnly: true,
 	Donor: false,

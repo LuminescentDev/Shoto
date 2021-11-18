@@ -5,6 +5,8 @@ const cooldowns = new Discord.Collection();
 
 module.exports = async (client, interaction) => {
 
+	if(!interaction.guild.me.permissions.has("SEND_MESSAGES") || !interaction.guild.me.permissionsIn(interaction.channel).has("SEND_MESSAGES")) return client.logger.error(`Missing Message permission in ${interaction.guild.id}`);
+
 	//get support server and check if interaction user is a donator
 	const supportGuild = client.guilds.cache.get("740705740221841450");
 	const member = supportGuild.members.cache.get(interaction.user.id);
@@ -27,7 +29,7 @@ module.exports = async (client, interaction) => {
 
 		//check if command requires a certain permission and if user has permission
 		if (command.permission && !interaction.member.permissions.has(command.permission)) {
-			embed.setDescription(`You do not have sufficient use this command. \n **REQUIRED PERMISSIONS:** ${command.permissions.join(" ")}`);
+			embed.setDescription(`You do not have sufficient permissions to use this command. \n **REQUIRED PERMISSIONS:** ${command.permissions.join(" ")}`);
 			return interaction.reply({embeds: [embed]});
 		}
 

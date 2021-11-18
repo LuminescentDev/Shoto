@@ -3,6 +3,7 @@ module.exports = {
 	name: "vent",
 	category: "utility",
 	description: "Sends anonymous message to vent channel",
+	botPermissions: ["ATTACH_FILES"],
 	options: [
 		{
 			name: "message",
@@ -22,6 +23,9 @@ module.exports = {
 		if(!channelID || !interaction.guild.channels.cache.get(channelID)){
 			return interaction.reply({content: client.lang("missing-config", language), ephemeral: true});
 		} 
+
+		if(!interaction.guild.me.permissionsIn(channelID).has("SEND_MESSAGES")) return interaction.reply({content: "I am unable to send messages in the vent channel", ephemeral: true});
+
 		const vent = new Discord.MessageEmbed()
 				.setColor("#00ffff")
 				.setTitle("**Anonymous Said**")

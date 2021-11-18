@@ -6,6 +6,7 @@ module.exports = {
 	description: "sends an announcement",
 	guildOnly: true,
 	permissions: ["MANAGE_MESSAGES"],
+	botPermissions: ["MANAGE_MESSAGES"],
 	options: [
 		{
 			name: "message",
@@ -23,6 +24,8 @@ module.exports = {
 		if (!settings.AchannelID) {
 			return interaction.reply({content: client.lang("no-config", settings.language), ephemeral: true});
 		}
+
+		if(!interaction.guild.me.permissionsIn(settings.AchannelID).has("SEND_MESSAGES")) return interaction.reply({content: "I am unable to send messages in the announcement channel", ephemeral: true});
 
 		//contstruct embed and send the announcement channel
 		const announcmentEmbed = new Discord.MessageEmbed()

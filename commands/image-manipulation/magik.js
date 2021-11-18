@@ -5,6 +5,7 @@ module.exports = {
 	name: "magik",
 	category: "image-manipulation",
 	description: "photo go magik",
+	botPermissions: ["ATTACH_FILES"],
 	cooldown: 15,
 	options: [{
 		name: "intensity",

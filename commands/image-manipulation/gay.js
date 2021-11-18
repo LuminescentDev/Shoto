@@ -3,8 +3,9 @@ const Discord = require("discord.js");
 module.exports = {
 	name: "gay",
 	cooldown: 5,
-	category: "Image",
+	category: "image-manipulation",
 	description: "Add a pride flag over your avatar!",
+	botPermissions: ["ATTACH_FILES"],
 	execute(client, interaction, args) {
 		//Send button
 		const row = new Discord.MessageActionRow()

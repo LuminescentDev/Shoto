@@ -4,6 +4,7 @@ module.exports = {
 	name: "avatar",
 	category: "utility",
 	description: "shows avatar",
+	botPermissions: ["ATTACH_FILES"],
 	options: [
 		{
 			type: 3,

@@ -4,6 +4,7 @@ module.exports = {
 	name: "phcomment",
 	category: "NSFW",
 	description: "hehefunnie fake ph",
+	botPermissions: ["ATTACH_FILES"],
 	cooldown: 15,
 	guildOnly: true,
 	nsfw: true,

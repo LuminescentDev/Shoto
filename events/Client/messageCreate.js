@@ -38,6 +38,7 @@ module.exports = async (client, message) => {
 		}
 		client.channels.cache.get(client.config.dmchannelID).send({ content: `**${message.author}** > ${message.content}` });
 	}
+
 	//get all settings from database
 	const settings = await client.getSettings(message);
 
@@ -64,13 +65,31 @@ module.exports = async (client, message) => {
 	//check if command exists
 	if (!command) return;
 
+	if(!message.guild.me.permissions.has("SEND_MESSAGES") || !message.guild.me.permissionsIn(message.channel).has("SEND_MESSAGES")){
+		return client.logger.error(`Missing Message permission in ${message.guild.id}`);
+	} 
+
+	const embed = new MessageEmbed()
+	.setColor("RED");
+
 	//check if command is a message or slash command
 	if (!command.msgcmd) {
-		return message.reply("That is a slash command please try again with /commandname");
+		embed.setDescription("That is a slash command please try again with /commandname");
+		return message.reply({embeds: [embed]});
+	}
+
+	if(command.botPermissions && message.guild.me.permissions.has(command.botPermissions) || !message.guild.me.permissionsIn(message.channel).has(command.botPermissions)){
+		return client.logger.error(`Missing Message permission in ${message.guild.id}`);
+	} 
+
+	if (command.permission && !message.member.permissions.has(command.permission)) {
+		embed.setDescription(`You do not have sufficient permissions to use this command. \n **REQUIRED PERMISSIONS:** ${command.permissions.join(" ")}`);
+		return message.reply({embeds: [embed]});
 	}
 
 	if (command.owner && !client.config.ownerID.includes(message.author.id)){
-		return message.reply({content: "You must own the bot use that command"});
+		embed.setDescription("You must own the bot use that command");
+		return message.reply({embeds: [embed]});
 	}
 
 	//check if command can only be executed in a guild
