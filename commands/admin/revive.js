@@ -4,7 +4,7 @@ module.exports = {
 	category: "admin",
 	description: "sends the specified chat revive message",
 	permissions: ["MANAGE_MESSAGES"],
-	execute(client, interaction, args) {
+	async execute(client, interaction, args) {
 
 		//Select all settings values
 		const settings = await client.getSettings(interaction);
