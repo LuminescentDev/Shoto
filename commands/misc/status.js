@@ -63,6 +63,6 @@ module.exports = {
 **= NODES =** :
 ${nodes}
 `);
-		interaction.reply({embeds: [embed]});
+		interaction.editReply({embeds: [embed]});
 	}
 }; 

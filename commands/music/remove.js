@@ -27,7 +27,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 
 		const position = (args[0] - 1);
@@ -36,7 +36,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription(`No songs at number ${number}.\nTotal Songs: ${player.queue.size}`);
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
         
 		const song = player.queue[position];
@@ -48,7 +48,7 @@ module.exports = {
 			.setColor(interaction.client.embedColor)
 			.setTimestamp()
 			.setDescription(`${emojieject} Removed\n[${song.title}](${song.uri})`);
-		  return interaction.reply({embeds: [thing]});
+		  return interaction.editReply({embeds: [thing]});
 	
 	}
 }; 

@@ -9,10 +9,10 @@ module.exports = {
 	args: true,
 	async execute(client, interaction, args) {
 		if(!args){
-			interaction.reply(client.debug);
+			interaction.editReply(client.debug);
 		}else{
 			client.debug = args[0];
-			interaction.reply(client.debug);
+			interaction.editReply(client.debug);
 		}
 	},
 }; 

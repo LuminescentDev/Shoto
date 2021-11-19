@@ -18,6 +18,6 @@ module.exports = {
 		//Query api and respond with result
 		const owomsg = await olisfetch(`https://nekos.life/api/v2/owoify?text=${msg}`);
 		
-		interaction.reply({content: owomsg.owo, allowedMentions: { parse: [] } });
+		interaction.editReply({content: owomsg.owo, allowedMentions: { parse: [] } });
 	},
 }; 

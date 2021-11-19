@@ -30,12 +30,12 @@ module.exports = {
 			//check if string is actually a valid emote
 			const first = args[1].match(/<?(a)?:?(\w{2,32}):(\d{17,19})>?/);
 			if (args[0] === "static") {
-				interaction.reply(`https://cdn.discordapp.com/emojis/${first[3] ? first[3] : first[0]}.png`);
+				interaction.editReply(`https://cdn.discordapp.com/emojis/${first[3] ? first[3] : first[0]}.png`);
 			}
 			else if (args[0] === "animated")
-				interaction.reply(`https://cdn.discordapp.com/emojis/${first ? first[3] : args[1]}.gif`);
+				interaction.editReply(`https://cdn.discordapp.com/emojis/${first ? first[3] : args[1]}.gif`);
 		} catch (error) {
-			interaction.reply(error);
+			interaction.editReply(error);
 		}
 	},
 }; 

@@ -23,7 +23,7 @@ module.exports = {
             || interaction.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 		if (!command) {
-			return interaction.reply(`There is no command with name or alias \`${commandName}\`, ${interaction.member.user}!`);
+			return interaction.editReply(`There is no command with name or alias \`${commandName}\`, ${interaction.member.user}!`);
 		}
 
 		delete require.cache[require.resolve(`../${category}/${command.name}.js`)];
@@ -31,10 +31,10 @@ module.exports = {
 		try {
 			const newCommand = require(`../${category}/${command.name}.js`);
 			interaction.client.commands.set(newCommand.name, newCommand);
-			interaction.reply(`Command \`${command.name}\` was reloaded!`);
+			interaction.editReply(`Command \`${command.name}\` was reloaded!`);
 		} catch (error) {
 			client.logger.error(error);
-			interaction.reply(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
+			interaction.editReply(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
 		}
 	},
 }; 
@@ -85,7 +85,7 @@ module.exports = {
 // 				|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 	
 // 			if (!command) {
-// 				return interaction.reply(`There is no command with name or alias \`${commandName}\`, ${interaction.member.user}!`);
+// 				return interaction.editReply(`There is no command with name or alias \`${commandName}\`, ${interaction.member.user}!`);
 // 			}
 	
 // 			delete require.cache[require.resolve(`../${category}/${command.name}.js`)];
@@ -93,10 +93,10 @@ module.exports = {
 // 			try {
 // 				const newCommand = require(`../${category}/${command.name}.js`);
 // 				client.commands.set(newCommand.name, newCommand);
-// 				interaction.reply(`Command \`${command.name}\` was reloaded!`);
+// 				interaction.editReply(`Command \`${command.name}\` was reloaded!`);
 // 			} catch (error) {
 // 				client.logger.error(error);
-// 				interaction.reply(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
+// 				interaction.editReply(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
 // 			}
 
 // 		}else if (subcommand === "settings"){
@@ -104,7 +104,7 @@ module.exports = {
 // 			const setting = client.settings.get(settingName);
 	
 // 			if (!setting) {
-// 				return interaction.reply(`There is no command with name or alias \`${settingName}\`, ${interaction.member.user}!`);
+// 				return interaction.editReply(`There is no command with name or alias \`${settingName}\`, ${interaction.member.user}!`);
 // 			}
 	
 // 			delete require.cache[require.resolve(`../../settings/${settingName}.js`)];
@@ -112,10 +112,10 @@ module.exports = {
 // 			try {
 // 				const newSetting = require(`../../settings/${settingName}.js`);
 // 				client.commands.set(newSetting.id, newSetting);
-// 				interaction.reply(`Setting \`${newSetting.id}\` was reloaded!`);
+// 				interaction.editReply(`Setting \`${newSetting.id}\` was reloaded!`);
 // 			} catch (error) {
 // 				client.logger.error(error);
-// 				interaction.reply(`There was an error while reloading a Setting \`${setting.id}\`:\n\`${error.message}\``);
+// 				interaction.editReply(`There was an error while reloading a Setting \`${setting.id}\`:\n\`${error.message}\``);
 // 			}
 // 		}
 // 	},

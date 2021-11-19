@@ -35,9 +35,9 @@ module.exports = {
 		let language = settings.language; 
 
 		// make sure the text isn't longer than 70 characters
-		if (text.length >= 71) return interaction.reply({content: client.lang("TEXT_OVERLOAD", language).replace("{LENGTH}, 71")}).then(m => m.delete({ timeout: 5000 }));
+		if (text.length >= 71) return interaction.editReply({content: client.lang("TEXT_OVERLOAD", language).replace("{LENGTH}, 71")}).then(m => m.delete({ timeout: 5000 }));
 	
-		await interaction.reply("Generating PH Comment...");
+		await interaction.editReply("Generating PH Comment...");
 		const res = await olisfetch(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${person.user.displayAvatarURL({ format: "png", size: 512 })}&text=${text}&username=${person.user.username}`);
 		const phcomment = new Discord.MessageAttachment(res.message, "fakeph.png");
 		interaction.editReply({content: null, files: [phcomment]});

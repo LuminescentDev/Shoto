@@ -19,7 +19,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 		
 		const emojiloop = interaction.client.emoji.loop;
@@ -31,7 +31,7 @@ module.exports = {
 				.setColor(interaction.client.embedColor)
 				.setTimestamp()
 				.setDescription(`${emojiloop} Loop queue is now **${queueRepeat}**`);
-		   return interaction.reply({embeds: [thing]});
+		   return interaction.editReply({embeds: [thing]});
 		}
 
 		player.setTrackRepeat(!player.trackRepeat);
@@ -40,6 +40,6 @@ module.exports = {
 			.setColor(interaction.client.embedColor)
 			.setTimestamp()
 			.setDescription(`${emojiloop} Loop track is now **${trackRepeat}**`);
-		    return interaction.reply({embeds: [thing]});
+		    return interaction.editReply({embeds: [thing]});
 	}
 }; 

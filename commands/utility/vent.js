@@ -21,16 +21,16 @@ module.exports = {
 
 		//If settings dont exist generate them
 		if(!channelID || !interaction.guild.channels.cache.get(channelID)){
-			return interaction.reply({content: client.lang("missing-config", language), ephemeral: true});
+			return interaction.editReply({content: client.lang("missing-config", language), ephemeral: true});
 		} 
 
-		if(!interaction.guild.me.permissionsIn(channelID).has("SEND_MESSAGES")) return interaction.reply({content: "I am unable to send messages in the vent channel", ephemeral: true});
+		if(!interaction.guild.me.permissionsIn(channelID).has("SEND_MESSAGES")) return interaction.editReply({content: "I am unable to send messages in the vent channel", ephemeral: true});
 
 		const vent = new Discord.MessageEmbed()
 				.setColor("#00ffff")
 				.setTitle("**Anonymous Said**")
 				.setDescription(`${args[0]}`);
 		interaction.guild.channels.cache.get(channelID).send({embeds: [vent]});
-		interaction.reply({content: "Message sent!", ephemeral: true});
+		interaction.editReply({content: "Message sent!", ephemeral: true});
 	}
 }; 

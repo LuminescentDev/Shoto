@@ -18,7 +18,7 @@ module.exports = {
 
 		//Get executors avatar if user is not specified and query api
 		const file = args[0] ? interaction.guild.members.cache.get(args[0]).user.displayAvatarURL({ format: "png", size: 2048 }) : interaction.user.displayAvatarURL({ format: "png", size: 2048 });
-		await interaction.reply("Generating Stickbug...");
+		await interaction.editReply("Generating Stickbug...");
 		const res = await olisfetch(`https://nekobot.xyz/api/imagegen?type=stickbug&url=${file}`);
 
 		const stickbugd = new Discord.MessageAttachment(res.message, "STICKBUGGED.mp4");

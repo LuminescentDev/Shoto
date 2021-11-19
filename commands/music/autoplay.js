@@ -20,7 +20,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 
 		const autoplay = player.get("autoplay");
@@ -39,7 +39,7 @@ module.exports = {
                 .setColor(interaction.client.embedColor)
                 .setTimestamp()
                 .setDescription(`${emojireplay} Autoplay is now **enabled**`);
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		} else {
 			player.set("autoplay", false);
 			player.queue.clear();
@@ -48,7 +48,7 @@ module.exports = {
                 .setTimestamp()
                 .setDescription(`${emojireplay} Autoplay is now **disabled**`);
                
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 
 	}

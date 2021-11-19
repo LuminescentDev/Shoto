@@ -8,6 +8,6 @@ module.exports = {
 
 		//Query advice api and reply with response
 		const advice = await olisfetch("https://api.adviceslip.com/advice");
-		interaction.reply({content: advice.slip.advice});
+		interaction.editReply({content: advice.slip.advice});
 	},
 }; 

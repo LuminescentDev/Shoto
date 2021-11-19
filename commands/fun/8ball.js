@@ -28,7 +28,7 @@ module.exports = {
         .setColor("#0099ff")
         .setTitle("THE MAGIC 8BALL")
         .setDescription(client.lang("8ball-message", language).replace("{USERNAME}", interaction.user.username).replace("{QUESTION}", args[0]).replace("{RESPONSE}", eightball[index]));
-		interaction.reply({ embeds: [embed]});
+		interaction.editReply({ embeds: [embed]});
 
 	},
 }; 

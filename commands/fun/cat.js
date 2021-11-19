@@ -9,6 +9,6 @@ module.exports = {
 
 		//Query api and respond with result
 		const kitty = await olisfetch(`https://nekos.life/api/v2/cat`);
-		interaction.reply({content: kitty.cat});
+		interaction.editReply({content: kitty.cat});
 	},
 }; 

@@ -25,6 +25,6 @@ module.exports = {
 			player.twentyFourSeven = true;
 			embed.setDescription(`24/7 mode is now on.`);
 		}
-		return interaction.reply({embeds: [embed]});
+		return interaction.editReply({embeds: [embed]});
 	}
 }; 

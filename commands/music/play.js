@@ -28,7 +28,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription(`You must be in the same channel as ${interaction.client.user}`);
-			interaction.reply({embeds: [thing]});
+			interaction.editReply({embeds: [thing]});
 		} else if (!player) {
 			var player = interaction.client.manager.create({
 				guild: interaction.guild.id,
@@ -56,13 +56,13 @@ module.exports = {
 				throw res.exception;
 			}
 		} catch (err) {
-			return interaction.reply(`there was an error while searching: ${err.message}`);
+			return interaction.editReply(`there was an error while searching: ${err.message}`);
 		}
 
 		switch (res.loadType) {
 			case "NO_MATCHES":
 				if (!player.queue.current) player.destroy();
-				return interaction.reply("there were no results found.");
+				return interaction.editReply("there were no results found.");
 			case "TRACK_LOADED":
 				var track = res.tracks[0];
 				player.queue.add(track);
@@ -74,7 +74,7 @@ module.exports = {
                         .setTimestamp()
                         .setThumbnail(track.displayThumbnail("hqdefault"))
                         .setDescription(`${emojiaddsong} **Added Song to queue**\n[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``);
-					return interaction.reply({embeds: [thing]});
+					return interaction.editReply({embeds: [thing]});
 				}
 			case "PLAYLIST_LOADED":
 				player.queue.add(res.tracks);
@@ -83,7 +83,7 @@ module.exports = {
                     .setColor(client.embedColor)
                     .setTimestamp()
                     .setDescription(`${emojiplaylist} **Added Playlist to queue**\n${res.tracks.length} Songs **${res.playlist.name}** - \`[${convertTime(res.playlist.duration)}]\``);
-				return interaction.reply({embeds: [thing]});
+				return interaction.editReply({embeds: [thing]});
 			case "SEARCH_RESULT":
 				var track = res.tracks[0];
 				player.queue.add(track);
@@ -95,7 +95,7 @@ module.exports = {
                         .setTimestamp()
                         .setThumbnail(track.displayThumbnail("hqdefault"))
                         .setDescription(`${emojiaddsong} **Added Song to queue**\n[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\`[<@${track.requester.id}>]`);
-					return interaction.reply({embeds: [thing]});
+					return interaction.editReply({embeds: [thing]});
 				}
 		}
 	}

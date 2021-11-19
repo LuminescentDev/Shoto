@@ -30,7 +30,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 
 		const time = ms(args[0]);
@@ -49,20 +49,20 @@ module.exports = {
                     .setDescription(`${emojiforward} **Forward**\n[${song.title}](${song.uri})\n\`${convertTime(time)} / ${convertTime(duration)}\``)
                     .setColor(interaction.client.embedColor)
                     .setTimestamp();
-				return interaction.reply({embeds: [thing]});
+				return interaction.editReply({embeds: [thing]});
 			} else {
 				player.seek(time);
 				let thing = new MessageEmbed()
                     .setDescription(`${emojirewind} **Rewind**\n[${song.title}](${song.uri})\n\`${convertTime(time)} / ${convertTime(duration)}\``)
                     .setColor(interaction.client.embedColor)
                     .setTimestamp();
-				return interaction.reply({embeds: [thing]});
+				return interaction.editReply({embeds: [thing]});
 			}
 		} else {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription(`Seek duration exceeds Song duration.\nSong duration: \`${convertTime(duration)}\``);
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 	
 	}

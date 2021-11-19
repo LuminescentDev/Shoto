@@ -216,7 +216,7 @@ module.exports = {
 
 			//If settings dont exist generate them
 			if(!settings){
-				return interaction.reply({content: client.lang("missing-config", "en"), ephemeral: true});
+				return interaction.editReply({content: client.lang("missing-config", "en"), ephemeral: true});
 			} 
 
 			//If settings exist iterate through them all and add to our embed
@@ -225,22 +225,22 @@ module.exports = {
 			});
 
 			//reply with finished embed
-			return interaction.reply({embeds: [settingEmbed]});
+			return interaction.editReply({embeds: [settingEmbed]});
 			//If subcommand is clear
 		}else if(subCommand === "clear"){
 			//Clear specified setting and reply to message
 			client.con.query(`UPDATE Settings SET ${args[1]} = NULL WHERE guildID = ${interaction.guild.id}`);
-			interaction.reply({ content: `Setting ${args[1]} cleared` });
+			interaction.editReply({ content: `Setting ${args[1]} cleared` });
 		}else{
 
 			//Get setting file and execute the code inside
 			const setting = client.settings.get(subCommand);
 			try {
 				setting.execute(client, interaction, args);
-				interaction.reply(`Setting: ${setting.name} Updated to ${args[1]}`);
+				interaction.editReply(`Setting: ${setting.name} Updated to ${args[1]}`);
 			} catch (error) {
 				client.logger.error(error);
-				interaction.reply(`There was an error changing that setting\nError:${error} Please contact ${client.users.cache.get(client.config.ownerID[0]).tag} if this error continues`);
+				interaction.editReply(`There was an error changing that setting\nError:${error} Please contact ${client.users.cache.get(client.config.ownerID[0]).tag} if this error continues`);
 			}
 		}
 	},

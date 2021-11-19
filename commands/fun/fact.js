@@ -10,6 +10,6 @@ module.exports = {
 
 		//query fact api and reply with response
 		const facts = await olisfetch(`https://nekos.life/api/v2/fact`);
-		interaction.reply({content: facts.fact, allowedMentions: { parse: [] } });
+		interaction.editReply({content: facts.fact, allowedMentions: { parse: [] } });
 	},
 }; 

@@ -16,17 +16,17 @@ module.exports = {
 
 		//If settings dont exist reply with error and generate the settings
 		if (!reviveMessage) {
-			return interaction.reply({content: client.lang("no-config", settings.language), ephemeral: true});
+			return interaction.editReply({content: client.lang("no-config", settings.language), ephemeral: true});
 		}
 
 
 		//Check if values are null or dont exist if so reply with error
-		if (reviveRole === null || !interaction.guild.roles.cache.get(reviveRole)) return interaction.reply({content: client.lang("no-config", language) , ephemeral: true});
-		if (reviveMessage === null || !reviveMessage) return interaction.reply({content: client.lang("no-config", language), ephemeral: true});
+		if (reviveRole === null || !interaction.guild.roles.cache.get(reviveRole)) return interaction.editReply({content: client.lang("no-config", language) , ephemeral: true});
+		if (reviveMessage === null || !reviveMessage) return interaction.editReply({content: client.lang("no-config", language), ephemeral: true});
 
 		//If values exist send it to the channel the command was executed in
 		interaction.channel.send({content: reviveMessage.replace("{REVIVE ROLE}", `<@&${reviveRole}>`)});
-		interaction.reply({content: "Message sent!", ephemeral: true});
+		interaction.editReply({content: "Message sent!", ephemeral: true});
 
 	},
 }; 

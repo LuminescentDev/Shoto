@@ -17,10 +17,7 @@ module.exports = {
 	}],
 	async execute(client, interaction, args) {
 		let iconpng;
-
-		await interaction.deferReply({
-			ephemeral: false
-		});
+		
 		const ip = args[0];
 		const info = await olisfetch(`https://api.mcsrvstat.us/2/${ip}`);
 

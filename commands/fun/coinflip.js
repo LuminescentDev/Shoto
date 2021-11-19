@@ -8,10 +8,10 @@ module.exports = {
 		let random = (Math.floor(Math.random() * 2));
   
 		if (random === 0) {
-			interaction.reply({content: "I flipped heads!"});
+			interaction.editReply({content: "I flipped heads!"});
 		}
 		else {
-			interaction.reply({content: "I flipped tails!"});
+			interaction.editReply({content: "I flipped tails!"});
 		}
 	},
 }; 

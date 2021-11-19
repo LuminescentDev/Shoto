@@ -19,6 +19,6 @@ module.exports = {
 		//Query api and respond with result
 		const spoilerReply = await olisfetch(`https://nekos.life/api/v2/spoiler?text=${msg}`);
 
-		interaction.reply({content: spoilerReply.owo, allowedMentions: { parse: [] } });
+		interaction.editReply({content: spoilerReply.owo, allowedMentions: { parse: [] } });
 	},
 }; 
