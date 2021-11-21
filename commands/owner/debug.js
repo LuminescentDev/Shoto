@@ -7,12 +7,12 @@ module.exports = {
 	msgcmd: true,
 	owner: true,
 	args: true,
-	async execute(client, interaction, args) {
+	async execute(client, message, args) {
 		if(!args){
-			interaction.editReply(client.debug);
+			message.reply(client.debug);
 		}else{
 			client.debug = args[0];
-			interaction.editReply(client.debug);
+			message.reply(client.debug);
 		}
 	},
 }; 
