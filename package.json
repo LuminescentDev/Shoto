@@ -17,6 +17,7 @@
 	},
 	"homepage": "https://github.com/AkiraDevelopment/Shoto#readme",
 	"dependencies": {
+		"booru": "^2.5.0",
 		"canvas": "^2.8.0",
 		"discord.js": "^13.2.0",
 		"erela.js": "^2.3.3",
