@@ -24,26 +24,6 @@ client.stats = new Statcord.Client({
 	postMemStatistics: true, 
 	postNetworkStatistics: true,
 });
-//create lavalink manager
-client.manager = new Manager({
-	nodes: [
-		{
-			host: client.config.LAVA_HOST,
-			port: client.config.LAVA_PORT,
-			password: client.config.LAVA_PASS,
-		},
-	],
-	send: (id, payload) => {
-		const guild = client.guilds.cache.get(id);
-		if (guild) guild.shard.send(payload);
-	},
-	autoPlay: true,
-	plugins: [new Spotify({
-		clientID: client.config.SpotifyID,
-		clientSecret: client.config.SpotifySecret,
-	}),
-	],
-});
 
 //register custom field for statcord
 client.stats.registerCustomFieldHandler(1, async client => {
