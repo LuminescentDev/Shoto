@@ -25,10 +25,6 @@ client.stats = new Statcord.Client({
 	postNetworkStatistics: true,
 });
 
-//register custom field for statcord
-client.stats.registerCustomFieldHandler(1, async client => {
-	return client.manager.nodes.map(node => node.stats.players).reduce((a, b) => a + b, 0).toString();
-});
 //load all handlers
 for (const handler of fs.readdirSync("./handlers").filter(file => file.endsWith(".js"))) require(`./handlers/${handler}`)(client);
 //login to client
