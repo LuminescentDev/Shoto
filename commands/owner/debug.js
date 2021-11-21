@@ -6,13 +6,12 @@ module.exports = {
 	description: "Change debug mode!",
 	msgcmd: true,
 	owner: true,
-	args: true,
 	async execute(client, message, args) {
 		if(!args){
-			message.reply(client.debug);
+			message.reply(`debug set to: ${client.debug}`);
 		}else{
 			client.debug = args[0];
-			message.reply(client.debug);
+			message.reply(`debug set to: ${client.debug}`);
 		}
 	},
 }; 
