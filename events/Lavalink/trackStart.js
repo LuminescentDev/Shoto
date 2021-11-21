@@ -1,10 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { convertTime } = require("../../utilities/convert.js");
 
-function sleep(ms) {
-	return new Promise(res => setTimeout(res, ms));
-}
-
 module.exports = async (client, player, track, payload) => {
 
 	const channel = client.channels.cache.get(player.textChannel);
@@ -15,9 +11,6 @@ module.exports = async (client, player, track, payload) => {
         .setThumbnail(track.displayThumbnail("3"))
         .setColor(client.embedColor)
         .setTimestamp();
-	return channel.send({embeds: [embed]}).then(async msg => {
-		await sleep(60000);
-		msg.delete();
-	});
+	return channel.send({embeds: [embed]});
     
 }; 

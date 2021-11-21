@@ -43,7 +43,7 @@ client.manager = new Manager({
 		clientSecret: client.config.SpotifySecret,
 	}),
 	],
-})
+});
 
 //register custom field for statcord
 client.stats.registerCustomFieldHandler(1, async client => {

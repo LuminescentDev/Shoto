@@ -15,5 +15,16 @@
 	"LAVA_PASS": "lavalink server password",
 	"SpotifyID": "spotify application id",
 	"SpotifySecret": "spotify application secret",
-	"embedColor": "default embed color i guess idk"
+	"embedColor": "default embed color i guess idk",
+	"nodes": [
+		{
+		  "host": "host url",
+		  "port": 1,
+		  "password": "password",
+		  "identifier": "lavamusic",
+		  "retryAmount": 3,
+		  "retryDelay": 3000,
+		  "secure": false 
+		}
+	  ]
 }

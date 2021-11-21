@@ -1,102 +1,92 @@
-const { MessageEmbed } = require("discord.js");
-const { convertTime } = require("../../utilities/convert.js");
-
+const { MessageEmbed } = require('discord.js');
+const { TrackUtils } = require('erela.js');
+const { convertTime } = require('../../utilities/convert');
+const { addsong, playlist, resume, warn } = require('../../utilities/emoji.json');
 module.exports = {
-	name: "play",
-	category: "Music",
-	description: "Plays audio from YouTube or Soundcloud",
-	usage: "<YouTube URL | Video Name | Spotify URL>",
-	permission: [],
-	owner: false,
-	player: false,
+	name: 'play',
+	description: 'Play music from YouTube, Spotify, or Apple Music',
+	usage: '<Song URL/Name/Playlist URL>',
+	aliases: ['p'],
+	args: true,
+	guildOnly: true,
 	inVoiceChannel: true,
-	sameVoiceChannel: false,
-	options: [{
-		name: "song",
-		type: "STRING",
-		description: "The song to play",
-		required: true,
-	}],
-	async execute(client, interaction, args) {
-  
-
-
-		const { channel } = interaction.member.voice;
-		var player = interaction.client.manager.get(interaction.guild.id);
-
-		if (player && interaction.member.voice.channel !== interaction.guild.me.voice.channel) {
-			let thing = new MessageEmbed()
-                .setColor("RED")
-                .setDescription(`You must be in the same channel as ${interaction.client.user}`);
-			interaction.editReply({embeds: [thing]});
-		} else if (!player) {
-			var player = interaction.client.manager.create({
-				guild: interaction.guild.id,
+	options: require('../options/play.json'),
+	async execute(message, args, client) {
+		const { channel } = message.member.voice;
+		let player = client.manager.get(message.guild.id);
+		if (player && message.member.voice.channel !== message.guild.me.voice.channel) {
+			const thing = new MessageEmbed()
+				.setColor('RED')
+				.setDescription(`You must be in the same channel as ${client.user}`);
+			return message.reply({ embeds: [thing] });
+		}
+		else if (!player) {
+			player = client.manager.create({
+				guild: message.guild.id,
 				voiceChannel: channel.id,
-				textChannel: interaction.channel.id,
+				textChannel: message.channel.id,
 				volume: 50,
 				selfDeafen: true,
 			});
 		}
-
-		if (player.state !== "CONNECTED") player.connect();
-
-		player.set("autoplay", false);
-        
-		const emojiaddsong = interaction.client.emoji.addsong;
-		const emojiplaylist = interaction.client.emoji.playlist;
-
-		const search = args.join(" ");
-		let res;
-
+		if (player.state != 'CONNECTED') player.connect();
+		if (message.guild.me.voice.serverMute) return message.reply({ content: 'I\'m server muted!', ephemeral: true });
+		player.set('autoplay', false);
+		const search = args.join(' '); const songs = [];
+		const msg = await message.reply(`🔎 Searching for \`${search}\`...`);
+		const slash = message.type && message.type == 'APPLICATION_COMMAND';
 		try {
-			res = await player.search(search, interaction.member.user);
-			if (res.loadType === "LOAD_FAILED") {
-				if (!player.queue.current) player.destroy();
-				throw res.exception;
+			const embed = new MessageEmbed().setTimestamp();
+			if (search.match(client.Lavasfy.spotifyPattern)) {
+				await client.Lavasfy.requestToken();
+				const node = await client.Lavasfy.getNode('lavamusic');
+				const Searched = await node.load(search);
+				const track = Searched.tracks[0];
+				if (Searched.loadType === 'PLAYLIST_LOADED') {
+					embed.setDescription(`${playlist} **Added Playlist to queue**\n[${Searched.playlistInfo.name}](${search}) \`[${Searched.tracks.length} songs]\` [${message.member.user}]`);
+					for (let i = 0; i < Searched.tracks.length; i++) songs.push(TrackUtils.build(Searched.tracks[i]));
+				}
+				else if (Searched.loadType.startsWith('TRACK')) {
+					embed.setDescription(`${playlist} **Added Song to queue**\n[${track.info.title}](${track.info.uri}) [${message.member.user}]`);
+					songs.push(Searched.tracks[0]);
+				}
+				else {
+					embed.setColor('RED').setDescription('No results found.');
+					return slash ? message.editReply({ content: `${warn} **Failed to search**`, embeds: [embed] }) : msg.edit({ content: `${warn} **Failed to search**`, embeds: [embed] });
+				}
+				track.img = 'https://i.imgur.com/cK7XIkw.png';
 			}
-		} catch (err) {
-			return interaction.editReply(`there was an error while searching: ${err.message}`);
-		}
-
-		switch (res.loadType) {
-			case "NO_MATCHES":
-				if (!player.queue.current) player.destroy();
-				return interaction.editReply("there were no results found.");
-			case "TRACK_LOADED":
-				var track = res.tracks[0];
-				player.queue.add(track);
-				if (!player.playing && !player.paused && player.queue.size === 0) { 
-					return player.play();
-				} else {
-					var thing = new MessageEmbed()
-                        .setColor(client.embedColor)
-                        .setTimestamp()
-                        .setThumbnail(track.displayThumbnail("hqdefault"))
-                        .setDescription(`${emojiaddsong} **Added Song to queue**\n[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\``);
-					return interaction.editReply({embeds: [thing]});
+			else {
+				const Searched = await player.search(search);
+				const track = Searched.tracks[0];
+				if (Searched.loadType === 'NO_MATCHES') {
+					embed.setColor('RED').setDescription('No results found.');
+					return slash ? message.editReply({ content: `${warn} **Failed to search**`, embeds: [embed] }) : msg.edit({ content: `${warn} **Failed to search**`, embeds: [embed] });
 				}
-			case "PLAYLIST_LOADED":
-				player.queue.add(res.tracks);
-				if (!player.playing && !player.paused && player.queue.totalSize === res.tracks.length) player.play();
-				var thing = new MessageEmbed()
-                    .setColor(client.embedColor)
-                    .setTimestamp()
-                    .setDescription(`${emojiplaylist} **Added Playlist to queue**\n${res.tracks.length} Songs **${res.playlist.name}** - \`[${convertTime(res.playlist.duration)}]\``);
-				return interaction.editReply({embeds: [thing]});
-			case "SEARCH_RESULT":
-				var track = res.tracks[0];
-				player.queue.add(track);
-				if (!player.playing && !player.paused && player.queue.size === 0) {
-					return player.play();
-				} else {
-					var thing = new MessageEmbed()
-                        .setColor(client.embedColor)
-                        .setTimestamp()
-                        .setThumbnail(track.displayThumbnail("hqdefault"))
-                        .setDescription(`${emojiaddsong} **Added Song to queue**\n[${track.title}](${track.uri}) - \`[${convertTime(track.duration)}]\`[<@${track.requester.id}>]`);
-					return interaction.editReply({embeds: [thing]});
+				else if (Searched.loadType == 'PLAYLIST_LOADED') {
+					embed.setDescription(`${playlist} **Added Playlist to queue**\n[${Searched.playlist.name}](${search}) \`[${Searched.tracks.length} songs]\` \`[${convertTime(Searched.playlist.duration)}]\` [${message.member.user}]`);
+					for (let i = 0; i < Searched.tracks.length; i++) {
+						if (Searched.tracks[i].displayThumbnail) Searched.tracks[i].img = Searched.tracks[i].displayThumbnail('hqdefault');
+						songs.push(Searched.tracks[i]);
+					}
 				}
+				else {
+					if (track.displayThumbnail) track.img = track.displayThumbnail('hqdefault');
+					embed.setDescription(`${addsong} **Added Song to queue**\n[${track.title}](${track.uri}) \`[${convertTime(track.duration).replace('07:12:56', 'LIVE')}]\` [${message.member.user}]`)
+						.setThumbnail(track.img);
+					songs.push(Searched.tracks[0]);
+				}
+			}
+			songs.forEach(async song => {
+				song.requester = message.member.user;
+				if (song.author) song.title = `${song.title} - ${song.author}`;
+			});
+			player.queue.add(songs);
+			if (!player.playing) player.play();
+			slash ? message.editReply({ content: `${resume} **Found result for \`${search}\`**`, embeds: [embed] }) : msg.edit({ content: `${resume} **Found result for \`${search}\`**`, embeds: [embed] });
 		}
-	}
-}; 
+		catch (e) {
+			client.logger.error(e);
+		}
+	},
+};
