@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
 	name: "clearqueue",
 	category: "Music",
-  	description: "Clear Queue",
+	description: "Clear Queue",
 	args: false,
 	usage: "<Number of song in queue>",
 	permission: [],
