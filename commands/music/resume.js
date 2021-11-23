@@ -20,7 +20,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 
 		const emojiresume = interaction.client.emoji.resume;
@@ -30,7 +30,7 @@ module.exports = {
                 .setColor("RED")
                 .setDescription(`${emojiresume} The player is already **resumed**.`)
                 .setTimestamp();
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 
 		player.pause(false);
@@ -39,7 +39,7 @@ module.exports = {
             .setDescription(`${emojiresume} **Resumed**\n[${song.title}](${song.uri})`)
             .setColor(interaction.client.embedColor)
             .setTimestamp();
-		return interaction.editReply({embeds: [thing]});
+		return interaction.reply({embeds: [thing]});
 	
 	}
 }; 

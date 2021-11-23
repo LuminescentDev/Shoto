@@ -10,6 +10,7 @@ module.exports = {
 	args: true,
 	guildOnly: true,
 	inVoiceChannel: true,
+	ephemeral: false,
 	options: [
 		{
 			type: "STRING",
@@ -18,14 +19,14 @@ module.exports = {
 			required: true
 		}
 	],
-	async execute(interaction, args, client) {
+	async execute(client, interaction, args, ) {
 		const { channel } = interaction.member.voice;
 		let player = client.manager.get(interaction.guild.id);
 		if (player && channel !== interaction.guild.me.voice.channel) {
 			const thing = new MessageEmbed()
 				.setColor("RED")
 				.setDescription(`You must be in the same channel as ${client.user}`);
-			return interaction.editReply({ embeds: [thing] });
+			return interaction.reply({ embeds: [thing] });
 		}
 		else if (!player) {
 			player = client.manager.create({
@@ -37,10 +38,10 @@ module.exports = {
 			});
 		}
 		if (player.state !== "CONNECTED") player.connect();
-		if (interaction.guild.me.voice.serverMute) return interaction.editReply({ content: "I'm server muted!", ephemeral: true });
+		if (interaction.guild.me.voice.serverMute) return interaction.reply({ content: "I'm server muted!", ephemeral: true });
 		player.set("autoplay", false);
 		const search = args.join(" "); const songs = [];
-		const msg = await interaction.editReply(`🔎 Searching for \`${search}\`...`);
+		const msg = await interaction.reply(`🔎 Searching for \`${search}\`...`);
 		const slash = interaction.type && interaction.type === "APPLICATION_COMMAND";
 		try {
 			const embed = new MessageEmbed().setTimestamp();
@@ -59,7 +60,7 @@ module.exports = {
 				}
 				else {
 					embed.setColor("RED").setDescription("No results found.");
-					return slash ? interaction.editReply({ content: `${warn} **Failed to search**`, embeds: [embed] }) : msg.edit({ content: `${warn} **Failed to search**`, embeds: [embed] });
+					return slash ? interaction.reply({ content: `${warn} **Failed to search**`, embeds: [embed] }) : msg.edit({ content: `${warn} **Failed to search**`, embeds: [embed] });
 				}
 				track.img = "https://i.imgur.com/cK7XIkw.png";
 			}
@@ -68,7 +69,7 @@ module.exports = {
 				const track = Searched.tracks[0];
 				if (Searched.loadType === "NO_MATCHES") {
 					embed.setColor("RED").setDescription("No results found.");
-					return slash ? interaction.editReply({ content: `${warn} **Failed to search**`, embeds: [embed] }) : msg.edit({ content: `${warn} **Failed to search**`, embeds: [embed] });
+					return slash ? interaction.reply({ content: `${warn} **Failed to search**`, embeds: [embed] }) : msg.edit({ content: `${warn} **Failed to search**`, embeds: [embed] });
 				}
 				else if (Searched.loadType === "PLAYLIST_LOADED") {
 					embed.setDescription(`${playlist} **Added Playlist to queue**\n[${Searched.playlist.name}](${search}) \`[${Searched.tracks.length} songs]\` \`[${convertTime(Searched.playlist.duration)}]\` [${interaction.member.user}]`);
@@ -90,7 +91,7 @@ module.exports = {
 			});
 			player.queue.add(songs);
 			if (!player.playing) player.play();
-			interaction.editReply({ content: `${resume} **Found result for \`${search}\`**`, embeds: [embed] });
+			interaction.reply({ content: `${resume} **Found result for \`${search}\`**`, embeds: [embed] });
 		}
 		catch (e) {
 			client.logger.error(e);

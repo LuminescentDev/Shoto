@@ -8,6 +8,6 @@ module.exports = {
 
 		//Query api and respond with result
 		const whyy = await client.fetch(`https://nekos.life/api/v2/why`);
-		interaction.editReply({content: whyy.why, allowedMentions: { parse: [] } });
+		interaction.reply({content: whyy.why, allowedMentions: { parse: [] } });
 	},
 }; 

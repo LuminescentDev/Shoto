@@ -8,6 +8,6 @@ module.exports = {
 
 		//Query api and respond with result
 		const kitty = await client.fetch(`https://nekos.life/api/v2/cat`);
-		interaction.editReply({content: kitty.cat});
+		interaction.reply({content: kitty.cat});
 	},
 }; 

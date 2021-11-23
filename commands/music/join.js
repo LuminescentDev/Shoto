@@ -32,14 +32,14 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor(client.embedColor)
                 .setDescription(`${emojiJoin} **Joined the voice channel**\nJoined <#${channel.id}> and bound to <#${interaction.channel.id}>`);
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 
 		} else if (interaction.guild.me.voice.channel !== channel) {
 
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription(`You must be in the same channel as ${interaction.client.user}`);
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
         
 	}

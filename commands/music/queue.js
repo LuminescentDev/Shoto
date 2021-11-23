@@ -28,7 +28,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 
 		const queue = player.queue;
@@ -55,6 +55,6 @@ module.exports = {
 
 		embed.addField("\u200B", `Page ${page > maxPages ? maxPages : page} of ${maxPages}`);
 
-		return interaction.editReply({embeds: [embed]});
+		return interaction.reply({embeds: [embed]});
 	}
 }; 

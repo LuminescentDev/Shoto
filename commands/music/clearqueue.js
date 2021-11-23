@@ -19,7 +19,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 
 		player.queue.clear();
@@ -30,6 +30,6 @@ module.exports = {
 			.setColor(interaction.client.embedColor)
 			.setTimestamp()
 			.setDescription(`${emojieject} Removed all songs from the queue`);
-			  return interaction.editReply({embeds: [thing]});
+			  return interaction.reply({embeds: [thing]});
 	}
 }; 

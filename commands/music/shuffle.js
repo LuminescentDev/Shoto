@@ -19,7 +19,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 
 
@@ -31,7 +31,7 @@ module.exports = {
             .setDescription(`${emojishuffle} Shuffled the queue`)
             .setColor(interaction.client.embedColor)
             .setTimestamp();
-		return interaction.editReply({embeds: [thing]}).catch(error => client.logger.error(error));
+		return interaction.reply({embeds: [thing]}).catch(error => client.logger.error(error));
 	
 	}
 }; 

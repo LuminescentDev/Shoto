@@ -19,7 +19,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 
 		const autoplay = player.get("autoplay");
@@ -39,7 +39,7 @@ module.exports = {
 			.setDescription(`${emojiskip} **Skipped**\n[${song.title}](${song.uri})`)
 			.setColor(interaction.client.embedColor)
 			.setTimestamp();
-		return interaction.editReply({embeds: [thing]});
+		return interaction.reply({embeds: [thing]});
 	
 	}
 }; 

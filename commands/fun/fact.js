@@ -9,6 +9,6 @@ module.exports = {
 
 		//query fact api and reply with response
 		const facts = await client.fetch(`https://nekos.life/api/v2/fact`);
-		interaction.editReply({content: facts.fact, allowedMentions: { parse: [] } });
+		interaction.reply({content: facts.fact, allowedMentions: { parse: [] } });
 	},
 }; 

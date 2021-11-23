@@ -5,7 +5,7 @@ module.exports = {
 	category: "test",
 	description: "Ping!",
 	async execute(client, interaction, args) {
-		await interaction.editReply({ content: "Pinging..." }).then(async () => {
+		await interaction.reply({ content: "Pinging..." }).then(async () => {
 			const ping = Date.now() - interaction.createdAt;
 			const api_ping = client.ws.ping;
 
@@ -16,7 +16,7 @@ module.exports = {
             .addFields([{ name: "Bot Ping", value: `\`\`\`ini\n[ ${ping}ms ]\n\`\`\``, inline: true }, { name: "API Ping", value: `\`\`\`ini\n[ ${api_ping}ms ]\n\`\`\``, inline: true }])
             .setTimestamp();
 
-			await interaction.editReply({
+			await interaction.reply({
 				content: "`🏓`",
 				embeds: [embed]
 			});

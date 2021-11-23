@@ -61,7 +61,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 
 		const emojiequalizer = interaction.client.emoji.filter;
@@ -241,6 +241,6 @@ module.exports = {
  // No default
 			}
 		}
-		return interaction.editReply({embeds: [thing]});
+		return interaction.reply({embeds: [thing]});
 	}
 }; 

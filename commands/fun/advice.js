@@ -7,6 +7,6 @@ module.exports = {
 
 		//Query advice api and reply with response
 		const advice = await client.fetch("https://api.adviceslip.com/advice");
-		interaction.editReply({content: advice.slip.advice});
+		interaction.reply({content: advice.slip.advice});
 	},
 }; 

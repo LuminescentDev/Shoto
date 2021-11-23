@@ -14,7 +14,7 @@ function GetImage(interaction, args) {
 			}
 		}
 		// no file with the correct format was found
-		if (file.length === 0) return interaction.editReply("IMAGE/INVALID_FILE").then(m => m.delete({ timeout: 10000 }));
+		if (file.length === 0) return interaction.reply("IMAGE/INVALID_FILE").then(m => m.delete({ timeout: 10000 }));
 	} else {
 		// check user
 		if (user !== interaction.member.user) {

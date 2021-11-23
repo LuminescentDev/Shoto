@@ -28,7 +28,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 		
 		const volumeEmoji = interaction.client.emoji.volumehigh;
@@ -38,7 +38,7 @@ module.exports = {
 			.setColor(interaction.client.embedColor)
 			.setTimestamp()
 			.setDescription(`${volumeEmoji} The current volume is: **${player.volume}%**`);
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 
 		const volume = args[0];
@@ -47,7 +47,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
 				.setDescription(`Usage: /volume <Number of volume between 0 - 100>`);
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 
 		player.setVolume(volume);
@@ -58,20 +58,20 @@ module.exports = {
 				.setColor(interaction.client.embedColor)
 				.setTimestamp()
 				.setDescription(`${emojivolume} Volume set to: **${volume}%**`);
-		  return interaction.editReply({embeds: [thing]});
+		  return interaction.reply({embeds: [thing]});
 		} else if (volume < player.volume) {
 			var emojivolume = interaction.client.emoji.volumelow;
 			let thing = new MessageEmbed()
 				.setColor(interaction.client.embedColor)
 				.setTimestamp()
 				.setDescription(`${emojivolume} Volume set to: **${volume}%**`);
-		  return interaction.editReply({embeds: [thing]});
+		  return interaction.reply({embeds: [thing]});
 		} else {
 			let thing = new MessageEmbed()
 				.setColor(interaction.client.embedColor)
 				.setTimestamp()
 				.setDescription(`${volumeEmoji} Volume set to: **${volume}%**`);
-			return interaction.editReply({embeds: [thing]});
+			return interaction.reply({embeds: [thing]});
 		}
 		
  	}

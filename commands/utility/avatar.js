@@ -42,6 +42,6 @@ module.exports = {
 		else emb.setImage(user.displayAvatarURL({ dynamic: true, size: 2048 }));
 
         
-		interaction.editReply({embeds: [emb]});
+		interaction.reply({embeds: [emb]});
 	},
 }; 
