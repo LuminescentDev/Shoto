@@ -1,4 +1,3 @@
-const olisfetch = require("../../utilities/fetch");
 module.exports = {
 	name: "cat",
 	category: "fun",
@@ -8,7 +7,7 @@ module.exports = {
 	async execute(client, interaction, args) {
 
 		//Query api and respond with result
-		const kitty = await olisfetch(`https://nekos.life/api/v2/cat`);
+		const kitty = await client.fetch(`https://nekos.life/api/v2/cat`);
 		interaction.editReply({content: kitty.cat});
 	},
 }; 

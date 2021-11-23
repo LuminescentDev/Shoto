@@ -1,4 +1,3 @@
-const olisfetch = require("../../utilities/fetch");
 module.exports = {
 	name: "advice",
 	category: "fun",
@@ -7,7 +6,7 @@ module.exports = {
 	async execute(client, interaction, args) {
 
 		//Query advice api and reply with response
-		const advice = await olisfetch("https://api.adviceslip.com/advice");
+		const advice = await client.fetch("https://api.adviceslip.com/advice");
 		interaction.editReply({content: advice.slip.advice});
 	},
 }; 

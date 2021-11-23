@@ -1,4 +1,3 @@
-const olisfetch = require("../../utilities/fetch");
 module.exports = {
 	name: "owoify",
 	category: "fun",
@@ -16,7 +15,7 @@ module.exports = {
 		const msg = args.join("+");
 
 		//Query api and respond with result
-		const owomsg = await olisfetch(`https://nekos.life/api/v2/owoify?text=${msg}`);
+		const owomsg = await client.fetch(`https://nekos.life/api/v2/owoify?text=${msg}`);
 		
 		interaction.editReply({content: owomsg.owo, allowedMentions: { parse: [] } });
 	},

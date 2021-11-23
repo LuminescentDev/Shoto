@@ -1,6 +1,5 @@
 
 const Discord = require("discord.js");
-const olisfetch = require("../../utilities/fetch.js");
 module.exports = {
 	name: "magik",
 	category: "image-manipulation",
@@ -25,7 +24,7 @@ module.exports = {
 		//Get command executors profile picture if user is not specified, query api and respond with result
 		const file = args[1] ? interaction.guild.members.cache.get(args[1]).user.displayAvatarURL({ format: "png", size: 2048 }) : interaction.user.displayAvatarURL({ format: "png", size: 2048 });
 		const mgk = await interaction.editReply("Generating Magik...");
-		const res = await olisfetch(`https://nekobot.xyz/api/imagegen?type=magik&image=${file}&intensity=${args[0]}`);
+		const res = await client.fetch(`https://nekobot.xyz/api/imagegen?type=magik&image=${file}&intensity=${args[0]}`);
 		const magikd = new Discord.MessageAttachment(res.message, "Magik.png");
 		interaction.editReply({content: null, files: [magikd]});
 	},

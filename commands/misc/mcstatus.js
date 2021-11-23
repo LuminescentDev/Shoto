@@ -1,5 +1,4 @@
 const protocols = require("../../utilities/mcprotocol.json");
-const olisfetch = require("../../utilities/fetch");
 const Discord = require("discord.js");
 const hastebin = require("hastebin");
 module.exports = {
@@ -19,7 +18,7 @@ module.exports = {
 		let iconpng;
 		
 		const ip = args[0];
-		const info = await olisfetch(`https://api.mcsrvstat.us/2/${ip}`);
+		const info = await client.fetch(`https://api.mcsrvstat.us/2/${ip}`);
 
 		const Embed = new Discord.MessageEmbed().setColor(client.config.embedColor);
 
