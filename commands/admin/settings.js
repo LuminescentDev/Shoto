@@ -237,7 +237,6 @@ module.exports = {
 			const setting = client.settings.get(subCommand);
 			try {
 				setting.execute(client, interaction, args);
-				interaction.editReply(`Setting: ${setting.name} Updated to ${args[1]}`);
 			} catch (error) {
 				client.logger.error(error);
 				interaction.editReply(`There was an error changing that setting\nError:${error} Please contact ${client.users.cache.get(client.config.ownerID[0]).tag} if this error continues`);
