@@ -34,7 +34,7 @@ module.exports = {
                     .setDescription(`${args[0]}`)
                     .setFooter(`${interaction.member.user.username}`, `${interaction.member.user.displayAvatarURL({ dynamic: true, size: 2048 })}`);
 		interaction.guild.channels.cache.get(settings[0].AchannelID).send({embeds: [announcmentEmbed]});
-		interaction.editReply({content: "Message Sent!", ephemeral: true});
+		interaction.editReply({content: "Message Sent!", ephemeral: false});
 
 	},
 };
