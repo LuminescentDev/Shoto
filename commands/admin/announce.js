@@ -20,8 +20,6 @@ module.exports = {
 		//get all settings
 		const settings = await client.getSettings(interaction);
 
-		console.log(settings);
-
 		//if no channel reply with error
 		if (!settings.AchannelID) {
 			return interaction.editReply({content: client.lang("no-config", settings.language), ephemeral: true});
@@ -36,7 +34,7 @@ module.exports = {
                     .setDescription(`${args[0]}`)
                     .setFooter(`${interaction.member.user.username}`, `${interaction.member.user.displayAvatarURL({ dynamic: true, size: 2048 })}`);
 		interaction.guild.channels.cache.get(settings.AchannelID).send({embeds: [announcmentEmbed]});
-		interaction.editReply({content: "Message Sent!", ephemeral: false});
+		interaction.editReply({content: "Message Sent!", ephemeral: true});
 
 	},
 };
