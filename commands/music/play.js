@@ -10,7 +10,6 @@ module.exports = {
 	args: true,
 	guildOnly: true,
 	inVoiceChannel: true,
-	ephemeral: false,
 	options: [
 		{
 			type: "STRING",
@@ -91,7 +90,7 @@ module.exports = {
 			});
 			player.queue.add(songs);
 			if (!player.playing) player.play();
-			interaction.reply({ content: `${resume} **Found result for \`${search}\`**`, embeds: [embed] });
+			interaction.editReply({ content: `${resume} **Found result for \`${search}\`**`, embeds: [embed] });
 		}
 		catch (e) {
 			client.logger.error(e);
