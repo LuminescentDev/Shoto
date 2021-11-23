@@ -32,7 +32,7 @@ module.exports = async (client, guild) => {
 
 	client.channels.cache.get(client.config.AddRemoveLogs).send({embeds: [Embed]})
 		.then(() => client.user.setActivity(`Over ${client.guilds.cache.size} servers!`, { type: "WATCHING" }))
-		.catch(err => client.users.cache.get(client.config.ownerID[0]).send(`${err}`));
+		.catch(err => client.users.cache.get(client.config.ownerID[0]).send(`guildDelete error: ${err}`));
 
 	//Remove the guild from the database
 	client.delSettings(client, guild.id);

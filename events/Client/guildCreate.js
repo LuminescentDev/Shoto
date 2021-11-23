@@ -31,7 +31,7 @@ module.exports = async (client, guild) => {
 
 	client.channels.cache.get(client.config.AddRemoveLogs).send({embeds: [Embed]})
 		.then(() => client.user.setActivity(`Over ${client.guilds.cache.size} servers!`, { type: "WATCHING" }))
-		.catch(err => client.users.cache.get(client.config.ownerID[0]).send(`${err}`));
+		.catch(err => client.users.cache.get(client.config.ownerID[0]).send(`guildCreate error: ${err}`));
     
 	//Add the new guild to the database
 	client.setSettings(client, guild.id);

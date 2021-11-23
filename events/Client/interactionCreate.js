@@ -11,9 +11,7 @@ module.exports = async (client, interaction) => {
 	const member = supportGuild.members.cache.get(interaction.user.id);
 	const isDonator = member ? member.roles.cache.some(role => role.id === "773021050438287390") : false;
 
-	await interaction.deferReply({
-		ephemeral: false
-	});
+	await interaction.deferReply();
 
 	//check if interaction is a command
 	if (interaction.isCommand()){
