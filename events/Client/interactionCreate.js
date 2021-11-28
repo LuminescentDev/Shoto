@@ -113,11 +113,14 @@ module.exports = async (client, interaction) => {
 
 		//get button code and try to execute it
 		const button = client.buttons.get(interaction.customId);
+
+		interaction.deferUpdate({ephemeral: button.ephemeral})
+
 	    try {
 		    button.execute(client, interaction);
 	    } catch (error) {
 		    client.logger.error(error);
-		    interaction.reply(client.lang("cmd-error", "en").replace("{ERROR}", error).replace("{BOT OWNER}", client.users.cache.get(client.config.ownerID[0]).tag));
+		    interaction.editReply(client.lang("cmd-error", "en").replace("{ERROR}", error).replace("{BOT OWNER}", client.users.cache.get(client.config.ownerID[0]).tag));
 		    supportGuild.channels.cache.get("844390085448564746").send(`${error} \n button pressed: ${button.name}`);
 	    }
 	}

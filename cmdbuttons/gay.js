@@ -3,6 +3,7 @@ const { createCanvas, loadImage } = require("canvas");
 const Discord = require("discord.js");
 module.exports = {
 	name: "gay",
+	ephemeral: false,
 	async execute(client, interaction) {
 		const row = new Discord.MessageActionRow()
                         .addComponents(
@@ -29,6 +30,6 @@ module.exports = {
 
 		//turn canvas into a message attachment and send it the the channel
 		const attachment = new Discord.MessageAttachment(canvas.toBuffer(), "gay.png");
-		interaction.update({files: [attachment], components: [row]});
+		interaction.editReply({files: [attachment], components: [row]});
 	},
 }; 
