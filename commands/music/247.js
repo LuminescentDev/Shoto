@@ -5,12 +5,10 @@ module.exports = {
 	name: "247",
 	category: "Music",
 	description: "24/7 in voice channel",
-	args: false,
-	usage: "",
-	permission: [],
 	player: true,
 	inVoiceChannel: true,
 	sameVoiceChannel: true,
+	ephemeral: false,
 	async execute(client, interaction, args) {
 
 		const embed = new MessageEmbed()
@@ -25,6 +23,6 @@ module.exports = {
 			player.twentyFourSeven = true;
 			embed.setDescription(`24/7 mode is now on.`);
 		}
-		return interaction.reply({embeds: [embed]});
+		return interaction.editReply({embeds: [embed]});
 	}
 }; 

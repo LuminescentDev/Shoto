@@ -3,6 +3,7 @@ module.exports = {
 	name: "donate",
 	category: "utility",
 	description: "Sends link to donate url",
+	ephemeral: false,
 	execute(client, interaction, args) {
 		const donate = new Discord.MessageEmbed()
             .setTitle(`Support ${client.user.username}`)
@@ -10,6 +11,6 @@ module.exports = {
             .setURL(`https://donatebot.io/checkout/740705740221841450?buyer=${interaction.member.user.id}`)
 			.setFooter("Cant donate? Voting helps just as much! https://top.gg/bot/796935151417688074/vote")
             .setImage(client.user.displayAvatarURL({ dynamic: true, size: 2048 }));
-		interaction.reply({embeds: [donate]});
+		interaction.editReply({embeds: [donate]});
 	},
 }; 

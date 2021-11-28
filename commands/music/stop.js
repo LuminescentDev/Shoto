@@ -4,13 +4,10 @@ module.exports = {
 	name: "stop",
 	category: "Music",
 	description: "Stops the music",
-	args: false,
-	usage: "",
-	permission: [],
-	owner: false,
 	player: true,
 	inVoiceChannel: true,
 	sameVoiceChannel: true,
+	ephemeral: false,
 	async execute(client, interaction, args) {
   
 		const player = interaction.client.manager.get(interaction.guild.id);
@@ -19,7 +16,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 
 		const autoplay = player.get("autoplay");
@@ -36,7 +33,7 @@ module.exports = {
             .setColor(interaction.client.embedColor)
             .setTimestamp()
             .setDescription(`${emojistop} Stopped the music`);
-		interaction.reply({embeds: [thing]});
+		interaction.editReply({embeds: [thing]});
 	
   	}
 }; 

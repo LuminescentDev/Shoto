@@ -3,6 +3,7 @@ module.exports = {
 	category: "owner",
 	description: "Reloads a command",
 	owner: true,
+	ephemeral: false,
 	options: [{
 		name: "category",
 		type: "STRING",
@@ -23,7 +24,7 @@ module.exports = {
             || interaction.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 		if (!command) {
-			return interaction.reply(`There is no command with name or alias \`${commandName}\`, ${interaction.member.user}!`);
+			return interaction.editReply(`There is no command with name or alias \`${commandName}\`, ${interaction.member.user}!`);
 		}
 
 		delete require.cache[require.resolve(`../${category}/${command.name}.js`)];
@@ -31,10 +32,10 @@ module.exports = {
 		try {
 			const newCommand = require(`../${category}/${command.name}.js`);
 			interaction.client.commands.set(newCommand.name, newCommand);
-			interaction.reply(`Command \`${command.name}\` was reloaded!`);
+			interaction.editReply(`Command \`${command.name}\` was reloaded!`);
 		} catch (error) {
 			client.logger.error(error);
-			interaction.reply(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
+			interaction.editReply(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
 		}
 	},
 }; 

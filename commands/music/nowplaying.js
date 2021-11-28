@@ -6,13 +6,10 @@ module.exports = {
 	name: "nowplaying",
 	category: "Music",
 	description: "Show now playing song",
-	args: false,
-	usage: "",
-	permission: [],
-	owner: false,
 	player: true,
 	inVoiceChannel: false,
 	sameVoiceChannel: false,
+	ephemeral: false,
 	async execute(client, interaction, args) {
   
 		const player = interaction.client.manager.get(interaction.guild.id);
@@ -21,7 +18,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.reply(thing);
+			return interaction.editReply(thing);
 		}
 
 		const song = player.queue.current;
@@ -41,7 +38,7 @@ module.exports = {
             .setColor(interaction.client.embedColor)
             .addField("\u200B", progressbar(total, current, size, line, slider))
             .addField("\u200B", `\`${convertTime(current)} / ${convertTime(total)}\``);
-		return interaction.reply({embeds: [embed]});
+		return interaction.editReply({embeds: [embed]});
             
 	}
 }; 

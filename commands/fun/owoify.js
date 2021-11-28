@@ -2,6 +2,7 @@ module.exports = {
 	name: "owoify",
 	category: "fun",
 	description: "OWO",
+	ephemeral: false,
 	usage: "<Sentence to owoify>",
 	options: [{
 		name: "message",
@@ -17,6 +18,6 @@ module.exports = {
 		//Query api and respond with result
 		const owomsg = await client.fetch(`https://nekos.life/api/v2/owoify?text=${msg}`);
 		
-		interaction.reply({content: owomsg.owo, allowedMentions: { parse: [] } });
+		interaction.editReply({content: owomsg.owo, allowedMentions: { parse: [] } });
 	},
 }; 

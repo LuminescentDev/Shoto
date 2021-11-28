@@ -2,7 +2,7 @@ module.exports = {
 	name: "Snipes",
 	id: "snipes",
 	sqlvalue: "snipes",
-	description: "Weather or not snipes are enabled or disabled",
+	description: "whether or not snipes are enabled or disabled",
 	execute(client, interaction, args){
 		try {
 			client.con.query(`UPDATE Settings Set snipes = ${args[1]} where guildID = "${interaction.guild.id}"`);

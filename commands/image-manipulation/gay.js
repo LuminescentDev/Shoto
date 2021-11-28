@@ -2,9 +2,9 @@
 const Discord = require("discord.js");
 module.exports = {
 	name: "gay",
-	cooldown: 5,
 	category: "image-manipulation",
 	description: "Add a pride flag over your avatar!",
+	ephemeral: false,
 	botPermissions: ["ATTACH_FILES"],
 	execute(client, interaction, args) {
 		//Send button

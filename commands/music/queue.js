@@ -5,13 +5,10 @@ module.exports = {
 	name: "queue",
 	category: "Music",
 	description: "Show the music queue and now playing.",
-	args: false,
-	usage: "",
-	permission: [],
-	owner: false,
 	player: true,
 	inVoiceChannel: false,
 	sameVoiceChannel: false,
+	ephemeral: false,
 	options: [{
 		name: "page",
 		type: "INTEGER",
@@ -28,7 +25,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 
 		const queue = player.queue;
@@ -55,6 +52,6 @@ module.exports = {
 
 		embed.addField("\u200B", `Page ${page > maxPages ? maxPages : page} of ${maxPages}`);
 
-		return interaction.reply({embeds: [embed]});
+		return interaction.editReply({embeds: [embed]});
 	}
 }; 

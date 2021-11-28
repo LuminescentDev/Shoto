@@ -8,10 +8,7 @@ module.exports = {
 	name: "status",
 	category: "misc",
 	description: "Show bots status",
-	args: false,
-	usage: "",
-	permission: [],
-	owner: false,
+	ephemeral: false,
 	async execute(client, interaction, args) {
 		const duration1 = moment.duration(interaction.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
 		const cpu = await si.cpu();
@@ -42,27 +39,27 @@ module.exports = {
             .setColor(interaction.client.embedColor)
             .setThumbnail(interaction.client.user.displayAvatarURL())
             .setDescription(`${about} **Status**
-**= STATISTICS =**
-**• Servers** : ${scount}
-**• Channels** : ${ccount}
-**• Users** : ${mcount}
-**• Discord.js** : v${version}
-**• Node** : ${process.version}
-**= SYSTEM =**
-**• Platfrom** : ${os.type}
-**• Uptime** : ${duration1}
-**• CPU** :
-> **• Cores** : ${cpu.cores}
-> **• Model** : ${os.cpus()[0].model} 
-> **• Speed** : ${os.cpus()[0].speed} MHz
-**• MEMORY** :
-> **• Total Memory** : ${(os.totalmem() / 1024 / 1024).toFixed(2)} Mbps
-> **• Free Memory** : ${(os.freemem() / 1024 / 1024).toFixed(2)} Mbps
-> **• Heap Total** : ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} Mbps
-> **• Heap Usage** : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Mbps
-**= NODES =** :
-${nodes}
-`);
-		interaction.reply({embeds: [embed]});
+			**= STATISTICS =**
+			**• Servers** : ${scount}
+			**• Channels** : ${ccount}
+			**• Users** : ${mcount}
+			**• Discord.js** : v${version}
+			**• Node** : ${process.version}
+			**= SYSTEM =**
+			**• Platfrom** : ${os.type}
+			**• Uptime** : ${duration1}
+			**• CPU** :
+			> **• Cores** : ${cpu.cores}
+			> **• Model** : ${os.cpus()[0].model} 
+			> **• Speed** : ${os.cpus()[0].speed} MHz
+			**• MEMORY** :
+			> **• Total Memory** : ${(os.totalmem() / 1024 / 1024).toFixed(2)} Mbps
+			> **• Free Memory** : ${(os.freemem() / 1024 / 1024).toFixed(2)} Mbps
+			> **• Heap Total** : ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} Mbps
+			> **• Heap Usage** : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Mbps
+			**= NODES =** :
+			${nodes}
+			`);
+		interaction.editReply({embeds: [embed]});
 	}
 }; 

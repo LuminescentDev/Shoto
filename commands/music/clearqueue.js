@@ -4,10 +4,6 @@ module.exports = {
 	name: "clearqueue",
 	category: "Music",
 	description: "Clear Queue",
-	args: false,
-	usage: "<Number of song in queue>",
-	permission: [],
-	owner: false,
 	player: true,
 	inVoiceChannel: true,
 	sameVoiceChannel: true,
@@ -19,7 +15,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 
 		player.queue.clear();
@@ -30,6 +26,6 @@ module.exports = {
 			.setColor(interaction.client.embedColor)
 			.setTimestamp()
 			.setDescription(`${emojieject} Removed all songs from the queue`);
-			  return interaction.reply({embeds: [thing]});
+			  return interaction.editReply({embeds: [thing]});
 	}
 }; 

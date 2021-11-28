@@ -3,10 +3,10 @@ module.exports = {
 	name: "stickbug",
 	category: "image-manipulation",
 	description: "GET STICKBUGGED",
-	botPermissions: ["ATTACH_FILES"],
 	cooldown: 30,
 	guildOnly: true,
-	Donor: false,
+	ephemeral: false,
+	botPermissions: ["ATTACH_FILES"],
 	options: [{
 		name: "user",
 		type: "USER",
@@ -17,10 +17,10 @@ module.exports = {
 
 		//Get executors avatar if user is not specified and query api
 		const file = args[0] ? interaction.guild.members.cache.get(args[0]).user.displayAvatarURL({ format: "png", size: 2048 }) : interaction.user.displayAvatarURL({ format: "png", size: 2048 });
-		await interaction.reply("Generating Stickbug...");
+		await interaction.editReply("Generating Stickbug...");
 		const res = await client.fetch(`https://nekobot.xyz/api/imagegen?type=stickbug&url=${file}`);
 
 		const stickbugd = new Discord.MessageAttachment(res.message, "STICKBUGGED.mp4");
-		interaction.reply({files: [stickbugd]});
+		interaction.editReply({files: [stickbugd]});
 	},
 }; 

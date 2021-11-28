@@ -5,11 +5,10 @@ const { addsong, playlist, resume, warn } = require("../../utilities/emoji.json"
 module.exports = {
 	name: "play",
 	description: "Play music from YouTube, Spotify, or Apple Music",
-	usage: "<Song URL/Name/Playlist URL>",
-	aliases: ["p"],
-	args: true,
 	guildOnly: true,
 	inVoiceChannel: true,
+	ephemeral: false,
+	usage: "<Song URL/Name/Playlist URL>",
 	options: [
 		{
 			type: "STRING",
@@ -25,7 +24,7 @@ module.exports = {
 			const thing = new MessageEmbed()
 				.setColor("RED")
 				.setDescription(`You must be in the same channel as ${client.user}`);
-			return interaction.reply({ embeds: [thing] });
+			return interaction.editReply({ embeds: [thing] });
 		}
 		else if (!player) {
 			player = client.manager.create({
@@ -37,11 +36,11 @@ module.exports = {
 			});
 		}
 		if (player.state !== "CONNECTED") player.connect();
-		if (interaction.guild.me.voice.serverMute) return interaction.reply({ content: "I'm server muted!", ephemeral: true });
+		if (interaction.guild.me.voice.serverMute) return interaction.editReply({ content: "I'm server muted!" });
 		player.set("autoplay", false);
-		const search = args.join(" "); const songs = [];
-		const msg = await interaction.reply(`🔎 Searching for \`${search}\`...`);
-		const slash = interaction.type && interaction.type === "APPLICATION_COMMAND";
+		const search = args.join(" "); 
+		const songs = [];
+		await interaction.editReply(`🔎 Searching for \`${search}\`...`);
 		try {
 			const embed = new MessageEmbed().setTimestamp();
 			if (client.Lavasfy.spotifyPattern.test(search)) {
@@ -59,7 +58,7 @@ module.exports = {
 				}
 				else {
 					embed.setColor("RED").setDescription("No results found.");
-					return slash ? interaction.reply({ content: `${warn} **Failed to search**`, embeds: [embed] }) : msg.edit({ content: `${warn} **Failed to search**`, embeds: [embed] });
+					return interaction.editReply({ content: `${warn} **Failed to search**`, embeds: [embed] });
 				}
 				track.img = "https://i.imgur.com/cK7XIkw.png";
 			}
@@ -68,7 +67,7 @@ module.exports = {
 				const track = Searched.tracks[0];
 				if (Searched.loadType === "NO_MATCHES") {
 					embed.setColor("RED").setDescription("No results found.");
-					return slash ? interaction.reply({ content: `${warn} **Failed to search**`, embeds: [embed] }) : msg.edit({ content: `${warn} **Failed to search**`, embeds: [embed] });
+					return  interaction.editReply({ content: `${warn} **Failed to search**`, embeds: [embed] });
 				}
 				else if (Searched.loadType === "PLAYLIST_LOADED") {
 					embed.setDescription(`${playlist} **Added Playlist to queue**\n[${Searched.playlist.name}](${search}) \`[${Searched.tracks.length} songs]\` \`[${convertTime(Searched.playlist.duration)}]\` [${interaction.member.user}]`);

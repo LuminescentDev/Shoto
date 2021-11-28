@@ -5,10 +5,11 @@ module.exports = {
 	name: "hack",
 	category: "fun",
 	description: "sends elite haxor message",
+	ephemeral: false,
 	async execute(client, interaction, args) {
 
 		//Fucking hack someone
-		interaction.reply("Hack initiated");
+		interaction.editReply("Hack initiated");
 		const prompt = await interaction.channel.send("Initiating Hack [----------] 0% Complete");
 		await sleep(1000);
 		await prompt.edit("Initiating Hack [▉---------] 10% Complete");

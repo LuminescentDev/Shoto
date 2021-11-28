@@ -3,6 +3,7 @@ module.exports = {
 	name: "8ball",
 	category: "fun",
 	description: "ask it questions",
+	ephemeral: false,
 	usage: "<question>",
 	options: [{
 		name: "question",
@@ -28,7 +29,7 @@ module.exports = {
         .setColor("#0099ff")
         .setTitle("THE MAGIC 8BALL")
         .setDescription(client.lang("8ball-message", language).replace("{USERNAME}", interaction.user.username).replace("{QUESTION}", args[0]).replace("{RESPONSE}", eightball[index]));
-		interaction.reply({ embeds: [embed]});
+		interaction.editReply({ embeds: [embed]});
 
 	},
 }; 

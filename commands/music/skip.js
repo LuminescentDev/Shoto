@@ -4,13 +4,10 @@ module.exports = {
 	name: "skip",
 	category: "Music",
 	description: "Skip the currently playing song",
-	args: false,
-	usage: "",
-	permission: [],
-	owner: false,
 	player: true,
 	inVoiceChannel: true,
 	sameVoiceChannel: true,
+	ephemeral: false,
 	async execute(client, interaction, args) {
   
 		const player = interaction.client.manager.get(interaction.guild.id);
@@ -19,7 +16,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 
 		const autoplay = player.get("autoplay");
@@ -39,7 +36,7 @@ module.exports = {
 			.setDescription(`${emojiskip} **Skipped**\n[${song.title}](${song.uri})`)
 			.setColor(interaction.client.embedColor)
 			.setTimestamp();
-		return interaction.reply({embeds: [thing]});
+		return interaction.editReply({embeds: [thing]});
 	
 	}
 }; 

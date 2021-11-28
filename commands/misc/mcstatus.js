@@ -6,8 +6,7 @@ module.exports = {
 	category: "misc",
 	description: "minecraft status",
 	cooldown: 5,
-	guildOnly: false,
-	Donor: false,
+	ephemeral: false,
 	options: [{
 		name: "ip",
 		type: "STRING",
@@ -22,7 +21,7 @@ module.exports = {
 
 		const Embed = new Discord.MessageEmbed().setColor(client.config.embedColor);
 
-		if(!info.online) return interaction.reply("Server offline / invalid ip");
+		if(!info.online) return interaction.editReply("Server offline / invalid ip");
 
 		if (info.hostname) Embed.setTitle(info.hostname);
 		else if (info.port === 25565) Embed.setTitle(info.ip);
@@ -53,6 +52,6 @@ module.exports = {
 		}
 		if (!info.debug.query) Embed.setFooter("ERROR: Query disabled! For more info please contact the server owner and ask them to enable query!");
 
-		interaction.reply({embeds: [Embed], files: [iconpng] });
+		interaction.editReply({embeds: [Embed], files: [iconpng] });
 	},
 }; 

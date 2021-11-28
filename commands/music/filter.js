@@ -3,17 +3,14 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
 	name: "filter",
 	category: "Music",
-	aliases: [ "eq", "equalizer" ],
 	description: "Set EqualizerBand",
-	args: true,
 	usage: "<Party || Bass || Radio || Pop || Trablebass || Soft || Custom || Off>",
-	permission: [],
-	owner: false,
 	player: true,
 	inVoiceChannel: true,
 	sameVoiceChannel: true,
+	ephemeral: false,
 	options: [{
-		type: 3,
+		type: "STRING",
 		name: "type",
 		description: "The type of filter you want to apply.",
 		required: true,
@@ -61,7 +58,7 @@ module.exports = {
 			let thing = new MessageEmbed()
                 .setColor("RED")
                 .setDescription("There is no music playing.");
-			return interaction.reply({embeds: [thing]});
+			return interaction.editReply({embeds: [thing]});
 		}
 
 		const emojiequalizer = interaction.client.emoji.filter;
@@ -241,6 +238,6 @@ module.exports = {
  // No default
 			}
 		}
-		return interaction.reply({embeds: [thing]});
+		return interaction.editReply({embeds: [thing]});
 	}
 }; 

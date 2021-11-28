@@ -2,8 +2,8 @@ module.exports = {
 	name: "goal",
 	category: "owner",
 	description: "Update website goals",
-	cooldown: 5,
 	owner: true,
+	ephemeral: false.valueOf,
 	usage: "<Goal name> <New Number>",
 	options: [{
 		type: 3,
@@ -36,15 +36,15 @@ module.exports = {
 		const condition = args[0];
 		if (condition === "server") {
 			client.con.query(`UPDATE APIGoals SET ServerGoal = ${args[1]}`);
-			message.reply(`Updated Servers goal to ${args[1]}`);
+			message.editReply(`Updated Servers goal to ${args[1]}`);
 		}
 		if (condition === "member") {
 			client.con.query(`UPDATE APIGoals SET SSMemberGoal = ${args[1]}`);
-			message.reply(`Updated Support server members goal to ${args[1]}`);
+			message.editReply(`Updated Support server members goal to ${args[1]}`);
 		}
 		if (condition === "donorgoal") {
 			client.con.query(`UPDATE APIGoals SET DonatorGoal = ${args[1]}`);
-			message.reply(`Updated Donator goal to ${args[1]}`);
+			message.editReply(`Updated Donator goal to ${args[1]}`);
 		}
 	},
 }; 

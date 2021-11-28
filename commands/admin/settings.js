@@ -1,11 +1,12 @@
 const Discord = require("discord.js");
 module.exports = {
 	name: "settings",
-	cooldown: 5,
 	category: "admin",
 	description: "Get all bots settings!",
-	permissions: ["ADMINISTRATOR"],
+	cooldown: 15,
 	guildOnly: true,
+	ephemeral: true,
+	permissions: ["ADMINISTRATOR"],
 	options: [
 		{
 			type: "SUB_COMMAND",
@@ -216,7 +217,7 @@ module.exports = {
 
 			//If settings dont exist generate them
 			if(!settings){
-				return interaction.reply({content: client.lang("missing-config", "en"), ephemeral: true});
+				return interaction.editReply({content: client.lang("missing-config", "en")});
 			} 
 
 			//If settings exist iterate through them all and add to our embed
@@ -225,12 +226,12 @@ module.exports = {
 			});
 
 			//reply with finished embed
-			return interaction.reply({embeds: [settingEmbed]});
+			return interaction.editReply({embeds: [settingEmbed]});
 			//If subcommand is clear
 		}else if(subCommand === "clear"){
 			//Clear specified setting and reply to message
 			client.con.query(`UPDATE Settings SET ${args[1]} = NULL WHERE guildID = ${interaction.guild.id}`);
-			interaction.reply({ content: `Setting ${args[1]} cleared` });
+			interaction.editReply({ content: `Setting ${args[1]} cleared` });
 		}else{
 
 			//Get setting file and execute the code inside
@@ -239,7 +240,7 @@ module.exports = {
 				setting.execute(client, interaction, args);
 			} catch (error) {
 				client.logger.error(error);
-				interaction.reply(`There was an error changing that setting\nError:${error} Please contact ${client.users.cache.get(client.config.ownerID[0]).tag} if this error continues`);
+				interaction.editReply(`There was an error changing that setting\nError:${error} Please contact ${client.users.cache.get(client.config.ownerID[0]).tag} if this error continues`);
 			}
 		}
 	},

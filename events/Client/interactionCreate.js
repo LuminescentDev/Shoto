@@ -23,6 +23,8 @@ module.exports = async (client, interaction) => {
 		args.forEach(arg => args[args.indexOf(arg)] = arg.value);
 		if (interaction.options._subcommand) args.unshift(interaction.options._subcommand);
 
+		interaction.deferReply({ephemeral: command.ephemeral})
+
 		//update command stats
 		client.stats.postCommand(interaction.commandName.toLowerCase(), interaction.user.id);
 
@@ -73,7 +75,7 @@ module.exports = async (client, interaction) => {
 			return interaction.reply({content: "You must own the bot use that command"});
 		}
 
-		//check if cooldowns collection doesnt have command
+		//check if cooldowns collection doesn't have command
 		if (!cooldowns.has(command.name)) {
 			cooldowns.set(command.name, new Discord.Collection());
 		}

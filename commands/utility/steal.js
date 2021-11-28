@@ -1,8 +1,8 @@
 module.exports = {
 	name: "steal",
-	cooldown: 5,
 	category: "utility",
 	description: "Steal an emoji!",
+	ephemeral: false,
 	botPermissions: ["MANAGE_EMOJIS_AND_STICKERS"],
 	permission: ["MANAGE_EMOJIS_AND_STICKERS"],
 	options: [{
@@ -32,7 +32,6 @@ module.exports = {
 		required: true,
 	}],
 	execute(client, interaction, args) {
-
 
 		try {
 			//check if string is actually a valid emote
