@@ -15,6 +15,6 @@ module.exports = {
             .setLabel("Gayify urself")
             .setEmoji("742458322220875967")
             .setStyle("PRIMARY"));
-		interaction.reply({content: "click it for gay", components: [row] });
+		interaction.editReply({content: "click it for gay", components: [row] });
 	},
 }; 
