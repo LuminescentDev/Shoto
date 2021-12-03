@@ -78,10 +78,10 @@ module.exports = async (client, message) => {
 		return message.reply({embeds: [embed]});
 	}
 
-	if(command.botPermissions && message.guild.me.permissions.has(command.botPermissions) || !message.guild.me.permissionsIn(message.channel).has(command.botPermissions)){
+	if(command.botPermissions && !message.guild.me.permissions.has(command.botPermissions) || !message.guild.me.permissionsIn(message.channel).has(command.botPermissions)){
 		return client.logger.error(`Missing Message permission in ${message.guild.id}`);
 	} 
-
+ 
 	if (command.permission && !message.member.permissions.has(command.permission)) {
 		embed.setDescription(`You do not have sufficient permissions to use this command. \n **REQUIRED PERMISSIONS:** ${command.permission.join(" ")}`);
 		return message.reply({embeds: [embed]});
