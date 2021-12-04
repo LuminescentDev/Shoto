@@ -30,10 +30,9 @@ module.exports = async (client, info) => {
 		}else{
 			let username = client.users.cache.get(buyer) ? client.users.cache.get(buyer).username : "Unknown User";
 
-			//get users vote total from the database and add 1 and update lastevote to current time
 			client.con.query(`UPDATE Users Set donor = ${info.role_id} where userID = "${buyer}"`);
 
-			//set embed description and send it to the vote channel
+			//set embed description and send it to the donor channel
 			donoEmbed.setDescription(`Thank you for Donating ${username}!\nYou now have access to donor only commands and lower cooldown times!`);
 			client.channels.cache.get(client.config.donorChannel).send({ embeds: [donoEmbed]});
 		}

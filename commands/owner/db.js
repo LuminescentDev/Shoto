@@ -17,7 +17,7 @@ module.exports = {
 
 			let rstls = [];
 
-
+			if(results){
 			results.forEach(e => {
 				for(var key in e){
 					rstls.push(key + " - " + e[key]);
@@ -33,6 +33,9 @@ module.exports = {
 			}
 
 			message.reply({content: `\`\`\`${rstls}\`\`\``});
+		}else{
+			message.reply("No results found or no results to display.");
+		}
 		} catch (err) {
 			message.reply({content: `\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``});
 		}
