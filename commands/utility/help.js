@@ -4,6 +4,7 @@ module.exports = {
 	category: "utility",
 	description: "List all of my commands or info about a specific command.",
 	aliases: ["commands"],
+	botPermissions: [],
 	usage: "[command name]",
 	cooldown: 5,
 	msgcmd: true,
