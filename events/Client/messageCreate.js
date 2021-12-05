@@ -41,7 +41,6 @@ module.exports = async (client, message) => {
 
 	//get all settings from database
 	const settings = await client.getSettings(message);
-
 	let prefix = settings.prefix;
 	let language = settings.language;
 
@@ -65,6 +64,8 @@ module.exports = async (client, message) => {
 	//check if command exists
 	if (!command) return;
 
+	const blacklist = await client.query(`SELECT * FROM blacklist WHERE userID = '${message.author.id}'`);
+
 	if(!message.guild.me.permissions.has("SEND_MESSAGES") || !message.guild.me.permissionsIn(message.channel).has("SEND_MESSAGES")){
 		return client.logger.error(`Missing Message permission in ${message.guild.id}`);
 	} 
@@ -75,6 +76,12 @@ module.exports = async (client, message) => {
 	//check if command is a message or slash command
 	if (!command.msgcmd) {
 		embed.setDescription("That is a slash command please try again with /commandname");
+		return message.reply({embeds: [embed]});
+	}
+
+	//check if user is blacklisted
+	if (blacklist.length !== 0 && command.name !== "blacklist") {
+		embed.setDescription("You are blacklisted from using this bot. If you think this is a mistake please contact the bot owner.");
 		return message.reply({embeds: [embed]});
 	}
 

@@ -13,24 +13,24 @@ module.exports = {
         let reason = args.slice(1).join(" ");
         if (!reason) return message.channel.send("Please provide a reason.");
         let punisher = message.author;
-        client.query(`INSERT INTO blacklist (userID, reason, punisher) VALUES (${user.id}, ${reason}, ${punisher.id})`)
-        embed = new Discord.MessageEmbed()
+        client.query(`INSERT INTO blacklist (userID, reason, punisher) VALUES ("${user.id}", "${reason}", "${punisher.id}")`);
+        let embed = new Discord.MessageEmbed()
         .setTitle(`Blacklisted User ${user.tag}`)
         .setDescription(`${user.tag} has been blacklisted for ${reason}`)
         .setColor("#ff0000")
         .setFooter(`Blacklisted by ${punisher.tag}`)
-        client.channels.cache.get(client.config.logChannel).send(embed)
+        client.channels.cache.get(client.config.logChannel).send({embeds: [embed]});
         } else {
         let results = await client.query(`SELECT * FROM blacklist WHERE userID = '${message.author.id}'`);
-        if (!results) return message.channel.send("You are not blacklisted.");
-        let reason = results.reason;
-        let punisher = client.users.cache.get(results.punisher);
+        if (!results[0]) return message.channel.send("You are not blacklisted.");
+        let reason = results[0].reason;
+        let punisher = client.users.cache.get(results[0].punisher);
         let embed = new Discord.MessageEmbed()
         .setTitle("Blacklisted")
         .setDescription(`You are blacklisted from using the bot for the following reason: ${reason}`)
         .setColor("#ff0000")
         .setFooter(`Blacklisted by ${punisher.tag}`)
-        message.channel.send(embed);
+        message.channel.send({embeds: [embed]});
         }
 	},
 }; 
