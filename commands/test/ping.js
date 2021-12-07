@@ -5,7 +5,7 @@ module.exports = {
 	description: "Ping!",
 	ephemeral: false,
 	async execute(client, interaction, args) {
-		await interaction.reply({ content: "Pinging..." }).then(async () => {
+		await interaction.editReply({ content: "Pinging..." }).then(async () => {
 			const ping = Date.now() - interaction.createdAt;
 			const api_ping = client.ws.ping;
 

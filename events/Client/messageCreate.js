@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
 const { MessageAttachment, MessageEmbed } = require("discord.js");
 const Discord = require("discord.js");
+const e = require("express");
 const cooldowns = new Discord.Collection();
 
 module.exports = async (client, message) => {
@@ -38,6 +39,30 @@ module.exports = async (client, message) => {
 		}
 		client.channels.cache.get(client.config.dmchannelID).send({ content: `**${message.author}** > ${message.content}` });
 	}
+
+	//check if cooldowns contains the command if not add it to cooldowns
+	const now = Date.now();
+	if (!cooldowns.has(message.author.id)) {
+		cooldowns.set(message.author.id, new Discord.Collection());
+		console.log("added cooldowns");
+	}
+
+	//get the current time and get the commands cooldowns
+	const userTimestamps = cooldowns.get(message.author.id);
+	const UserCooldownAmount = 3 * 1000;
+
+	//check if author is on cooldown
+	if (userTimestamps.has(message.author.id)) {
+		const UserExpirationTime = userTimestamps.get(message.author.id) + UserCooldownAmount;
+
+		if (now < UserExpirationTime) {
+			const timeLeft = (UserExpirationTime - now) / 1000;
+			return console.log(timeLeft)
+		}
+	}
+	client.levelSystem(message);
+	userTimestamps.set(message.author.id, now);
+	setTimeout(() => userTimestamps.delete(message.author.id), UserCooldownAmount);
 
 	//get all settings from database
 	const settings = await client.getSettings(message);
@@ -88,7 +113,7 @@ module.exports = async (client, message) => {
 	if(command.botPermissions && !message.guild.me.permissions.has(command.botPermissions) || !message.guild.me.permissionsIn(message.channel).has(command.botPermissions)){
 		return client.logger.error(`Missing Message permission in ${message.guild.id}`);
 	} 
- 
+
 	if (command.permission && !message.member.permissions.has(command.permission)) {
 		embed.setDescription(`You do not have sufficient permissions to use this command. \n **REQUIRED PERMISSIONS:** ${command.permission.join(" ")}`);
 		return message.reply({embeds: [embed]});
@@ -126,7 +151,6 @@ module.exports = async (client, message) => {
 	}
 
 	//get the current time and get the commands cooldowns
-	const now = Date.now();
 	const timestamps = cooldowns.get(command.name);
 	const cooldownAmount = (command.cooldown || 3) * 1000;
 
