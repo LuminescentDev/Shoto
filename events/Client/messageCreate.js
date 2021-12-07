@@ -44,7 +44,6 @@ module.exports = async (client, message) => {
 	const now = Date.now();
 	if (!cooldowns.has(message.author.id)) {
 		cooldowns.set(message.author.id, new Discord.Collection());
-		console.log("added cooldowns");
 	}
 
 	//get the current time and get the commands cooldowns
@@ -57,7 +56,6 @@ module.exports = async (client, message) => {
 
 		if (now < UserExpirationTime) {
 			const timeLeft = (UserExpirationTime - now) / 1000;
-			return console.log(timeLeft)
 		}
 	}
 	client.levelSystem(message);
