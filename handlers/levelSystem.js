@@ -1,4 +1,5 @@
 const Canvas = require('canvas');
+const mysql = require('mysql');
 module.exports = async (client) => {
     const applyText = (canvas, text) => {
         const context = canvas.getContext('2d');
@@ -22,18 +23,28 @@ module.exports = async (client) => {
 
     client.levelSystem = async function (message) {
         console.log(message.author.id)
-        const user = await client.users.get(message.author ? message.author.id : message.user.id);
+        const user = await client.users.get(message.author.id);
         user.xp += Math.round(Math.random() * (10 - 1) + 1);
         if (user.xp > user.nextLevelXp) {
             if(user.currentLevel === 50) {
-                client.con.query(`UPDATE Users set xp = 0, currentLevel = 1, nextLevelXp = 100, prestige = ${user.prestige + 1} WHERE userID = "${message.author ? message.author.id : message.user.id}"`);
-                message.channel.send(`${message.author ? message.author.username : message.user.username} has reached level 50 and is now Level 1, Prestige ${user.prestige + 1}!`);
+                const prestige = user.prestige + 1;
+                let sql = "UPDATE Users set xp = 0, currentLevel = 1, nextLevelXp = 100, prestige = ? WHERE userID = ?";
+                let inserts = [prestige, message.author.id];
+                sql = mysql.format(sql, inserts);
+                client.con.query(sql);
+                message.channel.send(`${message.author.username} has reached level 50 and is now Level 1, Prestige ${prestige}!`);
             }else{
                 user.nextLevelXp = Math.round(user.nextLevelXp * 1.10 + (user.prestige / 5));
-                client.con.query(`UPDATE Users set xp = 0, currentLevel = ${user.currentLevel + 1}, nextLevelXp = ${user.nextLevelXp} WHERE userID = "${message.author ? message.author.id : message.user.id}"`);
+                let sql = "UPDATE Users set xp = 0, currentLevel = ?, nextLevelXp = ? WHERE userID = ?"
+                let inserts = [user.currentLevel + 1, user.nextLevelXp, message.author.id];
+                sql = mysql.format(sql, inserts);
+                client.con.query(sql);
             }
         }else{
-            client.con.query(`UPDATE Users set xp = ${user.xp} WHERE userID = "${message.author ? message.author.id : message.user.id}"`);
+            let sql = "UPDATE Users set xp = ? WHERE userID = ?"
+            let inserts = [user.xp, message.author.id];
+            sql = mysql.format(sql, inserts);
+            client.con.query(sql);
         }   
     }
     client.userProfile = async function (user) {
