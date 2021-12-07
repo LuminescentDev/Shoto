@@ -24,7 +24,6 @@ module.exports = async (client) => {
     client.levelSystem = async function (message) {
         const user = await client.users.get(message.author.id);
         let xp = Math.round(Math.random() * (10 - 1) + 1) + user.xp;
-        console.log(`userXp: ${user.xp}`);
         if (xp > user.nextLevelXp) {
             if(user.currentLevel === 50) {
                 const prestige = user.prestige + 1;
@@ -41,7 +40,6 @@ module.exports = async (client) => {
                 client.con.query(sql);
             }
         }else{
-            console.log(`Updated userXp: ${xp}`);
             let sql = "UPDATE Users SET xp = ? WHERE userID = ?"
             let inserts = [xp, message.author.id];
             sql = mysql.format(sql, inserts);
