@@ -3,6 +3,7 @@ const { MessageAttachment, MessageEmbed } = require("discord.js");
 const Discord = require("discord.js");
 const e = require("express");
 const cooldowns = new Discord.Collection();
+const talkedRecently = new Set();
 
 module.exports = async (client, message) => {
 
@@ -40,27 +41,7 @@ module.exports = async (client, message) => {
 		client.channels.cache.get(client.config.dmchannelID).send({ content: `**${message.author}** > ${message.content}` });
 	}
 
-	//check if cooldowns contains the command if not add it to cooldowns
-	const now = Date.now();
-	if (!cooldowns.has(message.author.id)) {
-		cooldowns.set(message.author.id, new Discord.Collection());
-	}
-
-	//get the current time and get the commands cooldowns
-	const userTimestamps = cooldowns.get(message.author.id);
-	const UserCooldownAmount = 3 * 1000;
-
-	//check if author is on cooldown
-	if (userTimestamps.has(message.author.id)) {
-		const UserExpirationTime = userTimestamps.get(message.author.id) + UserCooldownAmount;
-
-		if (now < UserExpirationTime) {
-			const timeLeft = (UserExpirationTime - now) / 1000;
-		}
-	}
-	client.levelSystem(message);
-	userTimestamps.set(message.author.id, now);
-	setTimeout(() => userTimestamps.delete(message.author.id), UserCooldownAmount);
+	const now = Date.now();;
 
 	//get all settings from database
 	const settings = await client.getSettings(message);
@@ -68,7 +49,19 @@ module.exports = async (client, message) => {
 	let language = settings.language;
 
 	//check if message starts with prefix
-	if (!message.content.startsWith(prefix)) return;
+	if (!message.content.startsWith(prefix)){
+		if (talkedRecently.has(message.author.id)) {
+            return;
+        }else{
+            client.levelSystem(message);
+            talkedRecently.add(message.author.id);
+            setTimeout(() => {
+              // Removes the user from the set after 2.5 seconds
+            talkedRecently.delete(message.author.id);
+            }, 4000);
+		};
+		return;
+	}
 
 	//get arguments and check if first argument set command name to first argument
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
