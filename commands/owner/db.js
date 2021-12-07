@@ -17,7 +17,7 @@ module.exports = {
 
 			let rstls = [];
 
-			if(results){
+			if(results.length > 0) {
 			results.forEach(e => {
 				for(var key in e){
 					rstls.push(key + " - " + e[key]);

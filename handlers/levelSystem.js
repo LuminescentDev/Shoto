@@ -21,18 +21,19 @@ module.exports = async (client) => {
     }
 
     client.levelSystem = async function (message) {
+        console.log(message.author.id)
         const user = await client.users.get(message.author ? message.author.id : message.user.id);
         user.xp += Math.round(Math.random() * (10 - 1) + 1);
         if (user.xp > user.nextLevelXp) {
             if(user.currentLevel === 50) {
-                client.con.query(`UPDATE Users set xp = 0, currentLevel = 1, nextLevelXp = 100, prestige = ${user.prestige + 1} WHERE userID = ${message.author ? message.author.id : message.user.id}`);
+                client.con.query(`UPDATE Users set xp = 0, currentLevel = 1, nextLevelXp = 100, prestige = ${user.prestige + 1} WHERE userID = "${message.author ? message.author.id : message.user.id}"`);
                 message.channel.send(`${message.author ? message.author.username : message.user.username} has reached level 50 and is now Level 1, Prestige ${user.prestige + 1}!`);
             }else{
                 user.nextLevelXp = Math.round(user.nextLevelXp * 1.10 + (user.prestige / 5));
-                client.con.query(`UPDATE Users set xp = 0, currentLevel = ${user.currentLevel + 1}, nextLevelXp = ${user.nextLevelXp} WHERE userID = ${message.author ? message.author.id : message.user.id}`);
+                client.con.query(`UPDATE Users set xp = 0, currentLevel = ${user.currentLevel + 1}, nextLevelXp = ${user.nextLevelXp} WHERE userID = "${message.author ? message.author.id : message.user.id}"`);
             }
         }else{
-            client.con.query(`UPDATE Users set xp = ${user.xp} WHERE userID = ${message.author ? message.author.id : message.user.id}`);
+            client.con.query(`UPDATE Users set xp = ${user.xp} WHERE userID = "${message.author ? message.author.id : message.user.id}"`);
         }   
     }
     client.userProfile = async function (user) {
