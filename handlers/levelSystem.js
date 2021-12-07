@@ -28,25 +28,26 @@ module.exports = async (client) => {
         if (user.xp > user.nextLevelXp) {
             if(user.currentLevel === 50) {
                 const prestige = user.prestige + 1;
-                let sql = "UPDATE Users set xp = 0, currentLevel = 1, nextLevelXp = 100, prestige = ? WHERE userID = ?";
+                let sql = "UPDATE Users SET xp = 0, currentLevel = 1, nextLevelXp = 100, prestige = ? WHERE userID = ?";
                 let inserts = [prestige, message.author.id];
                 sql = mysql.format(sql, inserts);
                 client.con.query(sql);
                 message.channel.send(`${message.author.username} has reached level 50 and is now Level 1, Prestige ${prestige}!`);
             }else{
                 user.nextLevelXp = Math.round(user.nextLevelXp * 1.10 + (user.prestige / 5));
-                let sql = "UPDATE Users set xp = 0, currentLevel = ?, nextLevelXp = ? WHERE userID = ?"
+                let sql = "UPDATE Users SET xp = 0, currentLevel = ?, nextLevelXp = ? WHERE userID = ?"
                 let inserts = [user.currentLevel + 1, user.nextLevelXp, message.author.id];
                 sql = mysql.format(sql, inserts);
                 client.con.query(sql);
             }
         }else{
-            let sql = "UPDATE Users set xp = ? WHERE userID = ?"
+            let sql = "UPDATE Users SET xp = ? WHERE userID = ?"
             let inserts = [user.xp, message.author.id];
             sql = mysql.format(sql, inserts);
             client.con.query(sql);
         }   
     }
+
     client.userProfile = async function (user) {
         const userResults = await client.users.get(user.id);
         const canvas = Canvas.createCanvas(700, 250);
