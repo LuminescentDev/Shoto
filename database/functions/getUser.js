@@ -8,7 +8,7 @@ module.exports = client => {
 		const users = await client.query(`SELECT * FROM Users WHERE userID = ${args}`);
 		if(users.length === 0) {
 			require('../models/user.js')(client, args);
-			sleep(100);
+			await sleep(500);
 			users[0] = await client.query(`SELECT * FROM Users WHERE userID = ${args}`);
 		}
 		return users[0];
