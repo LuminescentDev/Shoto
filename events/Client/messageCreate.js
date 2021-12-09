@@ -50,7 +50,7 @@ module.exports = async (client, message) => {
 
 	//check if message starts with prefix
 	if (!message.content.startsWith(prefix)){
-		if(message.content.toLowerCase().includes("holographic")){
+		if(message.content.toLowerCase().includes("holographic")&& !message.content.toLowerCase().includes("extension")){
 			if(message.guild.id === "746125698644705524"){
 				if(message.channel.id !== "751679912246771722"){
 					message.reply("Check pins in <#751679912246771722>")
