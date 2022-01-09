@@ -50,7 +50,7 @@ module.exports = {
 			const link = await hastebin.createPaste(info.plugins.raw.join("\n"), { server: "https://bin.birdflop.com" });
 			Embed.addField("**Plugins:**", `[Click Here](${link})`, true);
 		}
-		if (!info.debug.query) Embed.setFooter("ERROR: Query disabled! For more info please contact the server owner and ask them to enable query!");
+		if (!info.debug.query) Embed.setFooter({text: "ERROR: Query disabled! For more info please contact the server owner and ask them to enable query!"});
 
 		interaction.editReply({embeds: [Embed], files: [iconpng] });
 	},

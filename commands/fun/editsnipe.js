@@ -25,9 +25,9 @@ module.exports = {
 
 
 		const Embed = new Discord.MessageEmbed()
-    .setAuthor(msg.author.tag)
+    .setAuthor({name: msg.author.tag})
     .setDescription(msg.content)
-    .setFooter(`Date: ${msg.date} | ${args[0]||1}/${snipes.length}`);
+    .setFooter({text: `Date: ${msg.date} | ${args[0]||1}/${snipes.length}`});
 		interaction.editReply({embeds: [Embed]});
 	},
 }; 

@@ -13,7 +13,7 @@ module.exports = {
             .setDescription(`To customize your profile, visit [Click here!](https://shoto.akiradev.xyz/user)`)
             .setImage("attachment://profile.png")
             .setTimestamp()
-            .setFooter(`${client.user.username}`, client.user.avatarURL())
+            .setFooter({text: `${client.user.username}`, iconURL: client.user.avatarURL()})
         interaction.editReply({embeds: [embed], files: [profileImage]})
 	},
 }; 

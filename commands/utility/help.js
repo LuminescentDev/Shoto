@@ -31,7 +31,7 @@ module.exports = {
 			const cmds = new Discord.MessageEmbed()
 			.setTitle("All of my commands")
 			.setDescription(`**NSFW**\n For a list of my nsfw commands please run ***${settings.prefix}nsfwcmds***\n${lines.join("\n")}\n**Support**\n[**Click Here To Join The Support Server**](https://discord.com/invite/CNrvu6A)`)
-			.setFooter(`For help with a specific command run ${settings.prefix}help [command]`);
+			.setFooter({text: `For help with a specific command run ${settings.prefix}help [command]`});
 
 			return message.reply({embeds: [cmds]});
 		}

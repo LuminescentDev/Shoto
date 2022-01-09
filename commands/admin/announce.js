@@ -33,7 +33,7 @@ module.exports = {
                     .setTitle("__**Announcement**__")
                     .setColor(client.embedColor)
                     .setDescription(`${args[0]}`)
-                    .setFooter(`${interaction.member.user.username}`, `${interaction.member.user.displayAvatarURL({ dynamic: true, size: 2048 })}`);
+                    .setFooter({text: interaction.member.user.username, iconURL: interaction.member.user.displayAvatarURL({ dynamic: true, size: 2048 })});
 		interaction.guild.channels.cache.get(settings.AchannelID).send({embeds: [announcmentEmbed]});
 		interaction.editReply({content: "Message Sent!"});
 

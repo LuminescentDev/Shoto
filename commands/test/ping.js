@@ -10,9 +10,9 @@ module.exports = {
 			const api_ping = client.ws.ping;
 
 			const embed = new Discord.MessageEmbed()
-            .setAuthor(`Pong`, client.user.displayAvatarURL({ dynamic: true }))
+            .setAuthor({name: `Pong`, iconURL: client.user.displayAvatarURL({ dynamic: true })})
             .setColor(client.embedColor)
-            .setFooter(`Ping requested by ${interaction.member.user.username}`, interaction.member.user.displayAvatarURL({ dynamic: true }))
+            .setFooter({text: `Ping requested by ${interaction.member.user.username}`, iconURL: interaction.member.user.displayAvatarURL({ dynamic: true })})
             .addFields([{ name: "Bot Ping", value: `\`\`\`ini\n[ ${ping}ms ]\n\`\`\``, inline: true }, { name: "API Ping", value: `\`\`\`ini\n[ ${api_ping}ms ]\n\`\`\``, inline: true }])
             .setTimestamp();
 

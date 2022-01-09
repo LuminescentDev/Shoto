@@ -12,9 +12,9 @@ module.exports = async (client, guild) => {
 	fetch(`https://top.gg/api/bots/${client.user.id}/stats`, {
 		method: "POST",
 		headers: {
-			  Accept: "application/json",
-			  Authorization: `Bearer ${client.config.dbotAuth}`,
-			  "Content-Type": "application/json"
+			Accept: "application/json",
+			Authorization: `Bearer ${client.config.dbotAuth}`,
+			"Content-Type": "application/json"
 		},
 		body: JSON.stringify(servercount)
 	});
@@ -26,7 +26,7 @@ module.exports = async (client, guild) => {
 				.setColor(Math.floor(Math.random() * 16777215))
 				.setTitle(`${client.user.username} has been removed from ${guild.name}`)
 				.setThumbnail(guild.iconURL())
-				.setFooter(`Owner: ${owner.user.username}`, owner.user.avatarURL())
+				.setFooter({text: `Owner: ${owner.user.username}`, iconURL: owner.user.avatarURL()})
 				.addField("Creation Date", `<t:${timestamp}>\n<t:${timestamp}:R>`)
 				.addField("Server Count", `${client.guilds.cache.size}`);
 

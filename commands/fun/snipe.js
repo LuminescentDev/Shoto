@@ -23,9 +23,9 @@ module.exports = {
 		if(!msg) return interaction.editReply("That is not a valid snipe...");
 		
 		const Embed = new Discord.MessageEmbed()
-    .setAuthor(msg.author.tag)
+    .setAuthor({name: msg.author.tag})
     .setDescription(msg.content.replace(/\n/g, " "))
-    .setFooter(`Date: ${msg.date} | ${args[0]||1}/${snipes.length}`);
+    .setFooter({text: `Date: ${msg.date} | ${args[0]||1}/${snipes.length}`});
 		if(msg.image) Embed.setImage(msg.image);
 		interaction.editReply({embeds: [Embed]});
 	},

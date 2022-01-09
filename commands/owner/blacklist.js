@@ -18,7 +18,7 @@ module.exports = {
         .setTitle(`Blacklisted User ${user.tag}`)
         .setDescription(`${user.tag} has been blacklisted for ${reason}`)
         .setColor("#ff0000")
-        .setFooter(`Blacklisted by ${punisher.tag}`)
+        .setFooter({text: `Blacklisted by ${punisher.tag}`})
         client.channels.cache.get(client.config.logChannel).send({embeds: [embed]});
         } else {
         let results = await client.query(`SELECT * FROM blacklist WHERE userID = '${message.author.id}'`);
@@ -29,7 +29,7 @@ module.exports = {
         .setTitle("Blacklisted")
         .setDescription(`You are blacklisted from using the bot for the following reason: ${reason}`)
         .setColor("#ff0000")
-        .setFooter(`Blacklisted by ${punisher.tag}`)
+        .setFooter({text: `Blacklisted by ${punisher.tag}`})
         message.channel.send({embeds: [embed]});
         }
 	},
