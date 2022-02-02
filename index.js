@@ -27,5 +27,3 @@ client.stats = new Statcord.Client({
 
 //load all handlers
 for (const handler of fs.readdirSync("./handlers").filter(file => file.endsWith(".js"))) require(`./handlers/${handler}`)(client);
-//login to client
-client.login(client.config.token);

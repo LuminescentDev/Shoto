@@ -34,33 +34,31 @@ module.exports = async client => {
 	client.guilds.cache.get(client.config.supportServerID).members.fetch();
 	client.logger.info(`I am running`);
 	client.logger.info(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers`);
-	client.logger.info(`Registered ${client.commands.size} regular commands!`);
+	client.logger.info(`Registered ${client.commands.size} commands!`);
 	client.logger.info(`Registered ${client.buttons.size} buttons!`);
 
 	//fetch application and commands
 	if (!client.application?.owner) await client.application?.fetch();
 	const commands = await client.application?.commands.fetch();
-	
-	//push slash commands to discord
 	await client.commands.forEach(async command => {
-		if(!command.msgcmd)
-		{await client.guilds.cache.get("740705740221841450").commands.create({
-			name: command.name,
-			type: command.type ? command.type : "CHAT_INPUT",
-			description: command.description,
-			options: command.options,
-		});
-		const sourcecmd = commands.find(c => c.name === command.name);
-		const opt = sourcecmd && command.options && `${JSON.stringify(sourcecmd.options)}` === `${JSON.stringify(command.options)}`;
-		if ((opt || opt === undefined) && sourcecmd && command.description && sourcecmd.description === command.description) return;
-		if (sourcecmd && command.type) return;
-		client.logger.info(`Detected /${command.name} has some changes! Overwriting command...`);
-		await client.application.commands.create({
-			name: command.name,
-			type: command.type ? command.type : "CHAT_INPUT",
-			description: command.description,
-			options: command.options,
-		});}
+		if (!command.msgcmd){
+			const sourcecmd = commands.find(c => c.name == command.name);
+			const opt = sourcecmd && command.options && `${JSON.stringify(sourcecmd.options)}` == `${JSON.stringify(command.options)}`;
+			if ((opt || opt === undefined) && sourcecmd && command.description && sourcecmd.description == command.description) return;
+			if (sourcecmd && command.type) return;
+			client.logger.info(`Detected /${command.name} has some changes! Overwriting command...`);
+			await client.application?.commands.create({
+				name: command.name,
+				type: command.type ? command.type : 'CHAT_INPUT',
+				description: command.description,
+				options: command.options,
+			});
+		}
+	});
+	await commands.forEach(async command => {
+		if (client.commands.find(c => c.name == command.name)) return;
+		client.logger.info(`Detected /${command.name} has been deleted! Deleting command...`);
+		await command.delete();
 	});
 
 	// client.commands.forEach(async command => {

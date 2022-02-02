@@ -1,3 +1,5 @@
+const {fetch} = require("../../handlers/utilities.js");
+
 module.exports = {
 	name: "fact",
 	category: "fun",
@@ -7,7 +9,7 @@ module.exports = {
 	async execute(client, interaction, args) {
 
 		//query fact api and reply with response
-		const facts = await client.fetch(`https://nekos.life/api/v2/fact`);
+		const facts = await fetch(`https://nekos.life/api/v2/fact`);
 		interaction.editReply({content: facts.fact, allowedMentions: { parse: [] } });
 	},
 }; 

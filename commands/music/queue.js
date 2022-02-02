@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const { convertTime } = require("../../utilities/convert.js");
+const {convertTime} = require("../../handlers/utilities.js");
 
 module.exports = {
 	name: "queue",
@@ -16,9 +16,7 @@ module.exports = {
 		required: true,
 	}],
 	async execute(client, interaction, args) {
-  
 
-  
 		const player = interaction.client.manager.get(interaction.guild.id);
 
 		if (!player.queue.current) {
@@ -34,7 +32,7 @@ module.exports = {
 
 		const embed = new MessageEmbed()
             .setColor(interaction.client.embedColor);
-      
+
 		const multiple = 10;
 		const page = args[0];
 

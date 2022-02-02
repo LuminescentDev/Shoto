@@ -4,6 +4,7 @@ module.exports = {
 	cooldown: 0,
 	category: "owner",
 	description: "Change debug mode!",
+	botPermissions: [],
 	msgcmd: true,
 	owner: true,
 	async execute(client, message, args) {

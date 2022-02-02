@@ -1,10 +1,12 @@
 const Discord = require("discord.js");
+const {fetch} = require("../../handlers/utilities.js");
+
 module.exports = {
 	name: "baka",
 	category: "nekoapi",
 	description: "sends random bakas",
 	async execute(client, message, args) {
-		const response = await client.fetch("https://nekos.life/api/v2/img/baka");
+		const response = await fetch("https://nekos.life/api/v2/img/baka");
 		if (message.mentions.users.size > 0) {
 			let pingp = message.mentions.users.first();
 			const bakaspemb = new Discord.MessageEmbed()

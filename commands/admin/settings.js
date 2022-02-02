@@ -157,6 +157,19 @@ module.exports = {
 		},
 		{
 			type: "SUB_COMMAND",
+			name: "logchannel",
+			description: "The audit log / command log channel",
+			options: [
+				{
+					type: "CHANNEL",
+					name: "channel",
+					description: "The log channel (Hashtag icon)",
+					required: true,
+				},
+			],
+		},
+		{
+			type: "SUB_COMMAND",
 			name: "reviverole",
 			description: "The chat revive role",
 			options: [

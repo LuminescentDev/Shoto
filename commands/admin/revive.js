@@ -28,7 +28,7 @@ module.exports = {
 
 		//If values exist send it to the channel the command was executed in
 		interaction.channel.send({content: reviveMessage.replace("{REVIVE ROLE}", `<@&${reviveRole}>`)});
-		interaction.editReply({content: "Message sent!"});
+		interaction.editReply({content: "Message sent!"})
 
 	},
 }; 

@@ -1,6 +1,8 @@
 const protocols = require("../../utilities/mcprotocol.json");
 const Discord = require("discord.js");
 const hastebin = require("hastebin");
+const {fetch} = require("../../handlers/utilities.js");
+
 module.exports = {
 	name: "mcstatus",
 	category: "misc",
@@ -17,7 +19,7 @@ module.exports = {
 		let iconpng;
 		
 		const ip = args[0];
-		const info = await client.fetch(`https://api.mcsrvstat.us/2/${ip}`);
+		const info = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
 
 		const Embed = new Discord.MessageEmbed().setColor(client.config.embedColor);
 
@@ -40,6 +42,7 @@ module.exports = {
 		if (info.motd) Embed.addField("**MOTD:**", info.motd.clean.join("\n").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&le;/g, "≤").replace(/&ge;/g, "≥"));
 		if (info.icon) {
 			const base64string = Buffer.from(info.icon.replace(/^data:image\/png;base64,/, ""), "base64");
+			console.log(base64string)
 			iconpng = new Discord.MessageAttachment(base64string, "icon.png");
 			Embed.setThumbnail("attachment://icon.png");
 		}

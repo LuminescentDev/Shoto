@@ -101,7 +101,7 @@ module.exports = async (client, message) => {
 		return message.reply({embeds: [embed]});
 	}
 
-	if(command.botPermissions && !message.guild.me.permissions.has(command.botPermissions) || !message.guild.me.permissionsIn(message.channel).has(command.botPermissions)){
+	if(command.botPermissions && !message.guild.me.permissions.has(command.botPermissions) || command.botPermissions && !message.guild.me.permissionsIn(message.channel).has(command.botPermissions)){
 		return client.logger.error(`Missing Message permission in ${message.guild.id}`);
 	} 
 

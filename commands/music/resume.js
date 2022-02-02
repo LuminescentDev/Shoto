@@ -9,7 +9,7 @@ module.exports = {
 	sameVoiceChannel: true,
 	ephemeral: false,
 	async execute(client, interaction, args) {
-  
+
 		const player = interaction.client.manager.get(interaction.guild.id);
 		const song = player.queue.current;
 

@@ -1,9 +1,11 @@
 const { MessageEmbed } = require("discord.js");
 const { TrackUtils } = require("erela.js");
-const { convertTime } = require("../../utilities/convert");
 const { addsong, playlist, resume, warn } = require("../../utilities/emoji.json");
+const {convertTime} = require("../../handlers/utilities.js");
+
 module.exports = {
 	name: "play",
+	category: "music",
 	description: "Play music from YouTube, Spotify, or Apple Music",
 	guildOnly: true,
 	inVoiceChannel: true,

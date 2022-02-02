@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
-const { convertTime } = require("../../utilities/convert.js");
 const ms = require("ms");
+const {convertTime} = require("../../handlers/utilities.js");
 
 module.exports = {
 	name: "seek",
@@ -19,9 +19,7 @@ module.exports = {
 		required: true,
 	}],
 	async execute(client, interaction, args) {
-  
 
-  
 		const player = interaction.client.manager.get(interaction.guild.id);
 
 		if (!player.queue.current) {

@@ -4,6 +4,7 @@ module.exports = {
 	cooldown: 5,
 	category: "owner",
 	description: "Ping!",
+    botPermissions: [],
 	owner: true,
 	msgcmd: true,
 	execute(client, message, args) {

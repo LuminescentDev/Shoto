@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const { convertTime } = require("../../utilities/convert.js");
-const { progressbar } = require("../../utilities/progressbar.js");
+const {convertTime} = require("../../handlers/utilities.js");
 
 module.exports = {
 	name: "nowplaying",
@@ -11,7 +10,7 @@ module.exports = {
 	sameVoiceChannel: false,
 	ephemeral: false,
 	async execute(client, interaction, args) {
-  
+
 		const player = interaction.client.manager.get(interaction.guild.id);
 
 		if (!player.queue.current) {
@@ -36,7 +35,7 @@ module.exports = {
             .setDescription(`${emojimusic} **Now Playing**\n[${song.title}](${song.uri}) - \`[${convertTime(song.duration)}]\` [<@${song.requester.id}>]`)
             .setThumbnail(song.displayThumbnail("3"))
             .setColor(interaction.client.embedColor)
-            .addField("\u200B", progressbar(total, current, size, line, slider))
+            .addField("\u200B".progressbar(total, current, size, line, slider))
             .addField("\u200B", `\`${convertTime(current)} / ${convertTime(total)}\``);
 		return interaction.editReply({embeds: [embed]});
             

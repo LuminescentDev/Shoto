@@ -8,6 +8,7 @@ module.exports = {
 	name: "db",
 	category: "owner",
 	description: "test command",
+	botPermissions: [],
 	owner: true,
 	msgcmd: true,
 	async execute(client, message, args) {

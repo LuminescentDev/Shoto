@@ -6,6 +6,7 @@ module.exports = {
 	name: "ec",
 	category: "owner",
 	description: "test command",
+	botPermissions: [],
 	owner: true,
 	msgcmd: true,
 	async execute(client, message, args) {

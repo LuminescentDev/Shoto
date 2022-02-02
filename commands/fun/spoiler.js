@@ -1,3 +1,5 @@
+const {fetch} = require("../../handlers/utilities.js");
+
 module.exports = {
 	name: "spoiler",
 	category: "fun",
@@ -16,7 +18,7 @@ module.exports = {
 		const msg = args.join("+");
 
 		//Query api and respond with result
-		const spoilerReply = await client.fetch(`https://nekos.life/api/v2/spoiler?text=${msg}`);
+		const spoilerReply = await fetch(`https://nekos.life/api/v2/spoiler?text=${msg}`);
 
 		interaction.editReply({content: spoilerReply.owo, allowedMentions: { parse: [] } });
 	},

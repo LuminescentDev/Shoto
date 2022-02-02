@@ -91,15 +91,15 @@ module.exports = async (client) => {
         // draw level
         ctx.font = "15px sans-serif";
         ctx.fillStyle = "#FFFFFF";
-        ctx.fillText(`Level: ${userResults.currentLevel}`, 330, canvas.height / 1.3);
+        ctx.fillText(`Level: ${userResults.currentLevel}`, 240, canvas.height / 1.15);
         // draw xp
         ctx.font = "15px sans-serif";
         ctx.fillStyle = "#FFFFFF";
-        ctx.fillText(`XP: ${userResults.xp}`, 400, canvas.height / 1.3);
+        ctx.fillText(`XP: ${userResults.xp}`, 330, canvas.height / 1.3);
         // draw next level xp
         ctx.font = "15px sans-serif";
         ctx.fillStyle = "#FFFFFF";
-        ctx.fillText(`Next Level XP: ${userResults.nextLevelXp}`, 460, canvas.height / 1.3);
+        ctx.fillText(`Next Level XP: ${userResults.nextLevelXp}`, 330, canvas.height / 1.15);
         // draw avatar and make it circle
         const avatar = await Canvas.loadImage(user.displayAvatarURL({ format: 'jpg' }));
         ctx.drawImage(avatar, 25, 25, 200, 200);
