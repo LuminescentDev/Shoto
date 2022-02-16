@@ -23,7 +23,6 @@ module.exports = {
             .setDisabled(true)
         );
         
-        console.log(interaction)
         let ventMessageEmbed = interaction.message.embeds[0];
 
         const ventLog = new Discord.MessageEmbed()

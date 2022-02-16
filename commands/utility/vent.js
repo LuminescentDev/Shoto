@@ -36,7 +36,6 @@ module.exports = {
 		if(logChannelID && interaction.guild.channels.cache.get(logChannelID)){
 			vent.setFooter({text: "This message was logged to staff", iconURL: client.user.displayAvatarURL()});
 			const ventSent = await interaction.guild.channels.cache.get(channelID).send({embeds: [vent]});
-			console.log(ventSent)
 			interaction.editReply({content: "Message sent!"});
 			const loggedVent = new Discord.MessageEmbed()
 			.setTitle("New Vent")
