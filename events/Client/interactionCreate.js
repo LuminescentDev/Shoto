@@ -114,7 +114,7 @@ module.exports = async (client, interaction) => {
 		//get button code and try to execute it
 		const button = client.buttons.get(interaction.customId);
 
-		interaction.deferUpdate({ephemeral: button.ephemeral})
+		await interaction.deferUpdate({ephemeral: button.ephemeral})
 
 	    try {
 		    button.execute(client, interaction);
