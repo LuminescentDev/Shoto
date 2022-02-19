@@ -38,8 +38,8 @@ module.exports = async client => {
 				if(err) return err;
 				resolve(rows, fields);
 			}).on("error", err => {
-				  reject(`Error: ${err.message}`);
+				reject(`Error: ${err.message}`);
 			});
-		  });
+		});
 	}; 
 }; 
