@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const ms = require("ms");
-const {convertTime} = require("../../handlers/utilities.js");
+const {convertTime} = require("../../utilities/utilities.js");
 
 module.exports = {
 	name: "seek",

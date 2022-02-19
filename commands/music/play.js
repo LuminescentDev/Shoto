@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { TrackUtils } = require("erela.js");
 const { addsong, playlist, resume, warn } = require("../../utilities/emoji.json");
-const {convertTime} = require("../../handlers/utilities.js");
+const {convertTime} = require("../../utilities/utilities.js");
 
 module.exports = {
 	name: "play",
