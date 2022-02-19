@@ -1,7 +1,7 @@
 const protocols = require("../../utilities/mcprotocol.json");
 const Discord = require("discord.js");
 const hastebin = require("hastebin");
-const {fetch} = require("../../handlers/utilities.js");
+const { fetch } = require("../../utilities/utilities.js");
 
 module.exports = {
 	name: "mcstatus",
