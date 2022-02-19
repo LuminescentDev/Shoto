@@ -5,7 +5,7 @@ module.exports = client => {
 		const Embed = new MessageEmbed()
 			.setColor('#ff0000')
 			.setTitle('Crash Detected')
-			.setURL('https://panel.birdflop.com/server/b6be9559')
+			.setURL(`https://panel.birdflop.com/server/b6be9559/files#/logs/${client.logDate}.log`)
 			.addField('Error', `\`\`\`${reason}\`\`\``.replace(/: /g, '\n'));
 		client.guilds.cache.get('740705740221841450')
         .channels.cache.get('916801992121266216')
