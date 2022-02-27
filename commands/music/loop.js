@@ -15,11 +15,11 @@ module.exports = {
 		required: false,
 		choices: [{
 			name: "enabled",
-			value: "enabled"
+			value: "true"
 		},
 		{
-			name: "enabled",
-			value: "enabled",
+			name: "disable",
+			value: "false",
 		}]
 	}],
 	async execute(client, interaction, args) {
