@@ -18,7 +18,7 @@ module.exports = {
         var request = require('request');
         var options = {
         'method': 'POST',
-        'url': 'http://localhost:8080/api/render/gradient',
+        'url': 'https://www.simplymc.art/api/render/gradient',
         'headers': {
             'Content-Type': 'application/json'
         },
