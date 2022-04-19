@@ -1,15 +1,13 @@
-const { Client } = require("guilded.js");
-
 const client = new Client({ token: "TOKEN_HERE" });
-
+const Collection = require("@discordjs/collection")
+const { Client } = require("guilded.js");
 const { readdirSync } = require("fs");
-const { Manager } = require("erela.js");
-const Spotify = require("erela.js-spotify");
-const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"], intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS", "GUILD_BANS", "GUILD_MESSAGE_REACTIONS", "GUILD_VOICE_STATES", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS"], allowedMentions: { parse: ["users", "roles", "everyone"], repliedUser: true } });
-client.config = require("./config/config.json");
 const fs = require("fs");
+
+client.config = require("./config/config.json");
+
 //create collections
-client.commands = new Discord.Collection();
+client.commands = new Collection.Collection();
 client.categories = readdirSync("./commands/");
 
 //load all handlers
