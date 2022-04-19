@@ -1,5 +1,7 @@
-const Discord = require("discord.js");
-const Statcord = require("statcord.js");
+const { Client } = require("guilded.js");
+
+const client = new Client({ token: "TOKEN_HERE" });
+
 const { readdirSync } = require("fs");
 const { Manager } = require("erela.js");
 const Spotify = require("erela.js-spotify");
@@ -8,22 +10,9 @@ client.config = require("./config/config.json");
 const fs = require("fs");
 //create collections
 client.commands = new Discord.Collection();
-client.settings = new Discord.Collection();
-client.buttons = new Discord.Collection();
-client.snipes = new Discord.Collection();	
-client.editSnipes = new Discord.Collection();	
-client.debug = false;
-client.embedColor = client.config.embedColor;
-client.emoji = require("./utilities/emoji.json");
 client.categories = readdirSync("./commands/");
-//create statcord client
-client.stats = new Statcord.Client({
-	client,
-	key: client.config.statcord_key,
-	postCpuStatistics: true, 
-	postMemStatistics: true, 
-	postNetworkStatistics: true,
-});
 
 //load all handlers
 for (const handler of fs.readdirSync("./handlers").filter(file => file.endsWith(".js"))) require(`./handlers/${handler}`)(client);
+
+client.login();
