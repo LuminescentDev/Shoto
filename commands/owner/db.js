@@ -2,7 +2,7 @@ function clean(text) {
 	return typeof (text) === "string" ? text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)) : text;
 }
 
-const Discord = require("discord.js");
+
 
 module.exports = {
 	name: "db",

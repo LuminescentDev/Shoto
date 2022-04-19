@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-const Discord = require("discord.js");
+
 module.exports = {
 	name: "gay",
 	category: "image-manipulation",

@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const { MessageAttachment, MessageEmbed } = require("discord.js");
-const Discord = require("discord.js");
+
 const e = require("express");
 const cooldowns = new Discord.Collection();
 const talkedRecently = new Set();

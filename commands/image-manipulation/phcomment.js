@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+
 const {fetch} = require("../../utilities/utilities.js");
 
 module.exports = {
