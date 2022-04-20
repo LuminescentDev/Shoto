@@ -5,6 +5,8 @@ const fs = require("fs");
 
 const client = new Client({ token: "TOKEN_HERE" });
 
+client.config = require("./config.json")
+
 //create collections
 client.commands = new Collection.Collection();
 client.categories = readdirSync("./commands/");
