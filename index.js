@@ -1,8 +1,9 @@
-const client = new Client({ token: "TOKEN_HERE" });
 const Collection = require("@discordjs/collection")
 const { Client } = require("guilded.js");
 const { readdirSync } = require("fs");
 const fs = require("fs");
+
+const client = new Client({ token: "TOKEN_HERE" });
 
 client.config = require("./config/config.json");
 
