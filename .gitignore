@@ -3,6 +3,5 @@ logs
 *.log
 node_modules/
 .npm
-config
-capeserver
+config.json
 .vscode
