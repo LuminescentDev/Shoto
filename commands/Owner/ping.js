@@ -1,9 +1,12 @@
-
 module.exports = {
 	name: "ping",
 	category: "test",
 	description: "Ping!",
 	async execute(client, message, args) {
-		message.reply("pong");
+		try {
+			message.reply("pong");
+		}catch(error){
+			client.error(error)
+		}
 	},
 }; 
