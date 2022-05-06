@@ -15,9 +15,9 @@ module.exports = {
 			if (typeof evaled !== "string")
 				evaled = require("util").inspect(evaled);
 
-			message.reply(`\`\`\`${clean(evaled)}\`\`\``);
+			message.reply(`${clean(evaled)}`);
 		} catch (err) {
-			message.reply(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+			message.reply(`${clean(err)}`);
 		}
 	},
 }; 
