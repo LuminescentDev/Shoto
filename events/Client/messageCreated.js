@@ -4,7 +4,7 @@ module.exports = async (client, message) => {
 
 	const now = Date.now();
 
-	if(!message.startsWith(prefix)) return;
+	if(!message.content.startsWith(prefix)) return;
 
 	//get arguments and check if first argument set command name to first argument
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
