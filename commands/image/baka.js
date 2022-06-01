@@ -14,14 +14,14 @@ module.exports = {
             .setImage(response.url)
             .setColor(`#000000`)
             .setURL(response.url);
-			message.channel.send(bakaspemb);
+			message.channel.send({embeds: [bakaspemb]});
 		} else {
 			const bakasemb = new Discord.MessageEmbed()
             .setTitle("baka")
             .setImage(response.url)
             .setColor(`#000000`)
             .setURL(response.url);
-			message.channel.send(bakasemb);
+			message.channel.send({embeds: [bakasemb]});
 		}
 	},
 };
