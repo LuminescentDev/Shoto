@@ -34,15 +34,6 @@ module.exports = async (client, interaction) => {
 			return interaction.editReply({embeds: [embed]});
 		}
 
-		//get music player
-		const player = interaction.client.manager.get(interaction.guild.id);
-
-		//check if command requires player and if it doesn't exist
-		if (command.player && !player) {
-			embed.setDescription("There is no music player for this guild.");
-			return interaction.editReply({embeds: [embed]});
-		}
-
 		//check if command requires user to be in voice channel and user is in a voice channel
 		if (command.inVoiceChannel && !interaction.member.voice.channel) {
 			embed.setDescription("You must be in a voice channel to use this!");
