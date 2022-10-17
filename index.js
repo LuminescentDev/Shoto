@@ -12,7 +12,6 @@ client.snipes = new Discord.Collection();
 client.editSnipes = new Discord.Collection();	
 client.debug = false;
 client.embedColor = client.config.embedColor;
-client.emoji = require("./utilities/emoji.json");
 client.categories = readdirSync("./commands/");
 //create statcord client
 client.stats = new Statcord.Client({

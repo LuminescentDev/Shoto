@@ -12,7 +12,6 @@ module.exports = {
 	async execute(client, interaction, args) {
 		const duration1 = moment.duration(interaction.client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
 		const cpu = await si.cpu();
-		const about = interaction.client.emoji.about;
 		let ccount = client.channels.cache.size;
 		let scount = client.guilds.cache.size;
 		let mcount = 0; 
@@ -20,25 +19,10 @@ module.exports = {
 			mcount += guild.memberCount; 
 
 		});
-		let nodes = client.manager.nodes.map(node => 
-			`**• Node** : ${(node.options.identifier)} Connected` +
-            `\n> **• Player** : ${node.stats.players}` +
-            `\n> **• Playing Players** : ${node.stats.playingPlayers}` +
-            `\n> **•Uptime: ${new Date(node.stats.uptime).toISOString().slice(11, 19)}**` +
-            "\n**• MEMORY** :" +
-            `\n> **• Reservable Memory** : ${Math.round(node.stats.memory.reservable / 1024 / 1024)}mb` +
-            `\n> **• Used Memory** : ${Math.round(node.stats.memory.used / 1024 / 1024)}mb` +
-            `\n> **• Free Memory** : ${Math.round(node.stats.memory.free / 1024 / 1024)}mb` +
-            `\n> **• Allocated Memory** : ${Math.round(node.stats.memory.allocated / 1024 / 1024)}mb` +
-            "\n**• CPU** :" +
-            `\n> **• Cores** :  ${node.stats.cpu.cores}` +
-            `\n> **• System Load** : ${(Math.round(node.stats.cpu.systemLoad * 100) / 100).toFixed(2)}%` +
-            `\n> **• Lavalink Load** : ${(Math.round(node.stats.cpu.lavalinkLoad * 100) / 100).toFixed(2)}%`
-		).join("\n\n----------------------------\n");
 		const embed = new MessageEmbed()
             .setColor(interaction.client.embedColor)
             .setThumbnail(interaction.client.user.displayAvatarURL())
-            .setDescription(`${about} **Status**
+            .setDescription(`**Status**
 			**= STATISTICS =**
 			**• Servers** : ${scount}
 			**• Channels** : ${ccount}
