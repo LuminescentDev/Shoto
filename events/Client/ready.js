@@ -72,7 +72,6 @@ module.exports = async client => {
 	// 	await sleep(2000);
 	// });
 	client.logger.info(`Registered ${commands.size} commands!`);
-	client.manager.init(client.user.id);
 	client.stats.autopost();
 	//register custom field for statcord
 	client.stats.registerCustomFieldHandler(1, async client => {
