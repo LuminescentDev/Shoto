@@ -74,9 +74,6 @@ module.exports = async client => {
 	client.logger.info(`Registered ${commands.size} commands!`);
 	client.stats.autopost();
 	//register custom field for statcord
-	client.stats.registerCustomFieldHandler(1, async client => {
-		return client.manager.nodes.map(node => node.stats.players).reduce((a, b) => a + b, 0).toString();
-	});
 	await sleep(2000);
 	const timer = (Date.now() - start) / 1000;
 	client.logger.info(`Done (${timer}s)! I am running!`);
