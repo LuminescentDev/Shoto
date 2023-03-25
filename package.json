@@ -1,42 +1,20 @@
 {
-	"name": "shoto",
-	"version": "1.0.0",
-	"description": "Shoto Discord Bot ",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/AkiraDevelopment/Shoto.git"
-	},
-	"author": "AkiraDev/Oli",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/AkiraDevelopment/Shoto/issues"
-	},
-	"homepage": "https://github.com/AkiraDevelopment/Shoto#readme",
-	"dependencies": {
-		"booru": "^2.5.0",
-		"canvas": "^2.8.0",
-		"discord.js": "^13.2.0",
-		"express": "^4.17.1",
-		"hastebin": "^0.2.1",
-		"lavasfy": "^2.3.0",
-		"moment": "^2.29.2",
-		"moment-duration-format": "^2.3.2",
-		"mysql": "^2.18.1",
-		"request": "^2.88.2",
-		"statcord.js": "^3.3.0",
-		"systeminformation": "^5.9.4",
-		"winston": "^3.3.3"
-	},
-	"devDependencies": {
-		"eslint": "^7.32.0",
-		"eslint-plugin-jsonc": "^1.7.0",
-		"eslint-plugin-markdown": "^2.2.1",
-		"eslint-plugin-security": "^1.4.0",
-		"eslint-plugin-sonarjs": "^0.10.0",
-		"eslint-plugin-unicorn": "^36.0.0"
-	}
+  "name": "shoto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/Bot.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.8",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  }
 }
