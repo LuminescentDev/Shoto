@@ -1,5 +1,6 @@
-import { Client } from "discord.js";
-import { Commands } from "../Commands";
+import { ApplicationCommandDataResolvable, Client } from "discord.js";
+import { build } from "../utils";
+import { commands } from "../handlers/Commands";
 
 export default (client: Client) => {
     client.on("ready", async () => {
@@ -7,12 +8,15 @@ export default (client: Client) => {
             return;
         }
 
-        await client.application.commands.set(Commands);
-
-        Commands.forEach(async command => {
-            console.log(`Registered command: ${command.name}`);
+        if (!client.application?.owner) await client.application?.fetch();
+        const cmds: ApplicationCommandDataResolvable[] = [];
+        commands.forEach(async command => {
+            cmds.push(build(command))
+            logger.info(`Registered command ${command.name}`)
         })
-
-        console.log(`Logged in as ${client.user.tag}!`)
+        logger.info(`Registered ${cmds.length} commands`)
+        await client.application?.commands.set(cmds)
+        logger.info(`Set ${cmds.length} commands`)
+        logger.info(`Logged in as ${client.user.tag}!`)
     })
 }
